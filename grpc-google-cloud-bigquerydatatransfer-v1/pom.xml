@@ -2,30 +2,39 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <groupId>com.google.api.grpc</groupId>
   <artifactId>grpc-google-cloud-bigquerydatatransfer-v1</artifactId>
   <version>0.0.0-SNAPSHOT</version><!-- {x-version-update:grpc-google-cloud-bigquerydatatransfer-v1:current} -->
   <name>grpc-google-cloud-bigquerydatatransfer-v1</name>
   <description>GRPC library for grpc-google-cloud-bigquerydatatransfer-v1</description>
-  <parent>
+  <!--parent>
     <groupId>com.google.api.grpc</groupId>
     <artifactId>google-api-grpc</artifactId>
-    <version>0.0.0-SNAPSHOT</version><!-- {x-version-update:google-api-grpc:current} -->
-  </parent>
+    <version>0.0.0-SNAPSHOT</version--><!-- {x-version-update:google-api-grpc:current} -->
+  <!--/parent-->
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
       <scope>compile</scope>
+      <version>1.10.1</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-protobuf</artifactId>
       <scope>compile</scope>
+      <version>1.10.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.api.grpc</groupId>
       <artifactId>proto-google-cloud-bigquerydatatransfer-v1</artifactId>
       <scope>compile</scope>
+      <version>0.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
