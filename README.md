@@ -122,7 +122,7 @@ accounts, and permissions:
    manually install Gradle.
 
    ```
-   ./gradelw install
+   ./gradlew install
    cd partner-examples
    ../gradlew run -Pexec.args="${PROJECT_ID}"
    ```
