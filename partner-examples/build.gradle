@@ -5,6 +5,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
 description = 'bigquery-datatransfer-partner-samples'
 group = 'com.example.bigquerydatatransfer'
