@@ -114,7 +114,7 @@ accounts, and permissions:
    cd partner-examples
    mvn exec:java -Dexec.classpathScope=compile \
      -Dexec.mainClass=com.example.bigquerydatatransfer.DataTransferServiceClientSample -e \
-     -Dexec.args="${PROJECT_ID}' -Dexec.cleanupDaemonThreads=false
+     -Dexec.args="${PROJECT_ID}" -Dexec.cleanupDaemonThreads=false
    ```
 
 ### Notes
