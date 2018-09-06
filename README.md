@@ -117,6 +117,8 @@ Build your project with:
      -Dexec.args="${PROJECT_ID}' -Dexec.cleanupDaemonThreads=false
   ```
 
+### Notes
+
 For illustration purpose, the example calls the following two BigQuery Data Transfer API methods:
   * [ListTransferConfigs](https://cloud.google.com/bigquery/docs/reference/datatransfer/rest/v1/projects.locations.transferConfigs/list)
 
