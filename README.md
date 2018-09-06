@@ -92,11 +92,6 @@ accounts, and permissions:
 
 7. Join BigQuery Data Transfer Service Partner-level whitelists.  Reach out to your Google Cloud Platform contact to get whitelisted for these APIs.
 
-8. Install [Maven](http://maven.apache.org/). The example program that makes
-   BigQuery Data Transfer Service API calls is built using Maven in this
-   QuickStart. If you perfer, you can also use Gradle, in which case the Gradle
-   Wrapper is included and you don't need to install Gradle.
-
 ### Run the Example
 
 1. Set up environment variables:
@@ -107,7 +102,12 @@ accounts, and permissions:
    ```
 
 2. Build and run the example program that calls BigQuery Data Transfer Service
-   APIs:
+   APIs. The example program can be built using either Maven or Gradle. Gradle
+   Wrapper is included in the repository so you don't need to install Gradle.
+
+   * Using Maven
+
+   Install [Maven](http://maven.apache.org/). The example program that makes
 
    ```
    mvn install -DskipTests
@@ -117,9 +117,7 @@ accounts, and permissions:
      -Dexec.args="${PROJECT_ID}" -Dexec.cleanupDaemonThreads=false
    ```
 
-   If you perfer, you can also use Gradle to build and run the example. Gradle
-   Wrapper (gradlew) is included in the repository, so you don't need to
-   manually install Gradle.
+   * Using Gradle
 
    ```
    ./gradlew install
