@@ -81,17 +81,22 @@ public class DataTransferServiceClientSample {
       ListDataSourceDefinitionsPagedResponse response = client.listDataSourceDefinitions(request);
 
       // Print the results.
-      System.out.println("Supported Data Sources:");
+      System.out.println("Data Source Definitions:");
       for (DataSourceDefinition dataSource : response.iterateAll()) {
         // System.out.println(dataSource.getDisplayName());
         System.out.printf("\tName: %s\n", dataSource.getName());
       }
-
+      
+      /* When you've created your data source and onboarded end users, you can uncomment the 
+       * following lines to test the GetCredentials API call
+       */
       // Example of getting user credentials.
+      /*
       String formattedName = DataSourceServiceClient
           .formatCredentialName(projectId, "us", "<your data source id>", "<your user id>");
       Credentials c = client.getCredentials(formattedName);
       System.out.printf("Name: %s\tToken: %s\n", c.getName(), c.getAuthToken());
+      */
     }
   }
 }
