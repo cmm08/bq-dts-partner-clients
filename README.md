@@ -39,5 +39,6 @@ Note that the 2nd method is only visible to whitelisted partner projects. Plese 
 bq-connectors-eng@google.com for more information.
 
 If you like, you can also use gradle to build the client library and example:
-        ./gradlew build
+
+	./gradlew build
 
