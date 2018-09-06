@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2018-09-06T00:22:57" hostname="cmma-linuxworkstation.kir.corp.google.com" time="0.045">
+  <properties/>
+  <testcase name="getCredentialsTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.009"/>
+  <testcase name="getCredentialsExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="getDataSourceDefinitionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.003"/>
+  <testcase name="startBigQueryJobsTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.004"/>
+  <testcase name="deleteDataSourceDefinitionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="createDataSourceDefinitionExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="finishRunTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="logTransferRunMessagesExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="updateTransferRunTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="listDataSourceDefinitionsTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.004"/>
+  <testcase name="deleteDataSourceDefinitionExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="updateDataSourceDefinitionExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="updateDataSourceDefinitionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="listDataSourceDefinitionsExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="logTransferRunMessagesTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="getDataSourceDefinitionExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <testcase name="finishRunExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="startBigQueryJobsExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="updateTransferRunExceptionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.001"/>
+  <testcase name="createDataSourceDefinitionTest" classname="com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClientTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
