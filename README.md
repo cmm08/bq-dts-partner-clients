@@ -110,8 +110,8 @@ Build your project with:
    APIs:
 
    ```
+   mvn install -DskipTests
    cd partner-examples
-   mvn install
    mvn exec:java -Dexec.classpathScope=compile \
      -Dexec.mainClass=com.example.bigquerydatatransfer.DataTransferServiceClientSample -e \
      -Dexec.args="${PROJECT_ID}' -Dexec.cleanupDaemonThreads=false
