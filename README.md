@@ -51,7 +51,7 @@ accounts, and permissions:
 
     # Create service account credentials and store it locally needed for starting/running data sources.
     gcloud iam service-accounts keys create --iam-account "${SERVICE_ACCOUNT_EMAIL}" .gcp-service-account.json
-
+    ```
 
 4. Create an administrative IAM Service Account and store credentials locally for creating data source.
     * Creates a new Service Account named `bq-dts-admin@[PROJECT_ID].iam.gserviceaccount.com`
@@ -70,6 +70,7 @@ accounts, and permissions:
     # Create service account credentials and store it locally needed for creating data source
     gcloud iam service-accounts keys create --iam-account "${PARTNER_SA_EMAIL}" .gcp-service-account-owner.json
     ```
+
    For more information on service account authentication, please refer to [Authenticate using a service account](https://cloud.google.com/docs/authentication/getting-started).
 
 5. Grant permissions to a GCP-managed Service Account
@@ -97,7 +98,6 @@ accounts, and permissions:
    Wrapper is included and you don't need to install Gradle.
 
 ### Run the Example
-Build your project with:
 
 1. Set up environment variables:
 
@@ -115,7 +115,7 @@ Build your project with:
    mvn exec:java -Dexec.classpathScope=compile \
      -Dexec.mainClass=com.example.bigquerydatatransfer.DataTransferServiceClientSample -e \
      -Dexec.args="${PROJECT_ID}' -Dexec.cleanupDaemonThreads=false
-  ```
+   ```
 
 ### Notes
 
@@ -128,7 +128,7 @@ Note that the 2nd method is only visible to whitelisted partner projects. Plese 
 
 If you like, you can also use gradle to build the client library and example:
 
-   ```
-	./gradlew build
+    ```
+    ./gradlew build
     ```
 
