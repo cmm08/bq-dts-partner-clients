@@ -34,14 +34,14 @@
       <artifactId>proto-google-cloud-bigquerydatatransfer</artifactId>
       <version>0.0.0-SNAPSHOT</version>
       <scope>system</scope>
-      <systemPath>${basedir}/../proto-google-cloud-bigquerydatatransfer-v1/build/libs/proto-google-cloud-bigquerydatatransfer-v1-0.0.0-SNAPSHOT.jar</systemPath>
+      <systemPath>${basedir}/proto-google-cloud-bigquerydatatransfer-v1/build/libs/proto-google-cloud-bigquerydatatransfer-v1-0.0.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-bigquerydatatransfer</artifactId>
       <version>0.0.0-SNAPSHOT</version>
       <scope>system</scope>
-      <systemPath>${basedir}/../gapic-google-cloud-bigquerydatatransfer-v1/build/libs/gapic-google-cloud-bigquerydatatransfer-v1-0.0.0-SNAPSHOT.jar</systemPath>
+      <systemPath>${basedir}/gapic-google-cloud-bigquerydatatransfer-v1/build/libs/gapic-google-cloud-bigquerydatatransfer-v1-0.0.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.google.api</groupId>

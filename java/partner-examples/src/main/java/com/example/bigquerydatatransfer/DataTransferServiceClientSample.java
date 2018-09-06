@@ -26,11 +26,14 @@ import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsReques
 import com.google.cloud.bigquery.datatransfer.v1.DataSourceServiceClient.ListDataSourceDefinitionsPagedResponse;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsRequest;
 
-import com.google.cloud.bigquery.datatransfer.v1.DataSource;
+import com.google.cloud.bigquery.datatransfer.v1.TransferConfig;
 import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient;
 import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings;
-import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient.ListDataSourcesPagedResponse;
-import com.google.cloud.bigquery.datatransfer.v1.ListDataSourcesRequest;
+import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient.ListTransferConfigsPagedResponse;
+import com.google.cloud.bigquery.datatransfer.v1.ListTransferConfigsRequest;
+
+import com.google.cloud.bigquery.datatransfer.v1.Credentials;
+import com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest;
 
 public class DataTransferServiceClientSample {
   /**
@@ -44,8 +47,30 @@ public class DataTransferServiceClientSample {
     // Instantiate a client. If you don't specify credentials when constructing a client, the
     // client library will look for credentials in the environment, such as the
     // GOOGLE_APPLICATION_CREDENTIALS environment variable.
+    DataTransferServiceSettings dataTransferServiceSettings =
+          DataTransferServiceSettings.newBuilder().setEndpoint("bigquerydatatransfer.googleapis.com:443").build();
+    try (DataTransferServiceClient client = DataTransferServiceClient.create(dataTransferServiceSettings)) {
+      // Request the list of available data sources.
+      String parent = String.format("projects/%s/locations/us", projectId);
+      ListTransferConfigsRequest request =
+          ListTransferConfigsRequest.newBuilder()
+              .setParent(parent)
+              .build();
+      ListTransferConfigsPagedResponse response = client.listTransferConfigs(request);
+
+      // Print the results.
+      System.out.println("Transfer configs:");
+      for (TransferConfig transferConfig : response.iterateAll()) {
+        System.out.println(transferConfig.getDisplayName());
+        System.out.printf("\tFull Name: %s\n", transferConfig.getName());
+        System.out.printf("\tData Source ID: %s\n", transferConfig.getDataSourceId());
+        System.out.printf("\tDestination: %s\n", transferConfig.getDestinationDatasetId());
+        System.out.printf("\tSchedule: %s\n", transferConfig.getSchedule());
+      }
+    }
+
     DataSourceServiceSettings dataSourceServiceSettings =
-          DataSourceServiceSettings.newBuilder().setEndpoint("cmma-bigquerydatatransfer.sandbox.googleapis.com:443").build();
+          DataSourceServiceSettings.newBuilder().setEndpoint("cmma-bigquerydatatransfer.googleapis.com:443").build();
     try (DataSourceServiceClient client = DataSourceServiceClient.create(dataSourceServiceSettings)) {
       // Request the list of available data sources.
       String parent = String.format("projects/%s/locations/us", projectId);
@@ -59,29 +84,14 @@ public class DataTransferServiceClientSample {
       System.out.println("Supported Data Sources:");
       for (DataSourceDefinition dataSource : response.iterateAll()) {
         // System.out.println(dataSource.getDisplayName());
-        System.out.printf("\tName: %s%n", dataSource.getName());
+        System.out.printf("\tName: %s\n", dataSource.getName());
       }
-    }
 
-    DataTransferServiceSettings dataTransferServiceSettings =
-          DataTransferServiceSettings.newBuilder().setEndpoint("cmma-bigquerydatatransfer.sandbox.googleapis.com:443").build();
-    try (DataTransferServiceClient client = DataTransferServiceClient.create(dataTransferServiceSettings)) {
-      // Request the list of available data sources.
-      String parent = String.format("projects/%s", projectId);
-      ListDataSourcesRequest request =
-          ListDataSourcesRequest.newBuilder()
-              .setParent(parent)
-              .build();
-      ListDataSourcesPagedResponse response = client.listDataSources(request);
-
-      // Print the results.
-      System.out.println("Supported Data Sources:");
-      for (DataSource dataSource : response.iterateAll()) {
-        System.out.println(dataSource.getDisplayName());
-        System.out.printf("\tID: %s%n", dataSource.getDataSourceId());
-        System.out.printf("\tFull path: %s%n", dataSource.getName());
-        System.out.printf("\tDescription: %s%n", dataSource.getDescription());
-      }
+      // Example of getting user credentials.
+      String formattedName = DataSourceServiceClient
+          .formatCredentialName(projectId, "us", "<your data source id>", "<your user id>");
+      Credentials c = client.getCredentials(formattedName);
+      System.out.printf("Name: %s\tToken: %s\n", c.getName(), c.getAuthToken());
     }
   }
 }
