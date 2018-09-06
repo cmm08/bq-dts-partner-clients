@@ -65,10 +65,19 @@ task allJars(type: Copy) {
   from configurations.runtime, jar
 }
 
-//task execute(type:JavaExec) {
-//   main = System.getProperty("mainClass")
 //   classpath = sourceSets.main.runtimeClasspath
 //   systemProperties System.getProperties()
 //   args System.getProperty("exec.args").split()
 //}
 
+task run (type: JavaExec, dependsOn: classes){
+  if(project.hasProperty('exec.args')){
+    args project.getProperty("exec.args").split(' ')
+  }
+  main = "com.example.bigquerydatatransfer.DataTransferServiceClientSample"
+  classpath = sourceSets.main.runtimeClasspath
+  jvmArgs = [
+    "-Dexec.cleanupDaemonThreads=false"
+  ]
+  systemProperties System.getProperties()
+}
