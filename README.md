@@ -117,6 +117,16 @@ accounts, and permissions:
      -Dexec.args="${PROJECT_ID}" -Dexec.cleanupDaemonThreads=false
    ```
 
+   If you perfer, you can also use Gradle to build and run the example. Gradle
+   Wrapper (gradlew) is included in the repository, so you don't need to
+   manually install Gradle.
+
+   ```
+   ./gradelw install
+   cd partner-examples
+   ../gradlew run -Pexec.args="${PROJECT_ID}"
+   ```
+
 ### Notes
 
 For illustration purpose, the example calls the following two BigQuery Data Transfer API methods:
@@ -125,10 +135,3 @@ For illustration purpose, the example calls the following two BigQuery Data Tran
   * [ListDataSourceDefinitions](https://cloud.google.com/bigquery/docs/reference/data-transfer/partner/rest/v1/projects.locations.dataSourceDefinitions/list)
 
 Note that the 2nd method is only visible to whitelisted partner projects. Plese talk to your Google Cloud Platform contact.
-
-If you like, you can also use gradle to build the client library and example:
-
-    ```
-    ./gradlew build
-    ```
-
