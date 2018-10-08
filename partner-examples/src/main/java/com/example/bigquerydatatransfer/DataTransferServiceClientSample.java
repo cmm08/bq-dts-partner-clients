@@ -70,7 +70,7 @@ public class DataTransferServiceClientSample {
     }
 
     DataSourceServiceSettings dataSourceServiceSettings =
-          DataSourceServiceSettings.newBuilder().setEndpoint("cmma-bigquerydatatransfer.googleapis.com:443").build();
+          DataSourceServiceSettings.newBuilder().setEndpoint("bigquerydatatransfer.googleapis.com:443").build();
     try (DataSourceServiceClient client = DataSourceServiceClient.create(dataSourceServiceSettings)) {
       // Request the list of available data sources.
       String parent = String.format("projects/%s/locations/us", projectId);
