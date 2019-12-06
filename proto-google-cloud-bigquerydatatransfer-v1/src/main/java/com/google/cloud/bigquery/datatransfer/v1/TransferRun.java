@@ -21,11 +21,11 @@ private static final long serialVersionUID = 0L;
   }
   private TransferRun() {
     name_ = "";
-    destinationDatasetId_ = "";
     dataSourceId_ = "";
     state_ = 0;
-    userId_ = 0L;
     schedule_ = "";
+    notificationPubsubTopic_ = "";
+    partnerToken_ = "";
   }
 
   @java.lang.Override
@@ -60,8 +60,8 @@ private static final long serialVersionUID = 0L;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
-
-            destinationDatasetId_ = s;
+            destinationCase_ = 2;
+            destination_ = s;
             break;
           }
           case 26: {
@@ -179,7 +179,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 178: {
-            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
               labels_ = com.google.protobuf.MapField.newMapField(
                   LabelsDefaultEntryHolder.defaultEntry);
               mutable_bitField0_ |= 0x00000002;
@@ -191,8 +191,33 @@ private static final long serialVersionUID = 0L;
                 labels__.getKey(), labels__.getValue());
             break;
           }
+          case 186: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            notificationPubsubTopic_ = s;
+            break;
+          }
+          case 202: {
+            com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder subBuilder = null;
+            if (emailPreferences_ != null) {
+              subBuilder = emailPreferences_.toBuilder();
+            }
+            emailPreferences_ = input.readMessage(com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(emailPreferences_);
+              emailPreferences_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 226: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            partnerToken_ = s;
+            break;
+          }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -236,6 +261,42 @@ private static final long serialVersionUID = 0L;
   }
 
   private int bitField0_;
+  private int destinationCase_ = 0;
+  private java.lang.Object destination_;
+  public enum DestinationCase
+      implements com.google.protobuf.Internal.EnumLite {
+    DESTINATION_DATASET_ID(2),
+    DESTINATION_NOT_SET(0);
+    private final int value;
+    private DestinationCase(int value) {
+      this.value = value;
+    }
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static DestinationCase valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static DestinationCase forNumber(int value) {
+      switch (value) {
+        case 2: return DESTINATION_DATASET_ID;
+        case 0: return DESTINATION_NOT_SET;
+        default: return null;
+      }
+    }
+    public int getNumber() {
+      return this.value;
+    }
+  };
+
+  public DestinationCase
+  getDestinationCase() {
+    return DestinationCase.forNumber(
+        destinationCase_);
+  }
+
   public static final int NAME_FIELD_NUMBER = 1;
   private volatile java.lang.Object name_;
   /**
@@ -413,8 +474,8 @@ private static final long serialVersionUID = 0L;
   private com.google.protobuf.Timestamp runTime_;
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -424,8 +485,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -435,8 +496,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -486,7 +547,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public boolean hasStartTime() {
     return startTime_ != null;
@@ -497,7 +558,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.Timestamp getStartTime() {
     return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
@@ -508,7 +569,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
     return getStartTime();
@@ -522,7 +583,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public boolean hasEndTime() {
     return endTime_ != null;
@@ -533,7 +594,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.Timestamp getEndTime() {
     return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
@@ -544,7 +605,7 @@ private static final long serialVersionUID = 0L;
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
     return getEndTime();
@@ -557,7 +618,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public boolean hasUpdateTime() {
     return updateTime_ != null;
@@ -567,7 +628,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.Timestamp getUpdateTime() {
     return updateTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updateTime_;
@@ -577,7 +638,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder() {
     return getUpdateTime();
@@ -590,7 +651,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public boolean hasParams() {
     return params_ != null;
@@ -600,7 +661,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.Struct getParams() {
     return params_ == null ? com.google.protobuf.Struct.getDefaultInstance() : params_;
@@ -610,30 +671,34 @@ private static final long serialVersionUID = 0L;
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.StructOrBuilder getParamsOrBuilder() {
     return getParams();
   }
 
   public static final int DESTINATION_DATASET_ID_FIELD_NUMBER = 2;
-  private volatile java.lang.Object destinationDatasetId_;
   /**
    * <pre>
    * Output only. The BigQuery target dataset id.
    * </pre>
    *
-   * <code>string destination_dataset_id = 2;</code>
+   * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getDestinationDatasetId() {
-    java.lang.Object ref = destinationDatasetId_;
+    java.lang.Object ref = "";
+    if (destinationCase_ == 2) {
+      ref = destination_;
+    }
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      destinationDatasetId_ = s;
+      if (destinationCase_ == 2) {
+        destination_ = s;
+      }
       return s;
     }
   }
@@ -642,16 +707,21 @@ private static final long serialVersionUID = 0L;
    * Output only. The BigQuery target dataset id.
    * </pre>
    *
-   * <code>string destination_dataset_id = 2;</code>
+   * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getDestinationDatasetIdBytes() {
-    java.lang.Object ref = destinationDatasetId_;
+    java.lang.Object ref = "";
+    if (destinationCase_ == 2) {
+      ref = destination_;
+    }
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      destinationDatasetId_ = b;
+      if (destinationCase_ == 2) {
+        destination_ = b;
+      }
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -665,7 +735,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data source id.
    * </pre>
    *
-   * <code>string data_source_id = 7;</code>
+   * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getDataSourceId() {
     java.lang.Object ref = dataSourceId_;
@@ -684,7 +754,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data source id.
    * </pre>
    *
-   * <code>string data_source_id = 7;</code>
+   * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getDataSourceIdBytes() {
@@ -729,11 +799,7 @@ private static final long serialVersionUID = 0L;
   private long userId_;
   /**
    * <pre>
-   * Output only. Unique ID of the user on whose behalf transfer is done.
-   * Applicable only to data sources that do not support service accounts.
-   * When set to 0, the data source service account credentials are used.
-   * May be negative. Note, that this identifier is not stable.
-   * It may change over time even for the same user.
+   * Deprecated. Unique ID of the user on whose behalf transfer is done.
    * </pre>
    *
    * <code>int64 user_id = 11;</code>
@@ -753,7 +819,7 @@ private static final long serialVersionUID = 0L;
    * current load, so `schedule_time` doesn't always match this.
    * </pre>
    *
-   * <code>string schedule = 12;</code>
+   * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getSchedule() {
     java.lang.Object ref = schedule_;
@@ -776,7 +842,7 @@ private static final long serialVersionUID = 0L;
    * current load, so `schedule_time` doesn't always match this.
    * </pre>
    *
-   * <code>string schedule = 12;</code>
+   * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getScheduleBytes() {
@@ -786,6 +852,141 @@ private static final long serialVersionUID = 0L;
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
       schedule_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int NOTIFICATION_PUBSUB_TOPIC_FIELD_NUMBER = 23;
+  private volatile java.lang.Object notificationPubsubTopic_;
+  /**
+   * <pre>
+   * Output only. Pub/Sub topic where a notification will be sent after this
+   * transfer run finishes
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public java.lang.String getNotificationPubsubTopic() {
+    java.lang.Object ref = notificationPubsubTopic_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      notificationPubsubTopic_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Output only. Pub/Sub topic where a notification will be sent after this
+   * transfer run finishes
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public com.google.protobuf.ByteString
+      getNotificationPubsubTopicBytes() {
+    java.lang.Object ref = notificationPubsubTopic_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      notificationPubsubTopic_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int EMAIL_PREFERENCES_FIELD_NUMBER = 25;
+  private com.google.cloud.bigquery.datatransfer.v1.EmailPreferences emailPreferences_;
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public boolean hasEmailPreferences() {
+    return emailPreferences_ != null;
+  }
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public com.google.cloud.bigquery.datatransfer.v1.EmailPreferences getEmailPreferences() {
+    return emailPreferences_ == null ? com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.getDefaultInstance() : emailPreferences_;
+  }
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder getEmailPreferencesOrBuilder() {
+    return getEmailPreferences();
+  }
+
+  public static final int PARTNER_TOKEN_FIELD_NUMBER = 28;
+  private volatile java.lang.Object partnerToken_;
+  /**
+   * <pre>
+   * Output only. This is the same token initialized from TransferConfig.
+   * Partner token is a unique identifier used for identifying a transfer setup
+   * stored on external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public java.lang.String getPartnerToken() {
+    java.lang.Object ref = partnerToken_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      partnerToken_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Output only. This is the same token initialized from TransferConfig.
+   * Partner token is a unique identifier used for identifying a transfer setup
+   * stored on external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  public com.google.protobuf.ByteString
+      getPartnerTokenBytes() {
+    java.lang.Object ref = partnerToken_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      partnerToken_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -809,8 +1010,8 @@ private static final long serialVersionUID = 0L;
     if (!getNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
-    if (!getDestinationDatasetIdBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, destinationDatasetId_);
+    if (destinationCase_ == 2) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, destination_);
     }
     if (scheduleTime_ != null) {
       output.writeMessage(3, getScheduleTime());
@@ -851,6 +1052,15 @@ private static final long serialVersionUID = 0L;
         internalGetLabels(),
         LabelsDefaultEntryHolder.defaultEntry,
         22);
+    if (!getNotificationPubsubTopicBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 23, notificationPubsubTopic_);
+    }
+    if (emailPreferences_ != null) {
+      output.writeMessage(25, getEmailPreferences());
+    }
+    if (!getPartnerTokenBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 28, partnerToken_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -863,8 +1073,8 @@ private static final long serialVersionUID = 0L;
     if (!getNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
-    if (!getDestinationDatasetIdBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, destinationDatasetId_);
+    if (destinationCase_ == 2) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, destination_);
     }
     if (scheduleTime_ != null) {
       size += com.google.protobuf.CodedOutputStream
@@ -918,6 +1128,16 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(22, labels__);
     }
+    if (!getNotificationPubsubTopicBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, notificationPubsubTopic_);
+    }
+    if (emailPreferences_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(25, getEmailPreferences());
+    }
+    if (!getPartnerTokenBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(28, partnerToken_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -933,57 +1153,72 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.TransferRun other = (com.google.cloud.bigquery.datatransfer.v1.TransferRun) obj;
 
-    boolean result = true;
-    result = result && getName()
-        .equals(other.getName());
-    result = result && internalGetLabels().equals(
-        other.internalGetLabels());
-    result = result && (hasScheduleTime() == other.hasScheduleTime());
+    if (!getName()
+        .equals(other.getName())) return false;
+    if (!internalGetLabels().equals(
+        other.internalGetLabels())) return false;
+    if (hasScheduleTime() != other.hasScheduleTime()) return false;
     if (hasScheduleTime()) {
-      result = result && getScheduleTime()
-          .equals(other.getScheduleTime());
+      if (!getScheduleTime()
+          .equals(other.getScheduleTime())) return false;
     }
-    result = result && (hasRunTime() == other.hasRunTime());
+    if (hasRunTime() != other.hasRunTime()) return false;
     if (hasRunTime()) {
-      result = result && getRunTime()
-          .equals(other.getRunTime());
+      if (!getRunTime()
+          .equals(other.getRunTime())) return false;
     }
-    result = result && (hasErrorStatus() == other.hasErrorStatus());
+    if (hasErrorStatus() != other.hasErrorStatus()) return false;
     if (hasErrorStatus()) {
-      result = result && getErrorStatus()
-          .equals(other.getErrorStatus());
+      if (!getErrorStatus()
+          .equals(other.getErrorStatus())) return false;
     }
-    result = result && (hasStartTime() == other.hasStartTime());
+    if (hasStartTime() != other.hasStartTime()) return false;
     if (hasStartTime()) {
-      result = result && getStartTime()
-          .equals(other.getStartTime());
+      if (!getStartTime()
+          .equals(other.getStartTime())) return false;
     }
-    result = result && (hasEndTime() == other.hasEndTime());
+    if (hasEndTime() != other.hasEndTime()) return false;
     if (hasEndTime()) {
-      result = result && getEndTime()
-          .equals(other.getEndTime());
+      if (!getEndTime()
+          .equals(other.getEndTime())) return false;
     }
-    result = result && (hasUpdateTime() == other.hasUpdateTime());
+    if (hasUpdateTime() != other.hasUpdateTime()) return false;
     if (hasUpdateTime()) {
-      result = result && getUpdateTime()
-          .equals(other.getUpdateTime());
+      if (!getUpdateTime()
+          .equals(other.getUpdateTime())) return false;
     }
-    result = result && (hasParams() == other.hasParams());
+    if (hasParams() != other.hasParams()) return false;
     if (hasParams()) {
-      result = result && getParams()
-          .equals(other.getParams());
+      if (!getParams()
+          .equals(other.getParams())) return false;
     }
-    result = result && getDestinationDatasetId()
-        .equals(other.getDestinationDatasetId());
-    result = result && getDataSourceId()
-        .equals(other.getDataSourceId());
-    result = result && state_ == other.state_;
-    result = result && (getUserId()
-        == other.getUserId());
-    result = result && getSchedule()
-        .equals(other.getSchedule());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getDataSourceId()
+        .equals(other.getDataSourceId())) return false;
+    if (state_ != other.state_) return false;
+    if (getUserId()
+        != other.getUserId()) return false;
+    if (!getSchedule()
+        .equals(other.getSchedule())) return false;
+    if (!getNotificationPubsubTopic()
+        .equals(other.getNotificationPubsubTopic())) return false;
+    if (hasEmailPreferences() != other.hasEmailPreferences()) return false;
+    if (hasEmailPreferences()) {
+      if (!getEmailPreferences()
+          .equals(other.getEmailPreferences())) return false;
+    }
+    if (!getPartnerToken()
+        .equals(other.getPartnerToken())) return false;
+    if (!getDestinationCase().equals(other.getDestinationCase())) return false;
+    switch (destinationCase_) {
+      case 2:
+        if (!getDestinationDatasetId()
+            .equals(other.getDestinationDatasetId())) return false;
+        break;
+      case 0:
+      default:
+    }
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -1027,8 +1262,6 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + PARAMS_FIELD_NUMBER;
       hash = (53 * hash) + getParams().hashCode();
     }
-    hash = (37 * hash) + DESTINATION_DATASET_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getDestinationDatasetId().hashCode();
     hash = (37 * hash) + DATA_SOURCE_ID_FIELD_NUMBER;
     hash = (53 * hash) + getDataSourceId().hashCode();
     hash = (37 * hash) + STATE_FIELD_NUMBER;
@@ -1038,6 +1271,22 @@ private static final long serialVersionUID = 0L;
         getUserId());
     hash = (37 * hash) + SCHEDULE_FIELD_NUMBER;
     hash = (53 * hash) + getSchedule().hashCode();
+    hash = (37 * hash) + NOTIFICATION_PUBSUB_TOPIC_FIELD_NUMBER;
+    hash = (53 * hash) + getNotificationPubsubTopic().hashCode();
+    if (hasEmailPreferences()) {
+      hash = (37 * hash) + EMAIL_PREFERENCES_FIELD_NUMBER;
+      hash = (53 * hash) + getEmailPreferences().hashCode();
+    }
+    hash = (37 * hash) + PARTNER_TOKEN_FIELD_NUMBER;
+    hash = (53 * hash) + getPartnerToken().hashCode();
+    switch (destinationCase_) {
+      case 2:
+        hash = (37 * hash) + DESTINATION_DATASET_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getDestinationDatasetId().hashCode();
+        break;
+      case 0:
+      default:
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1242,8 +1491,6 @@ private static final long serialVersionUID = 0L;
         params_ = null;
         paramsBuilder_ = null;
       }
-      destinationDatasetId_ = "";
-
       dataSourceId_ = "";
 
       state_ = 0;
@@ -1252,6 +1499,18 @@ private static final long serialVersionUID = 0L;
 
       schedule_ = "";
 
+      notificationPubsubTopic_ = "";
+
+      if (emailPreferencesBuilder_ == null) {
+        emailPreferences_ = null;
+      } else {
+        emailPreferences_ = null;
+        emailPreferencesBuilder_ = null;
+      }
+      partnerToken_ = "";
+
+      destinationCase_ = 0;
+      destination_ = null;
       return this;
     }
 
@@ -1318,47 +1577,57 @@ private static final long serialVersionUID = 0L;
       } else {
         result.params_ = paramsBuilder_.build();
       }
-      result.destinationDatasetId_ = destinationDatasetId_;
+      if (destinationCase_ == 2) {
+        result.destination_ = destination_;
+      }
       result.dataSourceId_ = dataSourceId_;
       result.state_ = state_;
       result.userId_ = userId_;
       result.schedule_ = schedule_;
+      result.notificationPubsubTopic_ = notificationPubsubTopic_;
+      if (emailPreferencesBuilder_ == null) {
+        result.emailPreferences_ = emailPreferences_;
+      } else {
+        result.emailPreferences_ = emailPreferencesBuilder_.build();
+      }
+      result.partnerToken_ = partnerToken_;
       result.bitField0_ = to_bitField0_;
+      result.destinationCase_ = destinationCase_;
       onBuilt();
       return result;
     }
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1399,10 +1668,6 @@ private static final long serialVersionUID = 0L;
       if (other.hasParams()) {
         mergeParams(other.getParams());
       }
-      if (!other.getDestinationDatasetId().isEmpty()) {
-        destinationDatasetId_ = other.destinationDatasetId_;
-        onChanged();
-      }
       if (!other.getDataSourceId().isEmpty()) {
         dataSourceId_ = other.dataSourceId_;
         onChanged();
@@ -1416,6 +1681,28 @@ private static final long serialVersionUID = 0L;
       if (!other.getSchedule().isEmpty()) {
         schedule_ = other.schedule_;
         onChanged();
+      }
+      if (!other.getNotificationPubsubTopic().isEmpty()) {
+        notificationPubsubTopic_ = other.notificationPubsubTopic_;
+        onChanged();
+      }
+      if (other.hasEmailPreferences()) {
+        mergeEmailPreferences(other.getEmailPreferences());
+      }
+      if (!other.getPartnerToken().isEmpty()) {
+        partnerToken_ = other.partnerToken_;
+        onChanged();
+      }
+      switch (other.getDestinationCase()) {
+        case DESTINATION_DATASET_ID: {
+          destinationCase_ = 2;
+          destination_ = other.destination_;
+          onChanged();
+          break;
+        }
+        case DESTINATION_NOT_SET: {
+          break;
+        }
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1445,6 +1732,21 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int destinationCase_ = 0;
+    private java.lang.Object destination_;
+    public DestinationCase
+        getDestinationCase() {
+      return DestinationCase.forNumber(
+          destinationCase_);
+    }
+
+    public Builder clearDestination() {
+      destinationCase_ = 0;
+      destination_ = null;
+      onChanged();
+      return this;
+    }
+
     private int bitField0_;
 
     private java.lang.Object name_ = "";
@@ -1702,7 +2004,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.Timestamp scheduleTime_ = null;
+    private com.google.protobuf.Timestamp scheduleTime_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> scheduleTimeBuilder_;
     /**
@@ -1855,13 +2157,13 @@ private static final long serialVersionUID = 0L;
       return scheduleTimeBuilder_;
     }
 
-    private com.google.protobuf.Timestamp runTime_ = null;
+    private com.google.protobuf.Timestamp runTime_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> runTimeBuilder_;
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1871,8 +2173,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1886,8 +2188,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1907,8 +2209,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1926,8 +2228,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1949,8 +2251,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1968,8 +2270,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1981,8 +2283,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -1997,8 +2299,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * For batch transfer runs, specifies the date and time that
-     * data should be ingested.
+     * For batch transfer runs, specifies the date and time of the data should be
+     * ingested.
      * </pre>
      *
      * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -2017,7 +2319,7 @@ private static final long serialVersionUID = 0L;
       return runTimeBuilder_;
     }
 
-    private com.google.rpc.Status errorStatus_ = null;
+    private com.google.rpc.Status errorStatus_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.rpc.Status, com.google.rpc.Status.Builder, com.google.rpc.StatusOrBuilder> errorStatusBuilder_;
     /**
@@ -2170,7 +2472,7 @@ private static final long serialVersionUID = 0L;
       return errorStatusBuilder_;
     }
 
-    private com.google.protobuf.Timestamp startTime_ = null;
+    private com.google.protobuf.Timestamp startTime_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> startTimeBuilder_;
     /**
@@ -2179,7 +2481,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public boolean hasStartTime() {
       return startTimeBuilder_ != null || startTime_ != null;
@@ -2190,7 +2492,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp getStartTime() {
       if (startTimeBuilder_ == null) {
@@ -2205,7 +2507,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setStartTime(com.google.protobuf.Timestamp value) {
       if (startTimeBuilder_ == null) {
@@ -2226,7 +2528,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setStartTime(
         com.google.protobuf.Timestamp.Builder builderForValue) {
@@ -2245,7 +2547,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder mergeStartTime(com.google.protobuf.Timestamp value) {
       if (startTimeBuilder_ == null) {
@@ -2268,7 +2570,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearStartTime() {
       if (startTimeBuilder_ == null) {
@@ -2287,7 +2589,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp.Builder getStartTimeBuilder() {
       
@@ -2300,7 +2602,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
       if (startTimeBuilder_ != null) {
@@ -2316,7 +2618,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp start_time = 4;</code>
+     * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
@@ -2332,7 +2634,7 @@ private static final long serialVersionUID = 0L;
       return startTimeBuilder_;
     }
 
-    private com.google.protobuf.Timestamp endTime_ = null;
+    private com.google.protobuf.Timestamp endTime_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> endTimeBuilder_;
     /**
@@ -2341,7 +2643,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public boolean hasEndTime() {
       return endTimeBuilder_ != null || endTime_ != null;
@@ -2352,7 +2654,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp getEndTime() {
       if (endTimeBuilder_ == null) {
@@ -2367,7 +2669,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setEndTime(com.google.protobuf.Timestamp value) {
       if (endTimeBuilder_ == null) {
@@ -2388,7 +2690,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setEndTime(
         com.google.protobuf.Timestamp.Builder builderForValue) {
@@ -2407,7 +2709,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder mergeEndTime(com.google.protobuf.Timestamp value) {
       if (endTimeBuilder_ == null) {
@@ -2430,7 +2732,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearEndTime() {
       if (endTimeBuilder_ == null) {
@@ -2449,7 +2751,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp.Builder getEndTimeBuilder() {
       
@@ -2462,7 +2764,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
       if (endTimeBuilder_ != null) {
@@ -2478,7 +2780,7 @@ private static final long serialVersionUID = 0L;
      * Parameter ignored by server for input requests.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp end_time = 5;</code>
+     * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
@@ -2494,7 +2796,7 @@ private static final long serialVersionUID = 0L;
       return endTimeBuilder_;
     }
 
-    private com.google.protobuf.Timestamp updateTime_ = null;
+    private com.google.protobuf.Timestamp updateTime_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> updateTimeBuilder_;
     /**
@@ -2502,7 +2804,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public boolean hasUpdateTime() {
       return updateTimeBuilder_ != null || updateTime_ != null;
@@ -2512,7 +2814,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp getUpdateTime() {
       if (updateTimeBuilder_ == null) {
@@ -2526,7 +2828,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setUpdateTime(com.google.protobuf.Timestamp value) {
       if (updateTimeBuilder_ == null) {
@@ -2546,7 +2848,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setUpdateTime(
         com.google.protobuf.Timestamp.Builder builderForValue) {
@@ -2564,7 +2866,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder mergeUpdateTime(com.google.protobuf.Timestamp value) {
       if (updateTimeBuilder_ == null) {
@@ -2586,7 +2888,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearUpdateTime() {
       if (updateTimeBuilder_ == null) {
@@ -2604,7 +2906,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Timestamp.Builder getUpdateTimeBuilder() {
       
@@ -2616,7 +2918,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder() {
       if (updateTimeBuilder_ != null) {
@@ -2631,7 +2933,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Last time the data transfer run state was updated.
      * </pre>
      *
-     * <code>.google.protobuf.Timestamp update_time = 6;</code>
+     * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
@@ -2647,7 +2949,7 @@ private static final long serialVersionUID = 0L;
       return updateTimeBuilder_;
     }
 
-    private com.google.protobuf.Struct params_ = null;
+    private com.google.protobuf.Struct params_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> paramsBuilder_;
     /**
@@ -2655,7 +2957,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public boolean hasParams() {
       return paramsBuilder_ != null || params_ != null;
@@ -2665,7 +2967,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Struct getParams() {
       if (paramsBuilder_ == null) {
@@ -2679,7 +2981,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setParams(com.google.protobuf.Struct value) {
       if (paramsBuilder_ == null) {
@@ -2699,7 +3001,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setParams(
         com.google.protobuf.Struct.Builder builderForValue) {
@@ -2717,7 +3019,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder mergeParams(com.google.protobuf.Struct value) {
       if (paramsBuilder_ == null) {
@@ -2739,7 +3041,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearParams() {
       if (paramsBuilder_ == null) {
@@ -2757,7 +3059,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.Struct.Builder getParamsBuilder() {
       
@@ -2769,7 +3071,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.StructOrBuilder getParamsOrBuilder() {
       if (paramsBuilder_ != null) {
@@ -2784,7 +3086,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data transfer specific parameters.
      * </pre>
      *
-     * <code>.google.protobuf.Struct params = 9;</code>
+     * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Struct, com.google.protobuf.Struct.Builder, com.google.protobuf.StructOrBuilder> 
@@ -2800,21 +3102,25 @@ private static final long serialVersionUID = 0L;
       return paramsBuilder_;
     }
 
-    private java.lang.Object destinationDatasetId_ = "";
     /**
      * <pre>
      * Output only. The BigQuery target dataset id.
      * </pre>
      *
-     * <code>string destination_dataset_id = 2;</code>
+     * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getDestinationDatasetId() {
-      java.lang.Object ref = destinationDatasetId_;
+      java.lang.Object ref = "";
+      if (destinationCase_ == 2) {
+        ref = destination_;
+      }
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        destinationDatasetId_ = s;
+        if (destinationCase_ == 2) {
+          destination_ = s;
+        }
         return s;
       } else {
         return (java.lang.String) ref;
@@ -2825,16 +3131,21 @@ private static final long serialVersionUID = 0L;
      * Output only. The BigQuery target dataset id.
      * </pre>
      *
-     * <code>string destination_dataset_id = 2;</code>
+     * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getDestinationDatasetIdBytes() {
-      java.lang.Object ref = destinationDatasetId_;
+      java.lang.Object ref = "";
+      if (destinationCase_ == 2) {
+        ref = destination_;
+      }
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        destinationDatasetId_ = b;
+        if (destinationCase_ == 2) {
+          destination_ = b;
+        }
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2845,15 +3156,15 @@ private static final long serialVersionUID = 0L;
      * Output only. The BigQuery target dataset id.
      * </pre>
      *
-     * <code>string destination_dataset_id = 2;</code>
+     * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setDestinationDatasetId(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  
-      destinationDatasetId_ = value;
+  destinationCase_ = 2;
+      destination_ = value;
       onChanged();
       return this;
     }
@@ -2862,12 +3173,14 @@ private static final long serialVersionUID = 0L;
      * Output only. The BigQuery target dataset id.
      * </pre>
      *
-     * <code>string destination_dataset_id = 2;</code>
+     * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearDestinationDatasetId() {
-      
-      destinationDatasetId_ = getDefaultInstance().getDestinationDatasetId();
-      onChanged();
+      if (destinationCase_ == 2) {
+        destinationCase_ = 0;
+        destination_ = null;
+        onChanged();
+      }
       return this;
     }
     /**
@@ -2875,7 +3188,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The BigQuery target dataset id.
      * </pre>
      *
-     * <code>string destination_dataset_id = 2;</code>
+     * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setDestinationDatasetIdBytes(
         com.google.protobuf.ByteString value) {
@@ -2883,8 +3196,8 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      
-      destinationDatasetId_ = value;
+      destinationCase_ = 2;
+      destination_ = value;
       onChanged();
       return this;
     }
@@ -2895,7 +3208,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source id.
      * </pre>
      *
-     * <code>string data_source_id = 7;</code>
+     * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getDataSourceId() {
       java.lang.Object ref = dataSourceId_;
@@ -2914,7 +3227,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source id.
      * </pre>
      *
-     * <code>string data_source_id = 7;</code>
+     * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getDataSourceIdBytes() {
@@ -2934,7 +3247,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source id.
      * </pre>
      *
-     * <code>string data_source_id = 7;</code>
+     * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setDataSourceId(
         java.lang.String value) {
@@ -2951,7 +3264,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source id.
      * </pre>
      *
-     * <code>string data_source_id = 7;</code>
+     * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearDataSourceId() {
       
@@ -2964,7 +3277,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source id.
      * </pre>
      *
-     * <code>string data_source_id = 7;</code>
+     * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setDataSourceIdBytes(
         com.google.protobuf.ByteString value) {
@@ -3046,11 +3359,7 @@ private static final long serialVersionUID = 0L;
     private long userId_ ;
     /**
      * <pre>
-     * Output only. Unique ID of the user on whose behalf transfer is done.
-     * Applicable only to data sources that do not support service accounts.
-     * When set to 0, the data source service account credentials are used.
-     * May be negative. Note, that this identifier is not stable.
-     * It may change over time even for the same user.
+     * Deprecated. Unique ID of the user on whose behalf transfer is done.
      * </pre>
      *
      * <code>int64 user_id = 11;</code>
@@ -3060,11 +3369,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. Unique ID of the user on whose behalf transfer is done.
-     * Applicable only to data sources that do not support service accounts.
-     * When set to 0, the data source service account credentials are used.
-     * May be negative. Note, that this identifier is not stable.
-     * It may change over time even for the same user.
+     * Deprecated. Unique ID of the user on whose behalf transfer is done.
      * </pre>
      *
      * <code>int64 user_id = 11;</code>
@@ -3077,11 +3382,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. Unique ID of the user on whose behalf transfer is done.
-     * Applicable only to data sources that do not support service accounts.
-     * When set to 0, the data source service account credentials are used.
-     * May be negative. Note, that this identifier is not stable.
-     * It may change over time even for the same user.
+     * Deprecated. Unique ID of the user on whose behalf transfer is done.
      * </pre>
      *
      * <code>int64 user_id = 11;</code>
@@ -3103,7 +3404,7 @@ private static final long serialVersionUID = 0L;
      * current load, so `schedule_time` doesn't always match this.
      * </pre>
      *
-     * <code>string schedule = 12;</code>
+     * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getSchedule() {
       java.lang.Object ref = schedule_;
@@ -3126,7 +3427,7 @@ private static final long serialVersionUID = 0L;
      * current load, so `schedule_time` doesn't always match this.
      * </pre>
      *
-     * <code>string schedule = 12;</code>
+     * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getScheduleBytes() {
@@ -3150,7 +3451,7 @@ private static final long serialVersionUID = 0L;
      * current load, so `schedule_time` doesn't always match this.
      * </pre>
      *
-     * <code>string schedule = 12;</code>
+     * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setSchedule(
         java.lang.String value) {
@@ -3171,7 +3472,7 @@ private static final long serialVersionUID = 0L;
      * current load, so `schedule_time` doesn't always match this.
      * </pre>
      *
-     * <code>string schedule = 12;</code>
+     * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearSchedule() {
       
@@ -3188,7 +3489,7 @@ private static final long serialVersionUID = 0L;
      * current load, so `schedule_time` doesn't always match this.
      * </pre>
      *
-     * <code>string schedule = 12;</code>
+     * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setScheduleBytes(
         com.google.protobuf.ByteString value) {
@@ -3201,10 +3502,389 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private java.lang.Object notificationPubsubTopic_ = "";
+    /**
+     * <pre>
+     * Output only. Pub/Sub topic where a notification will be sent after this
+     * transfer run finishes
+     * </pre>
+     *
+     * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public java.lang.String getNotificationPubsubTopic() {
+      java.lang.Object ref = notificationPubsubTopic_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        notificationPubsubTopic_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Pub/Sub topic where a notification will be sent after this
+     * transfer run finishes
+     * </pre>
+     *
+     * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public com.google.protobuf.ByteString
+        getNotificationPubsubTopicBytes() {
+      java.lang.Object ref = notificationPubsubTopic_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        notificationPubsubTopic_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Pub/Sub topic where a notification will be sent after this
+     * transfer run finishes
+     * </pre>
+     *
+     * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setNotificationPubsubTopic(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      notificationPubsubTopic_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Pub/Sub topic where a notification will be sent after this
+     * transfer run finishes
+     * </pre>
+     *
+     * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder clearNotificationPubsubTopic() {
+      
+      notificationPubsubTopic_ = getDefaultInstance().getNotificationPubsubTopic();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Pub/Sub topic where a notification will be sent after this
+     * transfer run finishes
+     * </pre>
+     *
+     * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setNotificationPubsubTopicBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      notificationPubsubTopic_ = value;
+      onChanged();
+      return this;
+    }
+
+    private com.google.cloud.bigquery.datatransfer.v1.EmailPreferences emailPreferences_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.cloud.bigquery.datatransfer.v1.EmailPreferences, com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder, com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder> emailPreferencesBuilder_;
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public boolean hasEmailPreferences() {
+      return emailPreferencesBuilder_ != null || emailPreferences_ != null;
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public com.google.cloud.bigquery.datatransfer.v1.EmailPreferences getEmailPreferences() {
+      if (emailPreferencesBuilder_ == null) {
+        return emailPreferences_ == null ? com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.getDefaultInstance() : emailPreferences_;
+      } else {
+        return emailPreferencesBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setEmailPreferences(com.google.cloud.bigquery.datatransfer.v1.EmailPreferences value) {
+      if (emailPreferencesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        emailPreferences_ = value;
+        onChanged();
+      } else {
+        emailPreferencesBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setEmailPreferences(
+        com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder builderForValue) {
+      if (emailPreferencesBuilder_ == null) {
+        emailPreferences_ = builderForValue.build();
+        onChanged();
+      } else {
+        emailPreferencesBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder mergeEmailPreferences(com.google.cloud.bigquery.datatransfer.v1.EmailPreferences value) {
+      if (emailPreferencesBuilder_ == null) {
+        if (emailPreferences_ != null) {
+          emailPreferences_ =
+            com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.newBuilder(emailPreferences_).mergeFrom(value).buildPartial();
+        } else {
+          emailPreferences_ = value;
+        }
+        onChanged();
+      } else {
+        emailPreferencesBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder clearEmailPreferences() {
+      if (emailPreferencesBuilder_ == null) {
+        emailPreferences_ = null;
+        onChanged();
+      } else {
+        emailPreferences_ = null;
+        emailPreferencesBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder getEmailPreferencesBuilder() {
+      
+      onChanged();
+      return getEmailPreferencesFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder getEmailPreferencesOrBuilder() {
+      if (emailPreferencesBuilder_ != null) {
+        return emailPreferencesBuilder_.getMessageOrBuilder();
+      } else {
+        return emailPreferences_ == null ?
+            com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.getDefaultInstance() : emailPreferences_;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. Email notifications will be sent according to these
+     * preferences to the email address of the user who owns the transfer config
+     * this run was derived from.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.cloud.bigquery.datatransfer.v1.EmailPreferences, com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder, com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder> 
+        getEmailPreferencesFieldBuilder() {
+      if (emailPreferencesBuilder_ == null) {
+        emailPreferencesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.google.cloud.bigquery.datatransfer.v1.EmailPreferences, com.google.cloud.bigquery.datatransfer.v1.EmailPreferences.Builder, com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder>(
+                getEmailPreferences(),
+                getParentForChildren(),
+                isClean());
+        emailPreferences_ = null;
+      }
+      return emailPreferencesBuilder_;
+    }
+
+    private java.lang.Object partnerToken_ = "";
+    /**
+     * <pre>
+     * Output only. This is the same token initialized from TransferConfig.
+     * Partner token is a unique identifier used for identifying a transfer setup
+     * stored on external partner side. The token is opaque to DTS and can only be
+     * interpreted by partner. Partner data source should create a mapping between
+     * the config id and the token to validate that a transfer config/run is
+     * legitimate.
+     * </pre>
+     *
+     * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public java.lang.String getPartnerToken() {
+      java.lang.Object ref = partnerToken_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        partnerToken_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. This is the same token initialized from TransferConfig.
+     * Partner token is a unique identifier used for identifying a transfer setup
+     * stored on external partner side. The token is opaque to DTS and can only be
+     * interpreted by partner. Partner data source should create a mapping between
+     * the config id and the token to validate that a transfer config/run is
+     * legitimate.
+     * </pre>
+     *
+     * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public com.google.protobuf.ByteString
+        getPartnerTokenBytes() {
+      java.lang.Object ref = partnerToken_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        partnerToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Output only. This is the same token initialized from TransferConfig.
+     * Partner token is a unique identifier used for identifying a transfer setup
+     * stored on external partner side. The token is opaque to DTS and can only be
+     * interpreted by partner. Partner data source should create a mapping between
+     * the config id and the token to validate that a transfer config/run is
+     * legitimate.
+     * </pre>
+     *
+     * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setPartnerToken(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      partnerToken_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. This is the same token initialized from TransferConfig.
+     * Partner token is a unique identifier used for identifying a transfer setup
+     * stored on external partner side. The token is opaque to DTS and can only be
+     * interpreted by partner. Partner data source should create a mapping between
+     * the config id and the token to validate that a transfer config/run is
+     * legitimate.
+     * </pre>
+     *
+     * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder clearPartnerToken() {
+      
+      partnerToken_ = getDefaultInstance().getPartnerToken();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Output only. This is the same token initialized from TransferConfig.
+     * Partner token is a unique identifier used for identifying a transfer setup
+     * stored on external partner side. The token is opaque to DTS and can only be
+     * interpreted by partner. Partner data source should create a mapping between
+     * the config id and the token to validate that a transfer config/run is
+     * legitimate.
+     * </pre>
+     *
+     * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+     */
+    public Builder setPartnerTokenBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      partnerToken_ = value;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

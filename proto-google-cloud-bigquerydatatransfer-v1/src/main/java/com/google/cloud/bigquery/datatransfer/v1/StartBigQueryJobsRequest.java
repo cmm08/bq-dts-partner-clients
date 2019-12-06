@@ -56,7 +56,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 18: {
-            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
               importedData_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo>();
               mutable_bitField0_ |= 0x00000002;
             }
@@ -69,8 +69,13 @@ private static final long serialVersionUID = 0L;
             userCredentials_ = input.readBytes();
             break;
           }
+          case 64: {
+
+            maxParallelism_ = input.readInt32();
+            break;
+          }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -84,7 +89,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((mutable_bitField0_ & 0x00000002) != 0)) {
         importedData_ = java.util.Collections.unmodifiableList(importedData_);
       }
       this.unknownFields = unknownFields.build();
@@ -220,6 +225,19 @@ private static final long serialVersionUID = 0L;
     return userCredentials_;
   }
 
+  public static final int MAX_PARALLELISM_FIELD_NUMBER = 8;
+  private int maxParallelism_;
+  /**
+   * <pre>
+   * The number of BQ Jobs that can run in parallel.
+   * </pre>
+   *
+   * <code>int32 max_parallelism = 8;</code>
+   */
+  public int getMaxParallelism() {
+    return maxParallelism_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -243,6 +261,9 @@ private static final long serialVersionUID = 0L;
     if (!userCredentials_.isEmpty()) {
       output.writeBytes(3, userCredentials_);
     }
+    if (maxParallelism_ != 0) {
+      output.writeInt32(8, maxParallelism_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -263,6 +284,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(3, userCredentials_);
     }
+    if (maxParallelism_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(8, maxParallelism_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -278,15 +303,16 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.StartBigQueryJobsRequest other = (com.google.cloud.bigquery.datatransfer.v1.StartBigQueryJobsRequest) obj;
 
-    boolean result = true;
-    result = result && getName()
-        .equals(other.getName());
-    result = result && getImportedDataList()
-        .equals(other.getImportedDataList());
-    result = result && getUserCredentials()
-        .equals(other.getUserCredentials());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getName()
+        .equals(other.getName())) return false;
+    if (!getImportedDataList()
+        .equals(other.getImportedDataList())) return false;
+    if (!getUserCredentials()
+        .equals(other.getUserCredentials())) return false;
+    if (getMaxParallelism()
+        != other.getMaxParallelism()) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -304,6 +330,8 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + USER_CREDENTIALS_FIELD_NUMBER;
     hash = (53 * hash) + getUserCredentials().hashCode();
+    hash = (37 * hash) + MAX_PARALLELISM_FIELD_NUMBER;
+    hash = (53 * hash) + getMaxParallelism();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -452,6 +480,8 @@ private static final long serialVersionUID = 0L;
       }
       userCredentials_ = com.google.protobuf.ByteString.EMPTY;
 
+      maxParallelism_ = 0;
+
       return this;
     }
 
@@ -482,7 +512,7 @@ private static final long serialVersionUID = 0L;
       int to_bitField0_ = 0;
       result.name_ = name_;
       if (importedDataBuilder_ == null) {
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           importedData_ = java.util.Collections.unmodifiableList(importedData_);
           bitField0_ = (bitField0_ & ~0x00000002);
         }
@@ -491,6 +521,7 @@ private static final long serialVersionUID = 0L;
         result.importedData_ = importedDataBuilder_.build();
       }
       result.userCredentials_ = userCredentials_;
+      result.maxParallelism_ = maxParallelism_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -498,35 +529,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -572,6 +603,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getUserCredentials() != com.google.protobuf.ByteString.EMPTY) {
         setUserCredentials(other.getUserCredentials());
+      }
+      if (other.getMaxParallelism() != 0) {
+        setMaxParallelism(other.getMaxParallelism());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -700,7 +734,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo> importedData_ =
       java.util.Collections.emptyList();
     private void ensureImportedDataIsMutable() {
-      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (!((bitField0_ & 0x00000002) != 0)) {
         importedData_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo>(importedData_);
         bitField0_ |= 0x00000002;
        }
@@ -1001,7 +1035,7 @@ private static final long serialVersionUID = 0L;
         importedDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfoOrBuilder>(
                 importedData_,
-                ((bitField0_ & 0x00000002) == 0x00000002),
+                ((bitField0_ & 0x00000002) != 0),
                 getParentForChildren(),
                 isClean());
         importedData_ = null;
@@ -1058,10 +1092,48 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private int maxParallelism_ ;
+    /**
+     * <pre>
+     * The number of BQ Jobs that can run in parallel.
+     * </pre>
+     *
+     * <code>int32 max_parallelism = 8;</code>
+     */
+    public int getMaxParallelism() {
+      return maxParallelism_;
+    }
+    /**
+     * <pre>
+     * The number of BQ Jobs that can run in parallel.
+     * </pre>
+     *
+     * <code>int32 max_parallelism = 8;</code>
+     */
+    public Builder setMaxParallelism(int value) {
+      
+      maxParallelism_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * The number of BQ Jobs that can run in parallel.
+     * </pre>
+     *
+     * <code>int32 max_parallelism = 8;</code>
+     */
+    public Builder clearMaxParallelism() {
+      
+      maxParallelism_ = 0;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

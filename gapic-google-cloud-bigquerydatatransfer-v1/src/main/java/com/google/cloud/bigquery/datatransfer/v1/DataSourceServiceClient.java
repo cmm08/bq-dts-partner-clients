@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import com.google.api.gax.rpc.UnaryCallable;
 import com.google.api.pathtemplate.PathTemplate;
 import com.google.cloud.bigquery.datatransfer.v1.stub.DataSourceServiceStub;
 import com.google.cloud.bigquery.datatransfer.v1.stub.DataSourceServiceStubSettings;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Empty;
 import com.google.protobuf.FieldMask;
@@ -112,32 +113,24 @@ public class DataSourceServiceClient implements BackgroundResource {
   private final DataSourceServiceSettings settings;
   private final DataSourceServiceStub stub;
 
-  private static final PathTemplate LOCATION_PATH_TEMPLATE =
-      PathTemplate.createWithoutUrlEncoding("projects/{project}/locations/{location}");
-
   private static final PathTemplate DATA_SOURCE_DEFINITION_PATH_TEMPLATE =
       PathTemplate.createWithoutUrlEncoding(
           "projects/{project}/locations/{location}/dataSourceDefinitions/{data_source_definition}");
 
-  private static final PathTemplate CREDENTIAL_PATH_TEMPLATE =
-      PathTemplate.createWithoutUrlEncoding(
-          "projects/{project}/locations/{location}/dataSources/{data_source}/credentials/{credential}");
+  private static final PathTemplate LOCATION_PATH_TEMPLATE =
+      PathTemplate.createWithoutUrlEncoding("projects/{project}/locations/{location}");
 
   private static final PathTemplate RUN_PATH_TEMPLATE =
       PathTemplate.createWithoutUrlEncoding(
           "projects/{project}/locations/{location}/transferConfigs/{transfer_config}/runs/{run}");
 
-  /** Formats a string containing the fully-qualified path to represent a location resource. */
-  public static final String formatLocationName(String project, String location) {
-    return LOCATION_PATH_TEMPLATE.instantiate(
-        "project", project,
-        "location", location);
-  }
-
   /**
    * Formats a string containing the fully-qualified path to represent a data_source_definition
    * resource.
+   *
+   * @deprecated Use the {@link DataSourceDefinitionName} class instead.
    */
+  @Deprecated
   public static final String formatDataSourceDefinitionName(
       String project, String location, String dataSourceDefinition) {
     return DATA_SOURCE_DEFINITION_PATH_TEMPLATE.instantiate(
@@ -146,17 +139,24 @@ public class DataSourceServiceClient implements BackgroundResource {
         "data_source_definition", dataSourceDefinition);
   }
 
-  /** Formats a string containing the fully-qualified path to represent a credential resource. */
-  public static final String formatCredentialName(
-      String project, String location, String dataSource, String credential) {
-    return CREDENTIAL_PATH_TEMPLATE.instantiate(
+  /**
+   * Formats a string containing the fully-qualified path to represent a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
+   */
+  @Deprecated
+  public static final String formatLocationName(String project, String location) {
+    return LOCATION_PATH_TEMPLATE.instantiate(
         "project", project,
-        "location", location,
-        "data_source", dataSource,
-        "credential", credential);
+        "location", location);
   }
 
-  /** Formats a string containing the fully-qualified path to represent a run resource. */
+  /**
+   * Formats a string containing the fully-qualified path to represent a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
   public static final String formatRunName(
       String project, String location, String transferConfig, String run) {
     return RUN_PATH_TEMPLATE.instantiate(
@@ -167,23 +167,12 @@ public class DataSourceServiceClient implements BackgroundResource {
   }
 
   /**
-   * Parses the project from the given fully-qualified path which represents a location resource.
-   */
-  public static final String parseProjectFromLocationName(String locationName) {
-    return LOCATION_PATH_TEMPLATE.parse(locationName).get("project");
-  }
-
-  /**
-   * Parses the location from the given fully-qualified path which represents a location resource.
-   */
-  public static final String parseLocationFromLocationName(String locationName) {
-    return LOCATION_PATH_TEMPLATE.parse(locationName).get("location");
-  }
-
-  /**
    * Parses the project from the given fully-qualified path which represents a
    * data_source_definition resource.
+   *
+   * @deprecated Use the {@link DataSourceDefinitionName} class instead.
    */
+  @Deprecated
   public static final String parseProjectFromDataSourceDefinitionName(
       String dataSourceDefinitionName) {
     return DATA_SOURCE_DEFINITION_PATH_TEMPLATE.parse(dataSourceDefinitionName).get("project");
@@ -192,7 +181,10 @@ public class DataSourceServiceClient implements BackgroundResource {
   /**
    * Parses the location from the given fully-qualified path which represents a
    * data_source_definition resource.
+   *
+   * @deprecated Use the {@link DataSourceDefinitionName} class instead.
    */
+  @Deprecated
   public static final String parseLocationFromDataSourceDefinitionName(
       String dataSourceDefinitionName) {
     return DATA_SOURCE_DEFINITION_PATH_TEMPLATE.parse(dataSourceDefinitionName).get("location");
@@ -201,7 +193,10 @@ public class DataSourceServiceClient implements BackgroundResource {
   /**
    * Parses the data_source_definition from the given fully-qualified path which represents a
    * data_source_definition resource.
+   *
+   * @deprecated Use the {@link DataSourceDefinitionName} class instead.
    */
+  @Deprecated
   public static final String parseDataSourceDefinitionFromDataSourceDefinitionName(
       String dataSourceDefinitionName) {
     return DATA_SOURCE_DEFINITION_PATH_TEMPLATE
@@ -210,53 +205,61 @@ public class DataSourceServiceClient implements BackgroundResource {
   }
 
   /**
-   * Parses the project from the given fully-qualified path which represents a credential resource.
+   * Parses the project from the given fully-qualified path which represents a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
    */
-  public static final String parseProjectFromCredentialName(String credentialName) {
-    return CREDENTIAL_PATH_TEMPLATE.parse(credentialName).get("project");
+  @Deprecated
+  public static final String parseProjectFromLocationName(String locationName) {
+    return LOCATION_PATH_TEMPLATE.parse(locationName).get("project");
   }
 
   /**
-   * Parses the location from the given fully-qualified path which represents a credential resource.
+   * Parses the location from the given fully-qualified path which represents a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
    */
-  public static final String parseLocationFromCredentialName(String credentialName) {
-    return CREDENTIAL_PATH_TEMPLATE.parse(credentialName).get("location");
+  @Deprecated
+  public static final String parseLocationFromLocationName(String locationName) {
+    return LOCATION_PATH_TEMPLATE.parse(locationName).get("location");
   }
 
   /**
-   * Parses the data_source from the given fully-qualified path which represents a credential
-   * resource.
+   * Parses the project from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
    */
-  public static final String parseDataSourceFromCredentialName(String credentialName) {
-    return CREDENTIAL_PATH_TEMPLATE.parse(credentialName).get("data_source");
-  }
-
-  /**
-   * Parses the credential from the given fully-qualified path which represents a credential
-   * resource.
-   */
-  public static final String parseCredentialFromCredentialName(String credentialName) {
-    return CREDENTIAL_PATH_TEMPLATE.parse(credentialName).get("credential");
-  }
-
-  /** Parses the project from the given fully-qualified path which represents a run resource. */
+  @Deprecated
   public static final String parseProjectFromRunName(String runName) {
     return RUN_PATH_TEMPLATE.parse(runName).get("project");
   }
 
-  /** Parses the location from the given fully-qualified path which represents a run resource. */
+  /**
+   * Parses the location from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
   public static final String parseLocationFromRunName(String runName) {
     return RUN_PATH_TEMPLATE.parse(runName).get("location");
   }
 
   /**
    * Parses the transfer_config from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
    */
+  @Deprecated
   public static final String parseTransferConfigFromRunName(String runName) {
     return RUN_PATH_TEMPLATE.parse(runName).get("transfer_config");
   }
 
-  /** Parses the run from the given fully-qualified path which represents a run resource. */
+  /**
+   * Parses the run from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
   public static final String parseRunFromRunName(String runName) {
     return RUN_PATH_TEMPLATE.parse(runName).get("run");
   }
@@ -483,7 +486,8 @@ public class DataSourceServiceClient implements BackgroundResource {
    *   String formattedName = DataSourceServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
    *   List&lt;ImportedDataInfo&gt; importedData = new ArrayList&lt;&gt;();
    *   ByteString userCredentials = ByteString.copyFromUtf8("");
-   *   dataSourceServiceClient.startBigQueryJobs(formattedName, importedData, userCredentials);
+   *   int maxParallelism = 0;
+   *   dataSourceServiceClient.startBigQueryJobs(formattedName, importedData, userCredentials, maxParallelism);
    * }
    * </code></pre>
    *
@@ -493,16 +497,21 @@ public class DataSourceServiceClient implements BackgroundResource {
    * @param userCredentials User credentials which should be used to start/monitor BigQuery jobs. If
    *     not specified, then jobs are started using data source service account credentials. This
    *     may be OAuth token or JWT token.
+   * @param maxParallelism The number of BQ Jobs that can run in parallel.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final void startBigQueryJobs(
-      String name, List<ImportedDataInfo> importedData, ByteString userCredentials) {
+      String name,
+      List<ImportedDataInfo> importedData,
+      ByteString userCredentials,
+      int maxParallelism) {
     RUN_PATH_TEMPLATE.validate(name, "startBigQueryJobs");
     StartBigQueryJobsRequest request =
         StartBigQueryJobsRequest.newBuilder()
             .setName(name)
             .addAllImportedData(importedData)
             .setUserCredentials(userCredentials)
+            .setMaxParallelism(maxParallelism)
             .build();
     startBigQueryJobs(request);
   }
@@ -520,11 +529,9 @@ public class DataSourceServiceClient implements BackgroundResource {
    * try (DataSourceServiceClient dataSourceServiceClient = DataSourceServiceClient.create()) {
    *   String formattedName = DataSourceServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
    *   List&lt;ImportedDataInfo&gt; importedData = new ArrayList&lt;&gt;();
-   *   ByteString userCredentials = ByteString.copyFromUtf8("");
    *   StartBigQueryJobsRequest request = StartBigQueryJobsRequest.newBuilder()
    *     .setName(formattedName)
    *     .addAllImportedData(importedData)
-   *     .setUserCredentials(userCredentials)
    *     .build();
    *   dataSourceServiceClient.startBigQueryJobs(request);
    * }
@@ -550,11 +557,9 @@ public class DataSourceServiceClient implements BackgroundResource {
    * try (DataSourceServiceClient dataSourceServiceClient = DataSourceServiceClient.create()) {
    *   String formattedName = DataSourceServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
    *   List&lt;ImportedDataInfo&gt; importedData = new ArrayList&lt;&gt;();
-   *   ByteString userCredentials = ByteString.copyFromUtf8("");
    *   StartBigQueryJobsRequest request = StartBigQueryJobsRequest.newBuilder()
    *     .setName(formattedName)
    *     .addAllImportedData(importedData)
-   *     .setUserCredentials(userCredentials)
    *     .build();
    *   ApiFuture&lt;Void&gt; future = dataSourceServiceClient.startBigQueryJobsCallable().futureCall(request);
    *   // Do something
@@ -564,80 +569,6 @@ public class DataSourceServiceClient implements BackgroundResource {
    */
   public final UnaryCallable<StartBigQueryJobsRequest, Empty> startBigQueryJobsCallable() {
     return stub.startBigQueryJobsCallable();
-  }
-
-  // AUTO-GENERATED DOCUMENTATION AND METHOD
-  /**
-   * Get user authentication token so that the data source can perform operations on behalf of the
-   * user. Can only be called by configured data source service account. In all other cases - it
-   * will fail with permission denied error.
-   *
-   * <p>Sample code:
-   *
-   * <pre><code>
-   * try (DataSourceServiceClient dataSourceServiceClient = DataSourceServiceClient.create()) {
-   *   String formattedName = DataSourceServiceClient.formatCredentialName("[PROJECT]", "[LOCATION]", "[DATA_SOURCE]", "[CREDENTIAL]");
-   *   Credentials response = dataSourceServiceClient.getCredentials(formattedName);
-   * }
-   * </code></pre>
-   *
-   * @param name Name of this credentials object in the form
-   *     projects/-/locations/{location_id}/dataSources/{data_source_id}/credentials/{user_id}
-   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
-   */
-  public final Credentials getCredentials(String name) {
-    CREDENTIAL_PATH_TEMPLATE.validate(name, "getCredentials");
-    GetCredentialsRequest request = GetCredentialsRequest.newBuilder().setName(name).build();
-    return getCredentials(request);
-  }
-
-  // AUTO-GENERATED DOCUMENTATION AND METHOD
-  /**
-   * Get user authentication token so that the data source can perform operations on behalf of the
-   * user. Can only be called by configured data source service account. In all other cases - it
-   * will fail with permission denied error.
-   *
-   * <p>Sample code:
-   *
-   * <pre><code>
-   * try (DataSourceServiceClient dataSourceServiceClient = DataSourceServiceClient.create()) {
-   *   String formattedName = DataSourceServiceClient.formatCredentialName("[PROJECT]", "[LOCATION]", "[DATA_SOURCE]", "[CREDENTIAL]");
-   *   GetCredentialsRequest request = GetCredentialsRequest.newBuilder()
-   *     .setName(formattedName)
-   *     .build();
-   *   Credentials response = dataSourceServiceClient.getCredentials(request);
-   * }
-   * </code></pre>
-   *
-   * @param request The request object containing all of the parameters for the API call.
-   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
-   */
-  private final Credentials getCredentials(GetCredentialsRequest request) {
-    return getCredentialsCallable().call(request);
-  }
-
-  // AUTO-GENERATED DOCUMENTATION AND METHOD
-  /**
-   * Get user authentication token so that the data source can perform operations on behalf of the
-   * user. Can only be called by configured data source service account. In all other cases - it
-   * will fail with permission denied error.
-   *
-   * <p>Sample code:
-   *
-   * <pre><code>
-   * try (DataSourceServiceClient dataSourceServiceClient = DataSourceServiceClient.create()) {
-   *   String formattedName = DataSourceServiceClient.formatCredentialName("[PROJECT]", "[LOCATION]", "[DATA_SOURCE]", "[CREDENTIAL]");
-   *   GetCredentialsRequest request = GetCredentialsRequest.newBuilder()
-   *     .setName(formattedName)
-   *     .build();
-   *   ApiFuture&lt;Credentials&gt; future = dataSourceServiceClient.getCredentialsCallable().futureCall(request);
-   *   // Do something
-   *   Credentials response = future.get();
-   * }
-   * </code></pre>
-   */
-  public final UnaryCallable<GetCredentialsRequest, Credentials> getCredentialsCallable() {
-    return stub.getCredentialsCallable();
   }
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD
@@ -688,7 +619,7 @@ public class DataSourceServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final void finishRun(FinishRunRequest request) {
+  public final void finishRun(FinishRunRequest request) {
     finishRunCallable().call(request);
   }
 
@@ -725,7 +656,9 @@ public class DataSourceServiceClient implements BackgroundResource {
    * projects/{project_id}/{topics|subscriptions}/bigquerydatatransfer.{data_source_id}.{location_id}.run
    * The field data_source.client_id should be left empty in the input request, as the API will
    * create a new OAuth client on behalf of the caller. On the other hand data_source.scopes usually
-   * need to be set when there are OAuth scopes that need to be granted by end users.
+   * need to be set when there are OAuth scopes that need to be granted by end users. 3. We need a
+   * longer deadline due to the 60 seconds SLO from Pub/Sub admin Operations. This also applies to
+   * update and delete data source definition.
    *
    * <p>Sample code:
    *
@@ -761,7 +694,9 @@ public class DataSourceServiceClient implements BackgroundResource {
    * projects/{project_id}/{topics|subscriptions}/bigquerydatatransfer.{data_source_id}.{location_id}.run
    * The field data_source.client_id should be left empty in the input request, as the API will
    * create a new OAuth client on behalf of the caller. On the other hand data_source.scopes usually
-   * need to be set when there are OAuth scopes that need to be granted by end users.
+   * need to be set when there are OAuth scopes that need to be granted by end users. 3. We need a
+   * longer deadline due to the 60 seconds SLO from Pub/Sub admin Operations. This also applies to
+   * update and delete data source definition.
    *
    * <p>Sample code:
    *
@@ -793,7 +728,9 @@ public class DataSourceServiceClient implements BackgroundResource {
    * projects/{project_id}/{topics|subscriptions}/bigquerydatatransfer.{data_source_id}.{location_id}.run
    * The field data_source.client_id should be left empty in the input request, as the API will
    * create a new OAuth client on behalf of the caller. On the other hand data_source.scopes usually
-   * need to be set when there are OAuth scopes that need to be granted by end users.
+   * need to be set when there are OAuth scopes that need to be granted by end users. 3. We need a
+   * longer deadline due to the 60 seconds SLO from Pub/Sub admin Operations. This also applies to
+   * update and delete data source definition.
    *
    * <p>Sample code:
    *
@@ -960,7 +897,7 @@ public class DataSourceServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final void deleteDataSourceDefinition(DeleteDataSourceDefinitionRequest request) {
+  public final void deleteDataSourceDefinition(DeleteDataSourceDefinitionRequest request) {
     deleteDataSourceDefinitionCallable().call(request);
   }
 
@@ -1038,7 +975,7 @@ public class DataSourceServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final DataSourceDefinition getDataSourceDefinition(
+  public final DataSourceDefinition getDataSourceDefinition(
       GetDataSourceDefinitionRequest request) {
     return getDataSourceDefinitionCallable().call(request);
   }
@@ -1227,7 +1164,8 @@ public class DataSourceServiceClient implements BackgroundResource {
                 ListDataSourceDefinitionsPage input) {
               return new ListDataSourceDefinitionsPagedResponse(input);
             }
-          });
+          },
+          MoreExecutors.directExecutor());
     }
 
     private ListDataSourceDefinitionsPagedResponse(ListDataSourceDefinitionsPage page) {

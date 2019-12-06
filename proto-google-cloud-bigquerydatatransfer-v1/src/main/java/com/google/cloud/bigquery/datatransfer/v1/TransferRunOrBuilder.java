@@ -112,8 +112,8 @@ public interface TransferRunOrBuilder extends
 
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -121,8 +121,8 @@ public interface TransferRunOrBuilder extends
   boolean hasRunTime();
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -130,8 +130,8 @@ public interface TransferRunOrBuilder extends
   com.google.protobuf.Timestamp getRunTime();
   /**
    * <pre>
-   * For batch transfer runs, specifies the date and time that
-   * data should be ingested.
+   * For batch transfer runs, specifies the date and time of the data should be
+   * ingested.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp run_time = 10;</code>
@@ -169,7 +169,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasStartTime();
   /**
@@ -178,7 +178,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Timestamp getStartTime();
   /**
@@ -187,7 +187,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp start_time = 4;</code>
+   * <code>.google.protobuf.Timestamp start_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder();
 
@@ -197,7 +197,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasEndTime();
   /**
@@ -206,7 +206,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Timestamp getEndTime();
   /**
@@ -215,7 +215,7 @@ public interface TransferRunOrBuilder extends
    * Parameter ignored by server for input requests.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp end_time = 5;</code>
+   * <code>.google.protobuf.Timestamp end_time = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder();
 
@@ -224,7 +224,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasUpdateTime();
   /**
@@ -232,7 +232,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Timestamp getUpdateTime();
   /**
@@ -240,7 +240,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Last time the data transfer run state was updated.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 6;</code>
+   * <code>.google.protobuf.Timestamp update_time = 6 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder();
 
@@ -249,7 +249,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasParams();
   /**
@@ -257,7 +257,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Struct getParams();
   /**
@@ -265,7 +265,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Data transfer specific parameters.
    * </pre>
    *
-   * <code>.google.protobuf.Struct params = 9;</code>
+   * <code>.google.protobuf.Struct params = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.StructOrBuilder getParamsOrBuilder();
 
@@ -274,7 +274,7 @@ public interface TransferRunOrBuilder extends
    * Output only. The BigQuery target dataset id.
    * </pre>
    *
-   * <code>string destination_dataset_id = 2;</code>
+   * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getDestinationDatasetId();
   /**
@@ -282,7 +282,7 @@ public interface TransferRunOrBuilder extends
    * Output only. The BigQuery target dataset id.
    * </pre>
    *
-   * <code>string destination_dataset_id = 2;</code>
+   * <code>string destination_dataset_id = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getDestinationDatasetIdBytes();
@@ -292,7 +292,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Data source id.
    * </pre>
    *
-   * <code>string data_source_id = 7;</code>
+   * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getDataSourceId();
   /**
@@ -300,7 +300,7 @@ public interface TransferRunOrBuilder extends
    * Output only. Data source id.
    * </pre>
    *
-   * <code>string data_source_id = 7;</code>
+   * <code>string data_source_id = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getDataSourceIdBytes();
@@ -324,11 +324,7 @@ public interface TransferRunOrBuilder extends
 
   /**
    * <pre>
-   * Output only. Unique ID of the user on whose behalf transfer is done.
-   * Applicable only to data sources that do not support service accounts.
-   * When set to 0, the data source service account credentials are used.
-   * May be negative. Note, that this identifier is not stable.
-   * It may change over time even for the same user.
+   * Deprecated. Unique ID of the user on whose behalf transfer is done.
    * </pre>
    *
    * <code>int64 user_id = 11;</code>
@@ -344,7 +340,7 @@ public interface TransferRunOrBuilder extends
    * current load, so `schedule_time` doesn't always match this.
    * </pre>
    *
-   * <code>string schedule = 12;</code>
+   * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getSchedule();
   /**
@@ -356,8 +352,89 @@ public interface TransferRunOrBuilder extends
    * current load, so `schedule_time` doesn't always match this.
    * </pre>
    *
-   * <code>string schedule = 12;</code>
+   * <code>string schedule = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getScheduleBytes();
+
+  /**
+   * <pre>
+   * Output only. Pub/Sub topic where a notification will be sent after this
+   * transfer run finishes
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  java.lang.String getNotificationPubsubTopic();
+  /**
+   * <pre>
+   * Output only. Pub/Sub topic where a notification will be sent after this
+   * transfer run finishes
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 23 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  com.google.protobuf.ByteString
+      getNotificationPubsubTopicBytes();
+
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  boolean hasEmailPreferences();
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.EmailPreferences getEmailPreferences();
+  /**
+   * <pre>
+   * Output only. Email notifications will be sent according to these
+   * preferences to the email address of the user who owns the transfer config
+   * this run was derived from.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 25 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder getEmailPreferencesOrBuilder();
+
+  /**
+   * <pre>
+   * Output only. This is the same token initialized from TransferConfig.
+   * Partner token is a unique identifier used for identifying a transfer setup
+   * stored on external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  java.lang.String getPartnerToken();
+  /**
+   * <pre>
+   * Output only. This is the same token initialized from TransferConfig.
+   * Partner token is a unique identifier used for identifying a transfer setup
+   * stored on external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 28 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
+   */
+  com.google.protobuf.ByteString
+      getPartnerTokenBytes();
+
+  public com.google.cloud.bigquery.datatransfer.v1.TransferRun.DestinationCase getDestinationCase();
 }

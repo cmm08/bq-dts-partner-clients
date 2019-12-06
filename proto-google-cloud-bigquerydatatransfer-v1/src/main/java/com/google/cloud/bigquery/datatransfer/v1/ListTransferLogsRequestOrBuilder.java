@@ -9,20 +9,22 @@ public interface ListTransferLogsRequestOrBuilder extends
 
   /**
    * <pre>
-   * Transfer run name in the form:
-   * `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`.
+   * Required. Transfer run name in the form:
+   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * </pre>
    *
-   * <code>string parent = 1;</code>
+   * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   java.lang.String getParent();
   /**
    * <pre>
-   * Transfer run name in the form:
-   * `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`.
+   * Required. Transfer run name in the form:
+   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * </pre>
    *
-   * <code>string parent = 1;</code>
+   * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   com.google.protobuf.ByteString
       getParentBytes();

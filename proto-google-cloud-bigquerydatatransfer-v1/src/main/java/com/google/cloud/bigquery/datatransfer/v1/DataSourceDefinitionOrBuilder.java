@@ -56,9 +56,14 @@ public interface DataSourceDefinitionOrBuilder extends
 
   /**
    * <pre>
-   * Output only. The pubsub topic to be used for broadcasting a message when a
-   * transfer run is created. The comments about "{region}" for
-   * transfer_config_pubsub_topic apply here too.
+   * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+   * is created. Both this topic and transfer_config_pubsub_topic can be
+   * set to a custom topic. By default, both topics are auto-generated if none
+   * of them is provided when creating the definition. However, if one topic is
+   * manually set, the other topic has to be manually set as well. The only
+   * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+   * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+   * about "{location}" for transfer_config_pubsub_topic apply here too.
    * </pre>
    *
    * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -66,9 +71,14 @@ public interface DataSourceDefinitionOrBuilder extends
   java.lang.String getTransferRunPubsubTopic();
   /**
    * <pre>
-   * Output only. The pubsub topic to be used for broadcasting a message when a
-   * transfer run is created. The comments about "{region}" for
-   * transfer_config_pubsub_topic apply here too.
+   * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+   * is created. Both this topic and transfer_config_pubsub_topic can be
+   * set to a custom topic. By default, both topics are auto-generated if none
+   * of them is provided when creating the definition. However, if one topic is
+   * manually set, the other topic has to be manually set as well. The only
+   * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+   * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+   * about "{location}" for transfer_config_pubsub_topic apply here too.
    * </pre>
    *
    * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -138,6 +148,30 @@ public interface DataSourceDefinitionOrBuilder extends
 
   /**
    * <pre>
+   * When service account is specified, BigQuery will share created dataset
+   * with the given service account. Also, this service account will be
+   * eligible to perform status updates and message logging for data transfer
+   * runs for the corresponding data_source_id.
+   * </pre>
+   *
+   * <code>string service_account = 2;</code>
+   */
+  java.lang.String getServiceAccount();
+  /**
+   * <pre>
+   * When service account is specified, BigQuery will share created dataset
+   * with the given service account. Also, this service account will be
+   * eligible to perform status updates and message logging for data transfer
+   * runs for the corresponding data_source_id.
+   * </pre>
+   *
+   * <code>string service_account = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getServiceAccountBytes();
+
+  /**
+   * <pre>
    * Is data source disabled? If true, data_source is not visible.
    * API will also stop returning any data transfer configs and/or runs
    * associated with the data source. This setting has higher priority
@@ -150,9 +184,51 @@ public interface DataSourceDefinitionOrBuilder extends
 
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+   * empty, a message will not be broadcasted. Both this topic and
+   * transfer_run_pubsub_topic are auto-generated if none of them is provided
+   * when creating the definition. It is recommended to provide
+   * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+   * provided. Otherwise, it will be set to empty. If "{location}" is found in
+   * the value, then that means, data source wants to handle message separately
+   * for datasets in different regions. We will replace {location} with the
+   * actual dataset location, as the actual topic name. For example,
+   * projects/connector/topics/scheduler-{location} could become
+   * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+   * we will use the input value as topic name.
+   * </pre>
+   *
+   * <code>string transfer_config_pubsub_topic = 12;</code>
+   */
+  java.lang.String getTransferConfigPubsubTopic();
+  /**
+   * <pre>
+   * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+   * empty, a message will not be broadcasted. Both this topic and
+   * transfer_run_pubsub_topic are auto-generated if none of them is provided
+   * when creating the definition. It is recommended to provide
+   * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+   * provided. Otherwise, it will be set to empty. If "{location}" is found in
+   * the value, then that means, data source wants to handle message separately
+   * for datasets in different regions. We will replace {location} with the
+   * actual dataset location, as the actual topic name. For example,
+   * projects/connector/topics/scheduler-{location} could become
+   * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+   * we will use the input value as topic name.
+   * </pre>
+   *
+   * <code>string transfer_config_pubsub_topic = 12;</code>
+   */
+  com.google.protobuf.ByteString
+      getTransferConfigPubsubTopicBytes();
+
+  /**
+   * <pre>
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -162,9 +238,6 @@ public interface DataSourceDefinitionOrBuilder extends
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -173,9 +246,11 @@ public interface DataSourceDefinitionOrBuilder extends
       getSupportedLocationIdsList();
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -185,9 +260,6 @@ public interface DataSourceDefinitionOrBuilder extends
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -195,9 +267,11 @@ public interface DataSourceDefinitionOrBuilder extends
   int getSupportedLocationIdsCount();
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -207,9 +281,6 @@ public interface DataSourceDefinitionOrBuilder extends
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -217,9 +288,11 @@ public interface DataSourceDefinitionOrBuilder extends
   java.lang.String getSupportedLocationIds(int index);
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -229,9 +302,6 @@ public interface DataSourceDefinitionOrBuilder extends
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>

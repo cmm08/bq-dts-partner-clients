@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,24 +19,7 @@
  *
  * <p>The interfaces provided are listed below, along with usage samples.
  *
- * <p>========================= DataTransferServiceClient =========================
- *
- * <p>Service Description: The Google BigQuery Data Transfer Service API enables BigQuery users to
- * configure the transfer of their data from other Google Products into BigQuery. This service
- * contains methods that are end user exposed. It backs up the frontend.
- *
- * <p>Sample for DataTransferServiceClient:
- *
- * <pre>
- * <code>
- * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
- *   String formattedName = DataTransferServiceClient.formatDataSourceName("[PROJECT]", "[LOCATION]", "[DATA_SOURCE]");
- *   DataSource response = dataTransferServiceClient.getDataSource(formattedName);
- * }
- * </code>
- * </pre>
- *
- * ======================= DataSourceServiceClient =======================
+ * <p>======================= DataSourceServiceClient =======================
  *
  * <p>Service Description: The Google BigQuery Data Transfer API allows BigQuery users to configure
  * transfer of their data from other Google Products into BigQuery. This service exposes methods
@@ -53,5 +36,25 @@
  * }
  * </code>
  * </pre>
+ *
+ * ========================= DataTransferServiceClient =========================
+ *
+ * <p>Service Description: The Google BigQuery Data Transfer Service API enables BigQuery users to
+ * configure the transfer of their data from other Google Products into BigQuery. This service
+ * contains methods that are end user exposed. It backs up the frontend.
+ *
+ * <p>Sample for DataTransferServiceClient:
+ *
+ * <pre>
+ * <code>
+ * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
+ *   String formattedName = DataTransferServiceClient.formatDataSourceName("[PROJECT]", "[LOCATION]", "[DATA_SOURCE]");
+ *   DataSource response = dataTransferServiceClient.getDataSource(formattedName);
+ * }
+ * </code>
+ * </pre>
  */
+@Generated("by gapic-generator")
 package com.google.cloud.bigquery.datatransfer.v1;
+
+import javax.annotation.Generated;

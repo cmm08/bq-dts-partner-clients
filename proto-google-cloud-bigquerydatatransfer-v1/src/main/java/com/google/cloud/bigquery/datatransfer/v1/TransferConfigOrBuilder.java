@@ -10,11 +10,12 @@ public interface TransferConfigOrBuilder extends
   /**
    * <pre>
    * The resource name of the transfer config.
-   * Transfer config names have the form
-   * `projects/{project_id}/transferConfigs/{config_id}`.
-   * Where `config_id` is usually a uuid, even though it is not
-   * guaranteed or required. The name is ignored when creating a transfer
-   * config.
+   * Transfer config names have the form of
+   * `projects/{project_id}/locations/{region}/transferConfigs/{config_id}`.
+   * The name is automatically generated based on the config_id specified in
+   * CreateTransferConfigRequest along with project_id and region. If config_id
+   * is not provided, usually a uuid, even though it is not guaranteed or
+   * required, will be generated for config_id.
    * </pre>
    *
    * <code>string name = 1;</code>
@@ -23,11 +24,12 @@ public interface TransferConfigOrBuilder extends
   /**
    * <pre>
    * The resource name of the transfer config.
-   * Transfer config names have the form
-   * `projects/{project_id}/transferConfigs/{config_id}`.
-   * Where `config_id` is usually a uuid, even though it is not
-   * guaranteed or required. The name is ignored when creating a transfer
-   * config.
+   * Transfer config names have the form of
+   * `projects/{project_id}/locations/{region}/transferConfigs/{config_id}`.
+   * The name is automatically generated based on the config_id specified in
+   * CreateTransferConfigRequest along with project_id and region. If config_id
+   * is not provided, usually a uuid, even though it is not guaranteed or
+   * required, will be generated for config_id.
    * </pre>
    *
    * <code>string name = 1;</code>
@@ -156,6 +158,31 @@ public interface TransferConfigOrBuilder extends
 
   /**
    * <pre>
+   * Options customizing the data transfer schedule.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.ScheduleOptions schedule_options = 24;</code>
+   */
+  boolean hasScheduleOptions();
+  /**
+   * <pre>
+   * Options customizing the data transfer schedule.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.ScheduleOptions schedule_options = 24;</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.ScheduleOptions getScheduleOptions();
+  /**
+   * <pre>
+   * Options customizing the data transfer schedule.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.ScheduleOptions schedule_options = 24;</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.ScheduleOptionsOrBuilder getScheduleOptionsOrBuilder();
+
+  /**
+   * <pre>
    * The number of days to look back to automatically refresh the data.
    * For example, if `data_refresh_window_days = 10`, then every day
    * BigQuery reingests data for [today-10, today-1], rather than ingesting data
@@ -183,7 +210,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Data transfer modification time. Ignored by server on input.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 4;</code>
+   * <code>.google.protobuf.Timestamp update_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasUpdateTime();
   /**
@@ -191,7 +218,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Data transfer modification time. Ignored by server on input.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 4;</code>
+   * <code>.google.protobuf.Timestamp update_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Timestamp getUpdateTime();
   /**
@@ -199,7 +226,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Data transfer modification time. Ignored by server on input.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp update_time = 4;</code>
+   * <code>.google.protobuf.Timestamp update_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder();
 
@@ -208,7 +235,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Next time when data transfer will run.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp next_run_time = 8;</code>
+   * <code>.google.protobuf.Timestamp next_run_time = 8 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   boolean hasNextRunTime();
   /**
@@ -216,7 +243,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Next time when data transfer will run.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp next_run_time = 8;</code>
+   * <code>.google.protobuf.Timestamp next_run_time = 8 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.Timestamp getNextRunTime();
   /**
@@ -224,7 +251,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Next time when data transfer will run.
    * </pre>
    *
-   * <code>.google.protobuf.Timestamp next_run_time = 8;</code>
+   * <code>.google.protobuf.Timestamp next_run_time = 8 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.TimestampOrBuilder getNextRunTimeOrBuilder();
 
@@ -233,7 +260,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. State of the most recently updated transfer run.
    * </pre>
    *
-   * <code>.google.cloud.bigquery.datatransfer.v1.TransferState state = 10;</code>
+   * <code>.google.cloud.bigquery.datatransfer.v1.TransferState state = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   int getStateValue();
   /**
@@ -241,17 +268,13 @@ public interface TransferConfigOrBuilder extends
    * Output only. State of the most recently updated transfer run.
    * </pre>
    *
-   * <code>.google.cloud.bigquery.datatransfer.v1.TransferState state = 10;</code>
+   * <code>.google.cloud.bigquery.datatransfer.v1.TransferState state = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.cloud.bigquery.datatransfer.v1.TransferState getState();
 
   /**
    * <pre>
-   * Output only. Unique ID of the user on whose behalf transfer is done.
-   * Applicable only to data sources that do not support service accounts.
-   * When set to 0, the data source service account credentials are used.
-   * May be negative. Note, that this identifier is not stable.
-   * It may change over time even for the same user.
+   * Deprecated. Unique ID of the user on whose behalf transfer is done.
    * </pre>
    *
    * <code>int64 user_id = 11;</code>
@@ -263,7 +286,7 @@ public interface TransferConfigOrBuilder extends
    * Output only. Region in which BigQuery dataset is located.
    * </pre>
    *
-   * <code>string dataset_region = 14;</code>
+   * <code>string dataset_region = 14 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getDatasetRegion();
   /**
@@ -271,8 +294,133 @@ public interface TransferConfigOrBuilder extends
    * Output only. Region in which BigQuery dataset is located.
    * </pre>
    *
-   * <code>string dataset_region = 14;</code>
+   * <code>string dataset_region = 14 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getDatasetRegionBytes();
+
+  /**
+   * <pre>
+   * Pub/Sub topic where notifications will be sent after transfer runs
+   * associated with this transfer config finish.
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 15;</code>
+   */
+  java.lang.String getNotificationPubsubTopic();
+  /**
+   * <pre>
+   * Pub/Sub topic where notifications will be sent after transfer runs
+   * associated with this transfer config finish.
+   * </pre>
+   *
+   * <code>string notification_pubsub_topic = 15;</code>
+   */
+  com.google.protobuf.ByteString
+      getNotificationPubsubTopicBytes();
+
+  /**
+   * <pre>
+   * Email notifications will be sent according to these preferences
+   * to the email address of the user who owns this transfer config.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 18;</code>
+   */
+  boolean hasEmailPreferences();
+  /**
+   * <pre>
+   * Email notifications will be sent according to these preferences
+   * to the email address of the user who owns this transfer config.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 18;</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.EmailPreferences getEmailPreferences();
+  /**
+   * <pre>
+   * Email notifications will be sent according to these preferences
+   * to the email address of the user who owns this transfer config.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.EmailPreferences email_preferences = 18;</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.EmailPreferencesOrBuilder getEmailPreferencesOrBuilder();
+
+  /**
+   * <pre>
+   * A unique identifier used for identifying a transfer setup stored on
+   * external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 22;</code>
+   */
+  java.lang.String getPartnerToken();
+  /**
+   * <pre>
+   * A unique identifier used for identifying a transfer setup stored on
+   * external partner side. The token is opaque to DTS and can only be
+   * interpreted by partner. Partner data source should create a mapping between
+   * the config id and the token to validate that a transfer config/run is
+   * legitimate.
+   * </pre>
+   *
+   * <code>string partner_token = 22;</code>
+   */
+  com.google.protobuf.ByteString
+      getPartnerTokenBytes();
+
+  /**
+   * <pre>
+   * Transfer settings managed by partner data sources. It is stored as
+   * key-value pairs and used for DTS UI display purpose only. Two reasons we
+   * don't want to store them together with 'params' are:
+   *  - The connection info is provided by partner and not editable in DTS UI
+   *    which is different from the immutable parameter. It will be confusing to
+   *    add another boolean to DataSourceParameter to differentiate them.
+   *  - The connection info can be any arbitrary key-value pairs. Adding them to
+   *    params fields requires partner to provide definition for them in data
+   *    source definition. It will be friendlier to avoid that for partners.
+   * </pre>
+   *
+   * <code>.google.protobuf.Struct partner_connection_info = 23;</code>
+   */
+  boolean hasPartnerConnectionInfo();
+  /**
+   * <pre>
+   * Transfer settings managed by partner data sources. It is stored as
+   * key-value pairs and used for DTS UI display purpose only. Two reasons we
+   * don't want to store them together with 'params' are:
+   *  - The connection info is provided by partner and not editable in DTS UI
+   *    which is different from the immutable parameter. It will be confusing to
+   *    add another boolean to DataSourceParameter to differentiate them.
+   *  - The connection info can be any arbitrary key-value pairs. Adding them to
+   *    params fields requires partner to provide definition for them in data
+   *    source definition. It will be friendlier to avoid that for partners.
+   * </pre>
+   *
+   * <code>.google.protobuf.Struct partner_connection_info = 23;</code>
+   */
+  com.google.protobuf.Struct getPartnerConnectionInfo();
+  /**
+   * <pre>
+   * Transfer settings managed by partner data sources. It is stored as
+   * key-value pairs and used for DTS UI display purpose only. Two reasons we
+   * don't want to store them together with 'params' are:
+   *  - The connection info is provided by partner and not editable in DTS UI
+   *    which is different from the immutable parameter. It will be confusing to
+   *    add another boolean to DataSourceParameter to differentiate them.
+   *  - The connection info can be any arbitrary key-value pairs. Adding them to
+   *    params fields requires partner to provide definition for them in data
+   *    source definition. It will be friendlier to avoid that for partners.
+   * </pre>
+   *
+   * <code>.google.protobuf.Struct partner_connection_info = 23;</code>
+   */
+  com.google.protobuf.StructOrBuilder getPartnerConnectionInfoOrBuilder();
+
+  public com.google.cloud.bigquery.datatransfer.v1.TransferConfig.DestinationCase getDestinationCase();
 }

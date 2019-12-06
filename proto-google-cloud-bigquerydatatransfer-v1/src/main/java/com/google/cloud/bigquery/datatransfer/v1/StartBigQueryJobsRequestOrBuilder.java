@@ -82,4 +82,13 @@ public interface StartBigQueryJobsRequestOrBuilder extends
    * <code>bytes user_credentials = 3;</code>
    */
   com.google.protobuf.ByteString getUserCredentials();
+
+  /**
+   * <pre>
+   * The number of BQ Jobs that can run in parallel.
+   * </pre>
+   *
+   * <code>int32 max_parallelism = 8;</code>
+   */
+  int getMaxParallelism();
 }

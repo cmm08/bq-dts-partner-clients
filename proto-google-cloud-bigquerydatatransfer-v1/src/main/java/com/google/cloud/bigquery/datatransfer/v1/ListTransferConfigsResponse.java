@@ -49,7 +49,7 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               transferConfigs_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.TransferConfig>();
               mutable_bitField0_ |= 0x00000001;
             }
@@ -64,7 +64,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -78,7 +78,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
         transferConfigs_ = java.util.Collections.unmodifiableList(transferConfigs_);
       }
       this.unknownFields = unknownFields.build();
@@ -106,7 +106,7 @@ private static final long serialVersionUID = 0L;
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.util.List<com.google.cloud.bigquery.datatransfer.v1.TransferConfig> getTransferConfigsList() {
     return transferConfigs_;
@@ -116,7 +116,7 @@ private static final long serialVersionUID = 0L;
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.util.List<? extends com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder> 
       getTransferConfigsOrBuilderList() {
@@ -127,7 +127,7 @@ private static final long serialVersionUID = 0L;
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public int getTransferConfigsCount() {
     return transferConfigs_.size();
@@ -137,7 +137,7 @@ private static final long serialVersionUID = 0L;
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.cloud.bigquery.datatransfer.v1.TransferConfig getTransferConfigs(int index) {
     return transferConfigs_.get(index);
@@ -147,7 +147,7 @@ private static final long serialVersionUID = 0L;
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder getTransferConfigsOrBuilder(
       int index) {
@@ -164,7 +164,7 @@ private static final long serialVersionUID = 0L;
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getNextPageToken() {
     java.lang.Object ref = nextPageToken_;
@@ -186,7 +186,7 @@ private static final long serialVersionUID = 0L;
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getNextPageTokenBytes() {
@@ -253,13 +253,12 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.ListTransferConfigsResponse other = (com.google.cloud.bigquery.datatransfer.v1.ListTransferConfigsResponse) obj;
 
-    boolean result = true;
-    result = result && getTransferConfigsList()
-        .equals(other.getTransferConfigsList());
-    result = result && getNextPageToken()
-        .equals(other.getNextPageToken());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getTransferConfigsList()
+        .equals(other.getTransferConfigsList())) return false;
+    if (!getNextPageToken()
+        .equals(other.getNextPageToken())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -450,7 +449,7 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       if (transferConfigsBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           transferConfigs_ = java.util.Collections.unmodifiableList(transferConfigs_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -466,35 +465,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -571,7 +570,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.TransferConfig> transferConfigs_ =
       java.util.Collections.emptyList();
     private void ensureTransferConfigsIsMutable() {
-      if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!((bitField0_ & 0x00000001) != 0)) {
         transferConfigs_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.TransferConfig>(transferConfigs_);
         bitField0_ |= 0x00000001;
        }
@@ -585,7 +584,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.util.List<com.google.cloud.bigquery.datatransfer.v1.TransferConfig> getTransferConfigsList() {
       if (transferConfigsBuilder_ == null) {
@@ -599,7 +598,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public int getTransferConfigsCount() {
       if (transferConfigsBuilder_ == null) {
@@ -613,7 +612,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.cloud.bigquery.datatransfer.v1.TransferConfig getTransferConfigs(int index) {
       if (transferConfigsBuilder_ == null) {
@@ -627,7 +626,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setTransferConfigs(
         int index, com.google.cloud.bigquery.datatransfer.v1.TransferConfig value) {
@@ -648,7 +647,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setTransferConfigs(
         int index, com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder builderForValue) {
@@ -666,7 +665,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder addTransferConfigs(com.google.cloud.bigquery.datatransfer.v1.TransferConfig value) {
       if (transferConfigsBuilder_ == null) {
@@ -686,7 +685,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder addTransferConfigs(
         int index, com.google.cloud.bigquery.datatransfer.v1.TransferConfig value) {
@@ -707,7 +706,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder addTransferConfigs(
         com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder builderForValue) {
@@ -725,7 +724,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder addTransferConfigs(
         int index, com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder builderForValue) {
@@ -743,7 +742,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder addAllTransferConfigs(
         java.lang.Iterable<? extends com.google.cloud.bigquery.datatransfer.v1.TransferConfig> values) {
@@ -762,7 +761,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearTransferConfigs() {
       if (transferConfigsBuilder_ == null) {
@@ -779,7 +778,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder removeTransferConfigs(int index) {
       if (transferConfigsBuilder_ == null) {
@@ -796,7 +795,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder getTransferConfigsBuilder(
         int index) {
@@ -807,7 +806,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder getTransferConfigsOrBuilder(
         int index) {
@@ -821,7 +820,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.util.List<? extends com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder> 
          getTransferConfigsOrBuilderList() {
@@ -836,7 +835,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder addTransferConfigsBuilder() {
       return getTransferConfigsFieldBuilder().addBuilder(
@@ -847,7 +846,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder addTransferConfigsBuilder(
         int index) {
@@ -859,7 +858,7 @@ private static final long serialVersionUID = 0L;
      * Output only. The stored pipeline transfer configurations.
      * </pre>
      *
-     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+     * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.util.List<com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder> 
          getTransferConfigsBuilderList() {
@@ -872,7 +871,7 @@ private static final long serialVersionUID = 0L;
         transferConfigsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.TransferConfig, com.google.cloud.bigquery.datatransfer.v1.TransferConfig.Builder, com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder>(
                 transferConfigs_,
-                ((bitField0_ & 0x00000001) == 0x00000001),
+                ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
         transferConfigs_ = null;
@@ -889,7 +888,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getNextPageToken() {
       java.lang.Object ref = nextPageToken_;
@@ -911,7 +910,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getNextPageTokenBytes() {
@@ -934,7 +933,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setNextPageToken(
         java.lang.String value) {
@@ -954,7 +953,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearNextPageToken() {
       
@@ -970,7 +969,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setNextPageTokenBytes(
         com.google.protobuf.ByteString value) {
@@ -986,7 +985,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

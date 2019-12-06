@@ -9,20 +9,22 @@ public interface GetTransferRunRequestOrBuilder extends
 
   /**
    * <pre>
-   * The field will contain name of the resource requested, for example:
-   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
+   * Required. The field will contain name of the resource requested, for example:
+   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   java.lang.String getName();
   /**
    * <pre>
-   * The field will contain name of the resource requested, for example:
-   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
+   * Required. The field will contain name of the resource requested, for example:
+   * `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   com.google.protobuf.ByteString
       getNameBytes();

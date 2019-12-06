@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,9 @@ import javax.annotation.Generated;
  * </ul>
  *
  * <p>The builder of this class is recursive, so contained classes are themselves builders. When
- * build() is called, the tree of builders is called to create the complete settings object. For
- * example, to set the total timeout of getDataSource to 30 seconds:
+ * build() is called, the tree of builders is called to create the complete settings object.
+ *
+ * <p>For example, to set the total timeout of getDataSource to 30 seconds:
  *
  * <pre>
  * <code>
@@ -112,6 +113,12 @@ public class DataTransferServiceSettings extends ClientSettings<DataTransferServ
   public UnaryCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsSettings() {
     return ((DataTransferServiceStubSettings) getStubSettings()).scheduleTransferRunsSettings();
+  }
+
+  /** Returns the object with the settings used for calls to startManualTransferRuns. */
+  public UnaryCallSettings<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsSettings() {
+    return ((DataTransferServiceStubSettings) getStubSettings()).startManualTransferRunsSettings();
   }
 
   /** Returns the object with the settings used for calls to getTransferRun. */
@@ -304,6 +311,13 @@ public class DataTransferServiceSettings extends ClientSettings<DataTransferServ
     public UnaryCallSettings.Builder<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
         scheduleTransferRunsSettings() {
       return getStubSettingsBuilder().scheduleTransferRunsSettings();
+    }
+
+    /** Returns the builder for the settings used for calls to startManualTransferRuns. */
+    public UnaryCallSettings.Builder<
+            StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+        startManualTransferRunsSettings() {
+      return getStubSettingsBuilder().startManualTransferRunsSettings();
     }
 
     /** Returns the builder for the settings used for calls to getTransferRun. */

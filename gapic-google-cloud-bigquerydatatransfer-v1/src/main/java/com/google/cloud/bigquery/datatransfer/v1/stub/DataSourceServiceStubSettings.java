@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,12 +39,10 @@ import com.google.api.gax.rpc.StubSettings;
 import com.google.api.gax.rpc.TransportChannelProvider;
 import com.google.api.gax.rpc.UnaryCallSettings;
 import com.google.api.gax.rpc.UnaryCallable;
-import com.google.auth.Credentials;
 import com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition;
 import com.google.cloud.bigquery.datatransfer.v1.DeleteDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.FinishRunRequest;
-import com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.GetDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsResponse;
@@ -77,8 +75,9 @@ import org.threeten.bp.Duration;
  * </ul>
  *
  * <p>The builder of this class is recursive, so contained classes are themselves builders. When
- * build() is called, the tree of builders is called to create the complete settings object. For
- * example, to set the total timeout of updateTransferRun to 30 seconds:
+ * build() is called, the tree of builders is called to create the complete settings object.
+ *
+ * <p>For example, to set the total timeout of updateTransferRun to 30 seconds:
  *
  * <pre>
  * <code>
@@ -97,6 +96,7 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
   private static final ImmutableList<String> DEFAULT_SERVICE_SCOPES =
       ImmutableList.<String>builder()
           .add("https://www.googleapis.com/auth/bigquery")
+          .add("https://www.googleapis.com/auth/bigquery.readonly")
           .add("https://www.googleapis.com/auth/cloud-platform")
           .add("https://www.googleapis.com/auth/cloud-platform.read-only")
           .build();
@@ -105,9 +105,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
   private final UnaryCallSettings<LogTransferRunMessagesRequest, Empty>
       logTransferRunMessagesSettings;
   private final UnaryCallSettings<StartBigQueryJobsRequest, Empty> startBigQueryJobsSettings;
-  private final UnaryCallSettings<
-          GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-      getCredentialsSettings;
   private final UnaryCallSettings<FinishRunRequest, Empty> finishRunSettings;
   private final UnaryCallSettings<CreateDataSourceDefinitionRequest, DataSourceDefinition>
       createDataSourceDefinitionSettings;
@@ -135,13 +132,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
   /** Returns the object with the settings used for calls to startBigQueryJobs. */
   public UnaryCallSettings<StartBigQueryJobsRequest, Empty> startBigQueryJobsSettings() {
     return startBigQueryJobsSettings;
-  }
-
-  /** Returns the object with the settings used for calls to getCredentials. */
-  public UnaryCallSettings<
-          GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-      getCredentialsSettings() {
-    return getCredentialsSettings;
   }
 
   /** Returns the object with the settings used for calls to finishRun. */
@@ -215,7 +205,8 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
 
   /** Returns a builder for the default ChannelProvider for this service. */
   public static InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder() {
-    return InstantiatingGrpcChannelProvider.newBuilder();
+    return InstantiatingGrpcChannelProvider.newBuilder()
+        .setMaxInboundMessageSize(Integer.MAX_VALUE);
   }
 
   public static TransportChannelProvider defaultTransportChannelProvider() {
@@ -252,7 +243,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
     updateTransferRunSettings = settingsBuilder.updateTransferRunSettings().build();
     logTransferRunMessagesSettings = settingsBuilder.logTransferRunMessagesSettings().build();
     startBigQueryJobsSettings = settingsBuilder.startBigQueryJobsSettings().build();
-    getCredentialsSettings = settingsBuilder.getCredentialsSettings().build();
     finishRunSettings = settingsBuilder.finishRunSettings().build();
     createDataSourceDefinitionSettings =
         settingsBuilder.createDataSourceDefinitionSettings().build();
@@ -304,7 +294,9 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
             @Override
             public Iterable<DataSourceDefinition> extractResources(
                 ListDataSourceDefinitionsResponse payload) {
-              return payload.getDataSourceDefinitionsList();
+              return payload.getDataSourceDefinitionsList() != null
+                  ? payload.getDataSourceDefinitionsList()
+                  : ImmutableList.<DataSourceDefinition>of();
             }
           };
 
@@ -343,9 +335,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
         logTransferRunMessagesSettings;
     private final UnaryCallSettings.Builder<StartBigQueryJobsRequest, Empty>
         startBigQueryJobsSettings;
-    private final UnaryCallSettings.Builder<
-            GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-        getCredentialsSettings;
     private final UnaryCallSettings.Builder<FinishRunRequest, Empty> finishRunSettings;
     private final UnaryCallSettings.Builder<CreateDataSourceDefinitionRequest, DataSourceDefinition>
         createDataSourceDefinitionSettings;
@@ -407,8 +396,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
 
       startBigQueryJobsSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
 
-      getCredentialsSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
-
       finishRunSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
 
       createDataSourceDefinitionSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
@@ -427,7 +414,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
               updateTransferRunSettings,
               logTransferRunMessagesSettings,
               startBigQueryJobsSettings,
-              getCredentialsSettings,
               finishRunSettings,
               createDataSourceDefinitionSettings,
               updateDataSourceDefinitionSettings,
@@ -462,11 +448,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
       builder
           .startBigQueryJobsSettings()
           .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("non_idempotent"))
-          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("default"));
-
-      builder
-          .getCredentialsSettings()
-          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("idempotent"))
           .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("default"));
 
       builder
@@ -508,7 +489,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
       updateTransferRunSettings = settings.updateTransferRunSettings.toBuilder();
       logTransferRunMessagesSettings = settings.logTransferRunMessagesSettings.toBuilder();
       startBigQueryJobsSettings = settings.startBigQueryJobsSettings.toBuilder();
-      getCredentialsSettings = settings.getCredentialsSettings.toBuilder();
       finishRunSettings = settings.finishRunSettings.toBuilder();
       createDataSourceDefinitionSettings = settings.createDataSourceDefinitionSettings.toBuilder();
       updateDataSourceDefinitionSettings = settings.updateDataSourceDefinitionSettings.toBuilder();
@@ -521,7 +501,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
               updateTransferRunSettings,
               logTransferRunMessagesSettings,
               startBigQueryJobsSettings,
-              getCredentialsSettings,
               finishRunSettings,
               createDataSourceDefinitionSettings,
               updateDataSourceDefinitionSettings,
@@ -561,13 +540,6 @@ public class DataSourceServiceStubSettings extends StubSettings<DataSourceServic
     /** Returns the builder for the settings used for calls to startBigQueryJobs. */
     public UnaryCallSettings.Builder<StartBigQueryJobsRequest, Empty> startBigQueryJobsSettings() {
       return startBigQueryJobsSettings;
-    }
-
-    /** Returns the builder for the settings used for calls to getCredentials. */
-    public UnaryCallSettings.Builder<
-            GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-        getCredentialsSettings() {
-      return getCredentialsSettings;
     }
 
     /** Returns the builder for the settings used for calls to finishRun. */

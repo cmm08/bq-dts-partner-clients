@@ -29,15 +29,11 @@ private static final long serialVersionUID = 0L;
     displayName_ = "";
     description_ = "";
     type_ = 0;
-    required_ = false;
-    repeated_ = false;
     validationRegex_ = "";
     allowedValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     fields_ = java.util.Collections.emptyList();
     validationDescription_ = "";
     validationHelpUrl_ = "";
-    immutable_ = false;
-    recurse_ = false;
   }
 
   @java.lang.Override
@@ -106,7 +102,7 @@ private static final long serialVersionUID = 0L;
           }
           case 66: {
             java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+            if (!((mutable_bitField0_ & 0x00000080) != 0)) {
               allowedValues_ = new com.google.protobuf.LazyStringArrayList();
               mutable_bitField0_ |= 0x00000080;
             }
@@ -140,7 +136,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 90: {
-            if (!((mutable_bitField0_ & 0x00000400) == 0x00000400)) {
+            if (!((mutable_bitField0_ & 0x00000400) != 0)) {
               fields_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter>();
               mutable_bitField0_ |= 0x00000400;
             }
@@ -170,8 +166,13 @@ private static final long serialVersionUID = 0L;
             recurse_ = input.readBool();
             break;
           }
+          case 160: {
+
+            deprecated_ = input.readBool();
+            break;
+          }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -185,10 +186,10 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((mutable_bitField0_ & 0x00000080) != 0)) {
         allowedValues_ = allowedValues_.getUnmodifiableView();
       }
-      if (((mutable_bitField0_ & 0x00000400) == 0x00000400)) {
+      if (((mutable_bitField0_ & 0x00000400) != 0)) {
         fields_ = java.util.Collections.unmodifiableList(fields_);
       }
       this.unknownFields = unknownFields.build();
@@ -911,6 +912,20 @@ private static final long serialVersionUID = 0L;
     return recurse_;
   }
 
+  public static final int DEPRECATED_FIELD_NUMBER = 20;
+  private boolean deprecated_;
+  /**
+   * <pre>
+   * If true, it should not be used in new transfers, and it should not be
+   * visible to users.
+   * </pre>
+   *
+   * <code>bool deprecated = 20;</code>
+   */
+  public boolean getDeprecated() {
+    return deprecated_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -969,6 +984,9 @@ private static final long serialVersionUID = 0L;
     }
     if (recurse_ != false) {
       output.writeBool(15, recurse_);
+    }
+    if (deprecated_ != false) {
+      output.writeBool(20, deprecated_);
     }
     unknownFields.writeTo(output);
   }
@@ -1037,6 +1055,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(15, recurse_);
     }
+    if (deprecated_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(20, deprecated_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -1052,44 +1074,45 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter other = (com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter) obj;
 
-    boolean result = true;
-    result = result && getParamId()
-        .equals(other.getParamId());
-    result = result && getDisplayName()
-        .equals(other.getDisplayName());
-    result = result && getDescription()
-        .equals(other.getDescription());
-    result = result && type_ == other.type_;
-    result = result && (getRequired()
-        == other.getRequired());
-    result = result && (getRepeated()
-        == other.getRepeated());
-    result = result && getValidationRegex()
-        .equals(other.getValidationRegex());
-    result = result && getAllowedValuesList()
-        .equals(other.getAllowedValuesList());
-    result = result && (hasMinValue() == other.hasMinValue());
+    if (!getParamId()
+        .equals(other.getParamId())) return false;
+    if (!getDisplayName()
+        .equals(other.getDisplayName())) return false;
+    if (!getDescription()
+        .equals(other.getDescription())) return false;
+    if (type_ != other.type_) return false;
+    if (getRequired()
+        != other.getRequired()) return false;
+    if (getRepeated()
+        != other.getRepeated()) return false;
+    if (!getValidationRegex()
+        .equals(other.getValidationRegex())) return false;
+    if (!getAllowedValuesList()
+        .equals(other.getAllowedValuesList())) return false;
+    if (hasMinValue() != other.hasMinValue()) return false;
     if (hasMinValue()) {
-      result = result && getMinValue()
-          .equals(other.getMinValue());
+      if (!getMinValue()
+          .equals(other.getMinValue())) return false;
     }
-    result = result && (hasMaxValue() == other.hasMaxValue());
+    if (hasMaxValue() != other.hasMaxValue()) return false;
     if (hasMaxValue()) {
-      result = result && getMaxValue()
-          .equals(other.getMaxValue());
+      if (!getMaxValue()
+          .equals(other.getMaxValue())) return false;
     }
-    result = result && getFieldsList()
-        .equals(other.getFieldsList());
-    result = result && getValidationDescription()
-        .equals(other.getValidationDescription());
-    result = result && getValidationHelpUrl()
-        .equals(other.getValidationHelpUrl());
-    result = result && (getImmutable()
-        == other.getImmutable());
-    result = result && (getRecurse()
-        == other.getRecurse());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getFieldsList()
+        .equals(other.getFieldsList())) return false;
+    if (!getValidationDescription()
+        .equals(other.getValidationDescription())) return false;
+    if (!getValidationHelpUrl()
+        .equals(other.getValidationHelpUrl())) return false;
+    if (getImmutable()
+        != other.getImmutable()) return false;
+    if (getRecurse()
+        != other.getRecurse()) return false;
+    if (getDeprecated()
+        != other.getDeprecated()) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -1141,6 +1164,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + RECURSE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getRecurse());
+    hash = (37 * hash) + DEPRECATED_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getDeprecated());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1326,6 +1352,8 @@ private static final long serialVersionUID = 0L;
 
       recurse_ = false;
 
+      deprecated_ = false;
+
       return this;
     }
 
@@ -1361,7 +1389,7 @@ private static final long serialVersionUID = 0L;
       result.required_ = required_;
       result.repeated_ = repeated_;
       result.validationRegex_ = validationRegex_;
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         allowedValues_ = allowedValues_.getUnmodifiableView();
         bitField0_ = (bitField0_ & ~0x00000080);
       }
@@ -1377,7 +1405,7 @@ private static final long serialVersionUID = 0L;
         result.maxValue_ = maxValueBuilder_.build();
       }
       if (fieldsBuilder_ == null) {
-        if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        if (((bitField0_ & 0x00000400) != 0)) {
           fields_ = java.util.Collections.unmodifiableList(fields_);
           bitField0_ = (bitField0_ & ~0x00000400);
         }
@@ -1389,6 +1417,7 @@ private static final long serialVersionUID = 0L;
       result.validationHelpUrl_ = validationHelpUrl_;
       result.immutable_ = immutable_;
       result.recurse_ = recurse_;
+      result.deprecated_ = deprecated_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -1396,35 +1425,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1518,6 +1547,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getRecurse() != false) {
         setRecurse(other.getRecurse());
+      }
+      if (other.getDeprecated() != false) {
+        setDeprecated(other.getDeprecated());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -2048,7 +2080,7 @@ private static final long serialVersionUID = 0L;
 
     private com.google.protobuf.LazyStringList allowedValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureAllowedValuesIsMutable() {
-      if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (!((bitField0_ & 0x00000080) != 0)) {
         allowedValues_ = new com.google.protobuf.LazyStringArrayList(allowedValues_);
         bitField0_ |= 0x00000080;
        }
@@ -2176,7 +2208,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.DoubleValue minValue_ = null;
+    private com.google.protobuf.DoubleValue minValue_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> minValueBuilder_;
     /**
@@ -2329,7 +2361,7 @@ private static final long serialVersionUID = 0L;
       return minValueBuilder_;
     }
 
-    private com.google.protobuf.DoubleValue maxValue_ = null;
+    private com.google.protobuf.DoubleValue maxValue_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> maxValueBuilder_;
     /**
@@ -2485,7 +2517,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter> fields_ =
       java.util.Collections.emptyList();
     private void ensureFieldsIsMutable() {
-      if (!((bitField0_ & 0x00000400) == 0x00000400)) {
+      if (!((bitField0_ & 0x00000400) != 0)) {
         fields_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter>(fields_);
         bitField0_ |= 0x00000400;
        }
@@ -2786,7 +2818,7 @@ private static final long serialVersionUID = 0L;
         fieldsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter, com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter.Builder, com.google.cloud.bigquery.datatransfer.v1.DataSourceParameterOrBuilder>(
                 fields_,
-                ((bitField0_ & 0x00000400) == 0x00000400),
+                ((bitField0_ & 0x00000400) != 0),
                 getParentForChildren(),
                 isClean());
         fields_ = null;
@@ -3052,10 +3084,51 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private boolean deprecated_ ;
+    /**
+     * <pre>
+     * If true, it should not be used in new transfers, and it should not be
+     * visible to users.
+     * </pre>
+     *
+     * <code>bool deprecated = 20;</code>
+     */
+    public boolean getDeprecated() {
+      return deprecated_;
+    }
+    /**
+     * <pre>
+     * If true, it should not be used in new transfers, and it should not be
+     * visible to users.
+     * </pre>
+     *
+     * <code>bool deprecated = 20;</code>
+     */
+    public Builder setDeprecated(boolean value) {
+      
+      deprecated_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * If true, it should not be used in new transfers, and it should not be
+     * visible to users.
+     * </pre>
+     *
+     * <code>bool deprecated = 20;</code>
+     */
+    public Builder clearDeprecated() {
+      
+      deprecated_ = false;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

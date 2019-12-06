@@ -12,7 +12,7 @@ public interface DataSourceOrBuilder extends
    * Output only. Data source resource name.
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getName();
   /**
@@ -20,7 +20,7 @@ public interface DataSourceOrBuilder extends
    * Output only. Data source resource name.
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getNameBytes();
@@ -377,4 +377,22 @@ public interface DataSourceOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPartnerLegalNameBytes();
+
+  /**
+   * <pre>
+   * Redirect URL to complete transfer config setup for 3rd party data sources.
+   * </pre>
+   *
+   * <code>string redirect_url = 23;</code>
+   */
+  java.lang.String getRedirectUrl();
+  /**
+   * <pre>
+   * Redirect URL to complete transfer config setup for 3rd party data sources.
+   * </pre>
+   *
+   * <code>string redirect_url = 23;</code>
+   */
+  com.google.protobuf.ByteString
+      getRedirectUrlBytes();
 }

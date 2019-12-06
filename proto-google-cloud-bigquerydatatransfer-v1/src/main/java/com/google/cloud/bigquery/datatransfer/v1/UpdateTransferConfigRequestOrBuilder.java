@@ -9,26 +9,26 @@ public interface UpdateTransferConfigRequestOrBuilder extends
 
   /**
    * <pre>
-   * Data transfer configuration to create.
+   * Required. Data transfer configuration to create.
    * </pre>
    *
-   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1;</code>
+   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   boolean hasTransferConfig();
   /**
    * <pre>
-   * Data transfer configuration to create.
+   * Required. Data transfer configuration to create.
    * </pre>
    *
-   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1;</code>
+   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   com.google.cloud.bigquery.datatransfer.v1.TransferConfig getTransferConfig();
   /**
    * <pre>
-   * Data transfer configuration to create.
+   * Required. Data transfer configuration to create.
    * </pre>
    *
-   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1;</code>
+   * <code>.google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_config = 1 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder getTransferConfigOrBuilder();
 
@@ -80,26 +80,80 @@ public interface UpdateTransferConfigRequestOrBuilder extends
 
   /**
    * <pre>
-   * Required list of fields to be updated in this request.
+   * Required. Required list of fields to be updated in this request.
    * </pre>
    *
-   * <code>.google.protobuf.FieldMask update_mask = 4;</code>
+   * <code>.google.protobuf.FieldMask update_mask = 4 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   boolean hasUpdateMask();
   /**
    * <pre>
-   * Required list of fields to be updated in this request.
+   * Required. Required list of fields to be updated in this request.
    * </pre>
    *
-   * <code>.google.protobuf.FieldMask update_mask = 4;</code>
+   * <code>.google.protobuf.FieldMask update_mask = 4 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   com.google.protobuf.FieldMask getUpdateMask();
   /**
    * <pre>
-   * Required list of fields to be updated in this request.
+   * Required. Required list of fields to be updated in this request.
    * </pre>
    *
-   * <code>.google.protobuf.FieldMask update_mask = 4;</code>
+   * <code>.google.protobuf.FieldMask update_mask = 4 [(.google.api.field_behavior) = REQUIRED];</code>
    */
   com.google.protobuf.FieldMaskOrBuilder getUpdateMaskOrBuilder();
+
+  /**
+   * <pre>
+   * Optional version info. If users want to find a very recent access token,
+   * that is, immediately after approving access, users have to set the
+   * version_info claim in the token request. To obtain the version_info, users
+   * must use the "none+gsession" response type. which be return a
+   * version_info back in the authorization response which be be put in a JWT
+   * claim in the token request.
+   * </pre>
+   *
+   * <code>string version_info = 5;</code>
+   */
+  java.lang.String getVersionInfo();
+  /**
+   * <pre>
+   * Optional version info. If users want to find a very recent access token,
+   * that is, immediately after approving access, users have to set the
+   * version_info claim in the token request. To obtain the version_info, users
+   * must use the "none+gsession" response type. which be return a
+   * version_info back in the authorization response which be be put in a JWT
+   * claim in the token request.
+   * </pre>
+   *
+   * <code>string version_info = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getVersionInfoBytes();
+
+  /**
+   * <pre>
+   * Optional service account name. If this field is set and
+   * "service_account_name" is set in update_mask, transfer config will be
+   * updated to use this service account credentials. It requires that
+   * requesting user calling this API has permissions to act as this service
+   * account.
+   * </pre>
+   *
+   * <code>string service_account_name = 6;</code>
+   */
+  java.lang.String getServiceAccountName();
+  /**
+   * <pre>
+   * Optional service account name. If this field is set and
+   * "service_account_name" is set in update_mask, transfer config will be
+   * updated to use this service account credentials. It requires that
+   * requesting user calling this API has permissions to act as this service
+   * account.
+   * </pre>
+   *
+   * <code>string service_account_name = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getServiceAccountNameBytes();
 }

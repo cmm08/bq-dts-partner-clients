@@ -21,7 +21,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private IsDataTransferServiceEnabledResponse() {
-    enabled_ = false;
     reason_ = "";
   }
 
@@ -61,7 +60,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -109,7 +108,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object reason_;
   /**
    * <pre>
-   * A string that contains additional infomation about why the service is
+   * A string that contains additional information about why the service is
    * deemed not enabled. This is only available when `enable` is false.
    * </pre>
    *
@@ -129,7 +128,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * A string that contains additional infomation about why the service is
+   * A string that contains additional information about why the service is
    * deemed not enabled. This is only available when `enable` is false.
    * </pre>
    *
@@ -200,13 +199,12 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.IsDataTransferServiceEnabledResponse other = (com.google.cloud.bigquery.datatransfer.v1.IsDataTransferServiceEnabledResponse) obj;
 
-    boolean result = true;
-    result = result && (getEnabled()
-        == other.getEnabled());
-    result = result && getReason()
-        .equals(other.getReason());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (getEnabled()
+        != other.getEnabled()) return false;
+    if (!getReason()
+        .equals(other.getReason())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -397,35 +395,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -516,7 +514,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object reason_ = "";
     /**
      * <pre>
-     * A string that contains additional infomation about why the service is
+     * A string that contains additional information about why the service is
      * deemed not enabled. This is only available when `enable` is false.
      * </pre>
      *
@@ -536,7 +534,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * A string that contains additional infomation about why the service is
+     * A string that contains additional information about why the service is
      * deemed not enabled. This is only available when `enable` is false.
      * </pre>
      *
@@ -557,7 +555,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * A string that contains additional infomation about why the service is
+     * A string that contains additional information about why the service is
      * deemed not enabled. This is only available when `enable` is false.
      * </pre>
      *
@@ -575,7 +573,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * A string that contains additional infomation about why the service is
+     * A string that contains additional information about why the service is
      * deemed not enabled. This is only available when `enable` is false.
      * </pre>
      *
@@ -589,7 +587,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * A string that contains additional infomation about why the service is
+     * A string that contains additional information about why the service is
      * deemed not enabled. This is only available when `enable` is false.
      * </pre>
      *
@@ -609,7 +607,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

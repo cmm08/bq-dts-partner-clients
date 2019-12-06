@@ -49,7 +49,7 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               dataSources_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSource>();
               mutable_bitField0_ |= 0x00000001;
             }
@@ -64,7 +64,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -78,7 +78,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((mutable_bitField0_ & 0x00000001) != 0)) {
         dataSources_ = java.util.Collections.unmodifiableList(dataSources_);
       }
       this.unknownFields = unknownFields.build();
@@ -164,7 +164,7 @@ private static final long serialVersionUID = 0L;
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getNextPageToken() {
     java.lang.Object ref = nextPageToken_;
@@ -186,7 +186,7 @@ private static final long serialVersionUID = 0L;
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getNextPageTokenBytes() {
@@ -253,13 +253,12 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.ListDataSourcesResponse other = (com.google.cloud.bigquery.datatransfer.v1.ListDataSourcesResponse) obj;
 
-    boolean result = true;
-    result = result && getDataSourcesList()
-        .equals(other.getDataSourcesList());
-    result = result && getNextPageToken()
-        .equals(other.getNextPageToken());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getDataSourcesList()
+        .equals(other.getDataSourcesList())) return false;
+    if (!getNextPageToken()
+        .equals(other.getNextPageToken())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -450,7 +449,7 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       if (dataSourcesBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((bitField0_ & 0x00000001) != 0)) {
           dataSources_ = java.util.Collections.unmodifiableList(dataSources_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
@@ -466,35 +465,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -571,7 +570,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.DataSource> dataSources_ =
       java.util.Collections.emptyList();
     private void ensureDataSourcesIsMutable() {
-      if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!((bitField0_ & 0x00000001) != 0)) {
         dataSources_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSource>(dataSources_);
         bitField0_ |= 0x00000001;
        }
@@ -872,7 +871,7 @@ private static final long serialVersionUID = 0L;
         dataSourcesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.DataSource, com.google.cloud.bigquery.datatransfer.v1.DataSource.Builder, com.google.cloud.bigquery.datatransfer.v1.DataSourceOrBuilder>(
                 dataSources_,
-                ((bitField0_ & 0x00000001) == 0x00000001),
+                ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
         dataSources_ = null;
@@ -889,7 +888,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getNextPageToken() {
       java.lang.Object ref = nextPageToken_;
@@ -911,7 +910,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getNextPageTokenBytes() {
@@ -934,7 +933,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setNextPageToken(
         java.lang.String value) {
@@ -954,7 +953,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearNextPageToken() {
       
@@ -970,7 +969,7 @@ private static final long serialVersionUID = 0L;
      * to request the next page of list results.
      * </pre>
      *
-     * <code>string next_page_token = 2;</code>
+     * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setNextPageTokenBytes(
         com.google.protobuf.ByteString value) {
@@ -986,7 +985,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

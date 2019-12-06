@@ -25,6 +25,7 @@ private static final long serialVersionUID = 0L;
     destinationTableDescription_ = "";
     tableDefs_ = java.util.Collections.emptyList();
     userDefinedFunctions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    writeDisposition_ = 0;
   }
 
   @java.lang.Override
@@ -64,7 +65,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 26: {
-            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+            if (!((mutable_bitField0_ & 0x00000008) != 0)) {
               tableDefs_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition>();
               mutable_bitField0_ |= 0x00000008;
             }
@@ -74,11 +75,17 @@ private static final long serialVersionUID = 0L;
           }
           case 34: {
             java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+            if (!((mutable_bitField0_ & 0x00000010) != 0)) {
               userDefinedFunctions_ = new com.google.protobuf.LazyStringArrayList();
               mutable_bitField0_ |= 0x00000010;
             }
             userDefinedFunctions_.add(s);
+            break;
+          }
+          case 48: {
+            int rawValue = input.readEnum();
+
+            writeDisposition_ = rawValue;
             break;
           }
           case 82: {
@@ -88,7 +95,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -102,10 +109,10 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((mutable_bitField0_ & 0x00000008) != 0)) {
         tableDefs_ = java.util.Collections.unmodifiableList(tableDefs_);
       }
-      if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((mutable_bitField0_ & 0x00000010) != 0)) {
         userDefinedFunctions_ = userDefinedFunctions_.getUnmodifiableView();
       }
       this.unknownFields = unknownFields.build();
@@ -609,7 +616,6 @@ private static final long serialVersionUID = 0L;
     private FieldSchema() {
       fieldName_ = "";
       type_ = 0;
-      isRepeated_ = false;
       description_ = "";
     }
 
@@ -674,7 +680,7 @@ private static final long serialVersionUID = 0L;
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -812,6 +818,14 @@ private static final long serialVersionUID = 0L;
        * <code>NUMERIC = 11;</code>
        */
       NUMERIC(11),
+      /**
+       * <pre>
+       * Geography object (go/googlesql_geography).
+       * </pre>
+       *
+       * <code>GEOGRAPHY = 12;</code>
+       */
+      GEOGRAPHY(12),
       UNRECOGNIZED(-1),
       ;
 
@@ -912,6 +926,14 @@ private static final long serialVersionUID = 0L;
        * <code>NUMERIC = 11;</code>
        */
       public static final int NUMERIC_VALUE = 11;
+      /**
+       * <pre>
+       * Geography object (go/googlesql_geography).
+       * </pre>
+       *
+       * <code>GEOGRAPHY = 12;</code>
+       */
+      public static final int GEOGRAPHY_VALUE = 12;
 
 
       public final int getNumber() {
@@ -944,6 +966,7 @@ private static final long serialVersionUID = 0L;
           case 9: return TIME;
           case 10: return DATETIME;
           case 11: return NUMERIC;
+          case 12: return GEOGRAPHY;
           default: return null;
         }
       }
@@ -1222,21 +1245,20 @@ private static final long serialVersionUID = 0L;
       }
       com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema other = (com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema) obj;
 
-      boolean result = true;
-      result = result && getFieldName()
-          .equals(other.getFieldName());
-      result = result && type_ == other.type_;
-      result = result && (getIsRepeated()
-          == other.getIsRepeated());
-      result = result && getDescription()
-          .equals(other.getDescription());
-      result = result && (hasSchema() == other.hasSchema());
+      if (!getFieldName()
+          .equals(other.getFieldName())) return false;
+      if (type_ != other.type_) return false;
+      if (getIsRepeated()
+          != other.getIsRepeated()) return false;
+      if (!getDescription()
+          .equals(other.getDescription())) return false;
+      if (hasSchema() != other.hasSchema()) return false;
       if (hasSchema()) {
-        result = result && getSchema()
-            .equals(other.getSchema());
+        if (!getSchema()
+            .equals(other.getSchema())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -1451,35 +1473,35 @@ private static final long serialVersionUID = 0L;
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1820,7 +1842,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
 
-      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema schema_ = null;
+      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema schema_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchemaOrBuilder> schemaBuilder_;
       /**
@@ -1975,7 +1997,7 @@ private static final long serialVersionUID = 0L;
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -2118,7 +2140,7 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 fields_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema>();
                 mutable_bitField0_ |= 0x00000001;
               }
@@ -2127,7 +2149,7 @@ private static final long serialVersionUID = 0L;
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2141,7 +2163,7 @@ private static final long serialVersionUID = 0L;
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           fields_ = java.util.Collections.unmodifiableList(fields_);
         }
         this.unknownFields = unknownFields.build();
@@ -2261,11 +2283,10 @@ private static final long serialVersionUID = 0L;
       }
       com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema other = (com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema) obj;
 
-      boolean result = true;
-      result = result && getFieldsList()
-          .equals(other.getFieldsList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getFieldsList()
+          .equals(other.getFieldsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -2451,7 +2472,7 @@ private static final long serialVersionUID = 0L;
         com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema result = new com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema(this);
         int from_bitField0_ = bitField0_;
         if (fieldsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             fields_ = java.util.Collections.unmodifiableList(fields_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
@@ -2465,35 +2486,35 @@ private static final long serialVersionUID = 0L;
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2566,7 +2587,7 @@ private static final long serialVersionUID = 0L;
       private java.util.List<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema> fields_ =
         java.util.Collections.emptyList();
       private void ensureFieldsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           fields_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema>(fields_);
           bitField0_ |= 0x00000001;
          }
@@ -2867,7 +2888,7 @@ private static final long serialVersionUID = 0L;
           fieldsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchema.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.FieldSchemaOrBuilder>(
                   fields_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           fields_ = null;
@@ -2877,7 +2898,7 @@ private static final long serialVersionUID = 0L;
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -3088,6 +3109,34 @@ private static final long serialVersionUID = 0L;
      * <code>.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema schema = 7;</code>
      */
     com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchemaOrBuilder getSchemaOrBuilder();
+
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    boolean hasIgnoreUnknownValues();
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    com.google.protobuf.BoolValue getIgnoreUnknownValues();
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    com.google.protobuf.BoolValueOrBuilder getIgnoreUnknownValuesOrBuilder();
   }
   /**
    * <pre>
@@ -3110,7 +3159,6 @@ private static final long serialVersionUID = 0L;
       tableId_ = "";
       sourceUris_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       format_ = 0;
-      maxBadRecords_ = 0;
       encoding_ = 0;
     }
 
@@ -3146,7 +3194,7 @@ private static final long serialVersionUID = 0L;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 sourceUris_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000002;
               }
@@ -3196,8 +3244,21 @@ private static final long serialVersionUID = 0L;
 
               break;
             }
+            case 82: {
+              com.google.protobuf.BoolValue.Builder subBuilder = null;
+              if (ignoreUnknownValues_ != null) {
+                subBuilder = ignoreUnknownValues_.toBuilder();
+              }
+              ignoreUnknownValues_ = input.readMessage(com.google.protobuf.BoolValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(ignoreUnknownValues_);
+                ignoreUnknownValues_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3211,7 +3272,7 @@ private static final long serialVersionUID = 0L;
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           sourceUris_ = sourceUris_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -3346,6 +3407,31 @@ private static final long serialVersionUID = 0L;
        * <code>.google.protobuf.Int64Value skip_leading_rows = 4;</code>
        */
       com.google.protobuf.Int64ValueOrBuilder getSkipLeadingRowsOrBuilder();
+
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      boolean hasAllowJaggedRows();
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      com.google.protobuf.BoolValue getAllowJaggedRows();
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      com.google.protobuf.BoolValueOrBuilder getAllowJaggedRowsOrBuilder();
     }
     /**
      * <pre>
@@ -3442,8 +3528,21 @@ private static final long serialVersionUID = 0L;
 
                 break;
               }
+              case 42: {
+                com.google.protobuf.BoolValue.Builder subBuilder = null;
+                if (allowJaggedRows_ != null) {
+                  subBuilder = allowJaggedRows_.toBuilder();
+                }
+                allowJaggedRows_ = input.readMessage(com.google.protobuf.BoolValue.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(allowJaggedRows_);
+                  allowJaggedRows_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
               default: {
-                if (!parseUnknownFieldProto3(
+                if (!parseUnknownField(
                     input, unknownFields, extensionRegistry, tag)) {
                   done = true;
                 }
@@ -3618,6 +3717,39 @@ private static final long serialVersionUID = 0L;
         return getSkipLeadingRows();
       }
 
+      public static final int ALLOW_JAGGED_ROWS_FIELD_NUMBER = 5;
+      private com.google.protobuf.BoolValue allowJaggedRows_;
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      public boolean hasAllowJaggedRows() {
+        return allowJaggedRows_ != null;
+      }
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      public com.google.protobuf.BoolValue getAllowJaggedRows() {
+        return allowJaggedRows_ == null ? com.google.protobuf.BoolValue.getDefaultInstance() : allowJaggedRows_;
+      }
+      /**
+       * <pre>
+       * Accept rows that are missing trailing optional columns.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+       */
+      public com.google.protobuf.BoolValueOrBuilder getAllowJaggedRowsOrBuilder() {
+        return getAllowJaggedRows();
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -3644,6 +3776,9 @@ private static final long serialVersionUID = 0L;
         if (skipLeadingRows_ != null) {
           output.writeMessage(4, getSkipLeadingRows());
         }
+        if (allowJaggedRows_ != null) {
+          output.writeMessage(5, getAllowJaggedRows());
+        }
         unknownFields.writeTo(output);
       }
 
@@ -3669,6 +3804,10 @@ private static final long serialVersionUID = 0L;
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(4, getSkipLeadingRows());
         }
+        if (allowJaggedRows_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(5, getAllowJaggedRows());
+        }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
         return size;
@@ -3684,29 +3823,33 @@ private static final long serialVersionUID = 0L;
         }
         com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions other = (com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions) obj;
 
-        boolean result = true;
-        result = result && (hasFieldDelimiter() == other.hasFieldDelimiter());
+        if (hasFieldDelimiter() != other.hasFieldDelimiter()) return false;
         if (hasFieldDelimiter()) {
-          result = result && getFieldDelimiter()
-              .equals(other.getFieldDelimiter());
+          if (!getFieldDelimiter()
+              .equals(other.getFieldDelimiter())) return false;
         }
-        result = result && (hasAllowQuotedNewlines() == other.hasAllowQuotedNewlines());
+        if (hasAllowQuotedNewlines() != other.hasAllowQuotedNewlines()) return false;
         if (hasAllowQuotedNewlines()) {
-          result = result && getAllowQuotedNewlines()
-              .equals(other.getAllowQuotedNewlines());
+          if (!getAllowQuotedNewlines()
+              .equals(other.getAllowQuotedNewlines())) return false;
         }
-        result = result && (hasQuoteChar() == other.hasQuoteChar());
+        if (hasQuoteChar() != other.hasQuoteChar()) return false;
         if (hasQuoteChar()) {
-          result = result && getQuoteChar()
-              .equals(other.getQuoteChar());
+          if (!getQuoteChar()
+              .equals(other.getQuoteChar())) return false;
         }
-        result = result && (hasSkipLeadingRows() == other.hasSkipLeadingRows());
+        if (hasSkipLeadingRows() != other.hasSkipLeadingRows()) return false;
         if (hasSkipLeadingRows()) {
-          result = result && getSkipLeadingRows()
-              .equals(other.getSkipLeadingRows());
+          if (!getSkipLeadingRows()
+              .equals(other.getSkipLeadingRows())) return false;
         }
-        result = result && unknownFields.equals(other.unknownFields);
-        return result;
+        if (hasAllowJaggedRows() != other.hasAllowJaggedRows()) return false;
+        if (hasAllowJaggedRows()) {
+          if (!getAllowJaggedRows()
+              .equals(other.getAllowJaggedRows())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
       }
 
       @java.lang.Override
@@ -3731,6 +3874,10 @@ private static final long serialVersionUID = 0L;
         if (hasSkipLeadingRows()) {
           hash = (37 * hash) + SKIP_LEADING_ROWS_FIELD_NUMBER;
           hash = (53 * hash) + getSkipLeadingRows().hashCode();
+        }
+        if (hasAllowJaggedRows()) {
+          hash = (37 * hash) + ALLOW_JAGGED_ROWS_FIELD_NUMBER;
+          hash = (53 * hash) + getAllowJaggedRows().hashCode();
         }
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
@@ -3893,6 +4040,12 @@ private static final long serialVersionUID = 0L;
             skipLeadingRows_ = null;
             skipLeadingRowsBuilder_ = null;
           }
+          if (allowJaggedRowsBuilder_ == null) {
+            allowJaggedRows_ = null;
+          } else {
+            allowJaggedRows_ = null;
+            allowJaggedRowsBuilder_ = null;
+          }
           return this;
         }
 
@@ -3939,41 +4092,46 @@ private static final long serialVersionUID = 0L;
           } else {
             result.skipLeadingRows_ = skipLeadingRowsBuilder_.build();
           }
+          if (allowJaggedRowsBuilder_ == null) {
+            result.allowJaggedRows_ = allowJaggedRows_;
+          } else {
+            result.allowJaggedRows_ = allowJaggedRowsBuilder_.build();
+          }
           onBuilt();
           return result;
         }
 
         @java.lang.Override
         public Builder clone() {
-          return (Builder) super.clone();
+          return super.clone();
         }
         @java.lang.Override
         public Builder setField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             java.lang.Object value) {
-          return (Builder) super.setField(field, value);
+          return super.setField(field, value);
         }
         @java.lang.Override
         public Builder clearField(
             com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
+          return super.clearField(field);
         }
         @java.lang.Override
         public Builder clearOneof(
             com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
+          return super.clearOneof(oneof);
         }
         @java.lang.Override
         public Builder setRepeatedField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             int index, java.lang.Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
+          return super.setRepeatedField(field, index, value);
         }
         @java.lang.Override
         public Builder addRepeatedField(
             com.google.protobuf.Descriptors.FieldDescriptor field,
             java.lang.Object value) {
-          return (Builder) super.addRepeatedField(field, value);
+          return super.addRepeatedField(field, value);
         }
         @java.lang.Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3998,6 +4156,9 @@ private static final long serialVersionUID = 0L;
           }
           if (other.hasSkipLeadingRows()) {
             mergeSkipLeadingRows(other.getSkipLeadingRows());
+          }
+          if (other.hasAllowJaggedRows()) {
+            mergeAllowJaggedRows(other.getAllowJaggedRows());
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -4028,7 +4189,7 @@ private static final long serialVersionUID = 0L;
           return this;
         }
 
-        private com.google.protobuf.StringValue fieldDelimiter_ = null;
+        private com.google.protobuf.StringValue fieldDelimiter_;
         private com.google.protobuf.SingleFieldBuilderV3<
             com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> fieldDelimiterBuilder_;
         /**
@@ -4190,7 +4351,7 @@ private static final long serialVersionUID = 0L;
           return fieldDelimiterBuilder_;
         }
 
-        private com.google.protobuf.BoolValue allowQuotedNewlines_ = null;
+        private com.google.protobuf.BoolValue allowQuotedNewlines_;
         private com.google.protobuf.SingleFieldBuilderV3<
             com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder> allowQuotedNewlinesBuilder_;
         /**
@@ -4352,7 +4513,7 @@ private static final long serialVersionUID = 0L;
           return allowQuotedNewlinesBuilder_;
         }
 
-        private com.google.protobuf.StringValue quoteChar_ = null;
+        private com.google.protobuf.StringValue quoteChar_;
         private com.google.protobuf.SingleFieldBuilderV3<
             com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> quoteCharBuilder_;
         /**
@@ -4523,7 +4684,7 @@ private static final long serialVersionUID = 0L;
           return quoteCharBuilder_;
         }
 
-        private com.google.protobuf.Int64Value skipLeadingRows_ = null;
+        private com.google.protobuf.Int64Value skipLeadingRows_;
         private com.google.protobuf.SingleFieldBuilderV3<
             com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> skipLeadingRowsBuilder_;
         /**
@@ -4675,10 +4836,163 @@ private static final long serialVersionUID = 0L;
           }
           return skipLeadingRowsBuilder_;
         }
+
+        private com.google.protobuf.BoolValue allowJaggedRows_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder> allowJaggedRowsBuilder_;
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public boolean hasAllowJaggedRows() {
+          return allowJaggedRowsBuilder_ != null || allowJaggedRows_ != null;
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public com.google.protobuf.BoolValue getAllowJaggedRows() {
+          if (allowJaggedRowsBuilder_ == null) {
+            return allowJaggedRows_ == null ? com.google.protobuf.BoolValue.getDefaultInstance() : allowJaggedRows_;
+          } else {
+            return allowJaggedRowsBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public Builder setAllowJaggedRows(com.google.protobuf.BoolValue value) {
+          if (allowJaggedRowsBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            allowJaggedRows_ = value;
+            onChanged();
+          } else {
+            allowJaggedRowsBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public Builder setAllowJaggedRows(
+            com.google.protobuf.BoolValue.Builder builderForValue) {
+          if (allowJaggedRowsBuilder_ == null) {
+            allowJaggedRows_ = builderForValue.build();
+            onChanged();
+          } else {
+            allowJaggedRowsBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public Builder mergeAllowJaggedRows(com.google.protobuf.BoolValue value) {
+          if (allowJaggedRowsBuilder_ == null) {
+            if (allowJaggedRows_ != null) {
+              allowJaggedRows_ =
+                com.google.protobuf.BoolValue.newBuilder(allowJaggedRows_).mergeFrom(value).buildPartial();
+            } else {
+              allowJaggedRows_ = value;
+            }
+            onChanged();
+          } else {
+            allowJaggedRowsBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public Builder clearAllowJaggedRows() {
+          if (allowJaggedRowsBuilder_ == null) {
+            allowJaggedRows_ = null;
+            onChanged();
+          } else {
+            allowJaggedRows_ = null;
+            allowJaggedRowsBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public com.google.protobuf.BoolValue.Builder getAllowJaggedRowsBuilder() {
+          
+          onChanged();
+          return getAllowJaggedRowsFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        public com.google.protobuf.BoolValueOrBuilder getAllowJaggedRowsOrBuilder() {
+          if (allowJaggedRowsBuilder_ != null) {
+            return allowJaggedRowsBuilder_.getMessageOrBuilder();
+          } else {
+            return allowJaggedRows_ == null ?
+                com.google.protobuf.BoolValue.getDefaultInstance() : allowJaggedRows_;
+          }
+        }
+        /**
+         * <pre>
+         * Accept rows that are missing trailing optional columns.
+         * </pre>
+         *
+         * <code>.google.protobuf.BoolValue allow_jagged_rows = 5;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder> 
+            getAllowJaggedRowsFieldBuilder() {
+          if (allowJaggedRowsBuilder_ == null) {
+            allowJaggedRowsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder>(
+                    getAllowJaggedRows(),
+                    getParentForChildren(),
+                    isClean());
+            allowJaggedRows_ = null;
+          }
+          return allowJaggedRowsBuilder_;
+        }
         @java.lang.Override
         public final Builder setUnknownFields(
             final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFieldsProto3(unknownFields);
+          return super.setUnknownFields(unknownFields);
         }
 
         @java.lang.Override
@@ -4957,6 +5271,42 @@ private static final long serialVersionUID = 0L;
       return getSchema();
     }
 
+    public static final int IGNORE_UNKNOWN_VALUES_FIELD_NUMBER = 10;
+    private com.google.protobuf.BoolValue ignoreUnknownValues_;
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    public boolean hasIgnoreUnknownValues() {
+      return ignoreUnknownValues_ != null;
+    }
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    public com.google.protobuf.BoolValue getIgnoreUnknownValues() {
+      return ignoreUnknownValues_ == null ? com.google.protobuf.BoolValue.getDefaultInstance() : ignoreUnknownValues_;
+    }
+    /**
+     * <pre>
+     * Indicates if extra values that are not represented in the table schema is
+     * allowed.
+     * </pre>
+     *
+     * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+     */
+    public com.google.protobuf.BoolValueOrBuilder getIgnoreUnknownValuesOrBuilder() {
+      return getIgnoreUnknownValues();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4991,6 +5341,9 @@ private static final long serialVersionUID = 0L;
       }
       if (schema_ != null) {
         output.writeMessage(7, getSchema());
+      }
+      if (ignoreUnknownValues_ != null) {
+        output.writeMessage(10, getIgnoreUnknownValues());
       }
       unknownFields.writeTo(output);
     }
@@ -5032,6 +5385,10 @@ private static final long serialVersionUID = 0L;
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, getSchema());
       }
+      if (ignoreUnknownValues_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getIgnoreUnknownValues());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -5047,27 +5404,31 @@ private static final long serialVersionUID = 0L;
       }
       com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition other = (com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition) obj;
 
-      boolean result = true;
-      result = result && getTableId()
-          .equals(other.getTableId());
-      result = result && getSourceUrisList()
-          .equals(other.getSourceUrisList());
-      result = result && format_ == other.format_;
-      result = result && (getMaxBadRecords()
-          == other.getMaxBadRecords());
-      result = result && encoding_ == other.encoding_;
-      result = result && (hasCsvOptions() == other.hasCsvOptions());
+      if (!getTableId()
+          .equals(other.getTableId())) return false;
+      if (!getSourceUrisList()
+          .equals(other.getSourceUrisList())) return false;
+      if (format_ != other.format_) return false;
+      if (getMaxBadRecords()
+          != other.getMaxBadRecords()) return false;
+      if (encoding_ != other.encoding_) return false;
+      if (hasCsvOptions() != other.hasCsvOptions()) return false;
       if (hasCsvOptions()) {
-        result = result && getCsvOptions()
-            .equals(other.getCsvOptions());
+        if (!getCsvOptions()
+            .equals(other.getCsvOptions())) return false;
       }
-      result = result && (hasSchema() == other.hasSchema());
+      if (hasSchema() != other.hasSchema()) return false;
       if (hasSchema()) {
-        result = result && getSchema()
-            .equals(other.getSchema());
+        if (!getSchema()
+            .equals(other.getSchema())) return false;
       }
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (hasIgnoreUnknownValues() != other.hasIgnoreUnknownValues()) return false;
+      if (hasIgnoreUnknownValues()) {
+        if (!getIgnoreUnknownValues()
+            .equals(other.getIgnoreUnknownValues())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -5096,6 +5457,10 @@ private static final long serialVersionUID = 0L;
       if (hasSchema()) {
         hash = (37 * hash) + SCHEMA_FIELD_NUMBER;
         hash = (53 * hash) + getSchema().hashCode();
+      }
+      if (hasIgnoreUnknownValues()) {
+        hash = (37 * hash) + IGNORE_UNKNOWN_VALUES_FIELD_NUMBER;
+        hash = (53 * hash) + getIgnoreUnknownValues().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5257,6 +5622,12 @@ private static final long serialVersionUID = 0L;
           schema_ = null;
           schemaBuilder_ = null;
         }
+        if (ignoreUnknownValuesBuilder_ == null) {
+          ignoreUnknownValues_ = null;
+        } else {
+          ignoreUnknownValues_ = null;
+          ignoreUnknownValuesBuilder_ = null;
+        }
         return this;
       }
 
@@ -5286,7 +5657,7 @@ private static final long serialVersionUID = 0L;
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.tableId_ = tableId_;
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           sourceUris_ = sourceUris_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000002);
         }
@@ -5304,6 +5675,11 @@ private static final long serialVersionUID = 0L;
         } else {
           result.schema_ = schemaBuilder_.build();
         }
+        if (ignoreUnknownValuesBuilder_ == null) {
+          result.ignoreUnknownValues_ = ignoreUnknownValues_;
+        } else {
+          result.ignoreUnknownValues_ = ignoreUnknownValuesBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5311,35 +5687,35 @@ private static final long serialVersionUID = 0L;
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -5381,6 +5757,9 @@ private static final long serialVersionUID = 0L;
         }
         if (other.hasSchema()) {
           mergeSchema(other.getSchema());
+        }
+        if (other.hasIgnoreUnknownValues()) {
+          mergeIgnoreUnknownValues(other.getIgnoreUnknownValues());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5508,7 +5887,7 @@ private static final long serialVersionUID = 0L;
 
       private com.google.protobuf.LazyStringList sourceUris_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureSourceUrisIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           sourceUris_ = new com.google.protobuf.LazyStringArrayList(sourceUris_);
           bitField0_ |= 0x00000002;
          }
@@ -5821,7 +6200,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
 
-      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions csvOptions_ = null;
+      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions csvOptions_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptions.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.CsvOptionsOrBuilder> csvOptionsBuilder_;
       /**
@@ -5974,7 +6353,7 @@ private static final long serialVersionUID = 0L;
         return csvOptionsBuilder_;
       }
 
-      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema schema_ = null;
+      private com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema schema_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchema.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.RecordSchemaOrBuilder> schemaBuilder_;
       /**
@@ -6135,10 +6514,172 @@ private static final long serialVersionUID = 0L;
         }
         return schemaBuilder_;
       }
+
+      private com.google.protobuf.BoolValue ignoreUnknownValues_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder> ignoreUnknownValuesBuilder_;
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public boolean hasIgnoreUnknownValues() {
+        return ignoreUnknownValuesBuilder_ != null || ignoreUnknownValues_ != null;
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public com.google.protobuf.BoolValue getIgnoreUnknownValues() {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          return ignoreUnknownValues_ == null ? com.google.protobuf.BoolValue.getDefaultInstance() : ignoreUnknownValues_;
+        } else {
+          return ignoreUnknownValuesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public Builder setIgnoreUnknownValues(com.google.protobuf.BoolValue value) {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ignoreUnknownValues_ = value;
+          onChanged();
+        } else {
+          ignoreUnknownValuesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public Builder setIgnoreUnknownValues(
+          com.google.protobuf.BoolValue.Builder builderForValue) {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          ignoreUnknownValues_ = builderForValue.build();
+          onChanged();
+        } else {
+          ignoreUnknownValuesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public Builder mergeIgnoreUnknownValues(com.google.protobuf.BoolValue value) {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          if (ignoreUnknownValues_ != null) {
+            ignoreUnknownValues_ =
+              com.google.protobuf.BoolValue.newBuilder(ignoreUnknownValues_).mergeFrom(value).buildPartial();
+          } else {
+            ignoreUnknownValues_ = value;
+          }
+          onChanged();
+        } else {
+          ignoreUnknownValuesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public Builder clearIgnoreUnknownValues() {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          ignoreUnknownValues_ = null;
+          onChanged();
+        } else {
+          ignoreUnknownValues_ = null;
+          ignoreUnknownValuesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public com.google.protobuf.BoolValue.Builder getIgnoreUnknownValuesBuilder() {
+        
+        onChanged();
+        return getIgnoreUnknownValuesFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      public com.google.protobuf.BoolValueOrBuilder getIgnoreUnknownValuesOrBuilder() {
+        if (ignoreUnknownValuesBuilder_ != null) {
+          return ignoreUnknownValuesBuilder_.getMessageOrBuilder();
+        } else {
+          return ignoreUnknownValues_ == null ?
+              com.google.protobuf.BoolValue.getDefaultInstance() : ignoreUnknownValues_;
+        }
+      }
+      /**
+       * <pre>
+       * Indicates if extra values that are not represented in the table schema is
+       * allowed.
+       * </pre>
+       *
+       * <code>.google.protobuf.BoolValue ignore_unknown_values = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder> 
+          getIgnoreUnknownValuesFieldBuilder() {
+        if (ignoreUnknownValuesBuilder_ == null) {
+          ignoreUnknownValuesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.BoolValue, com.google.protobuf.BoolValue.Builder, com.google.protobuf.BoolValueOrBuilder>(
+                  getIgnoreUnknownValues(),
+                  getParentForChildren(),
+                  isClean());
+          ignoreUnknownValues_ = null;
+        }
+        return ignoreUnknownValuesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -6440,6 +6981,31 @@ private static final long serialVersionUID = 0L;
     return userDefinedFunctions_.getByteString(index);
   }
 
+  public static final int WRITE_DISPOSITION_FIELD_NUMBER = 6;
+  private int writeDisposition_;
+  /**
+   * <pre>
+   * Specifies the action if the destination table already exists.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+   */
+  public int getWriteDispositionValue() {
+    return writeDisposition_;
+  }
+  /**
+   * <pre>
+   * Specifies the action if the destination table already exists.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+   */
+  public com.google.cloud.bigquery.datatransfer.v1.WriteDisposition getWriteDisposition() {
+    @SuppressWarnings("deprecation")
+    com.google.cloud.bigquery.datatransfer.v1.WriteDisposition result = com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.valueOf(writeDisposition_);
+    return result == null ? com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.UNRECOGNIZED : result;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -6465,6 +7031,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < userDefinedFunctions_.size(); i++) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, userDefinedFunctions_.getRaw(i));
+    }
+    if (writeDisposition_ != com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.WRITE_DISPOSITION_UNSPECIFIED.getNumber()) {
+      output.writeEnum(6, writeDisposition_);
     }
     if (!getDestinationTableDescriptionBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 10, destinationTableDescription_);
@@ -6496,6 +7065,10 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getUserDefinedFunctionsList().size();
     }
+    if (writeDisposition_ != com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.WRITE_DISPOSITION_UNSPECIFIED.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(6, writeDisposition_);
+    }
     if (!getDestinationTableDescriptionBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, destinationTableDescription_);
     }
@@ -6514,19 +7087,19 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo other = (com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo) obj;
 
-    boolean result = true;
-    result = result && getSql()
-        .equals(other.getSql());
-    result = result && getDestinationTableId()
-        .equals(other.getDestinationTableId());
-    result = result && getDestinationTableDescription()
-        .equals(other.getDestinationTableDescription());
-    result = result && getTableDefsList()
-        .equals(other.getTableDefsList());
-    result = result && getUserDefinedFunctionsList()
-        .equals(other.getUserDefinedFunctionsList());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getSql()
+        .equals(other.getSql())) return false;
+    if (!getDestinationTableId()
+        .equals(other.getDestinationTableId())) return false;
+    if (!getDestinationTableDescription()
+        .equals(other.getDestinationTableDescription())) return false;
+    if (!getTableDefsList()
+        .equals(other.getTableDefsList())) return false;
+    if (!getUserDefinedFunctionsList()
+        .equals(other.getUserDefinedFunctionsList())) return false;
+    if (writeDisposition_ != other.writeDisposition_) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -6550,6 +7123,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + USER_DEFINED_FUNCTIONS_FIELD_NUMBER;
       hash = (53 * hash) + getUserDefinedFunctionsList().hashCode();
     }
+    hash = (37 * hash) + WRITE_DISPOSITION_FIELD_NUMBER;
+    hash = (53 * hash) + writeDisposition_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -6702,6 +7277,8 @@ private static final long serialVersionUID = 0L;
       }
       userDefinedFunctions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000010);
+      writeDisposition_ = 0;
+
       return this;
     }
 
@@ -6734,7 +7311,7 @@ private static final long serialVersionUID = 0L;
       result.destinationTableId_ = destinationTableId_;
       result.destinationTableDescription_ = destinationTableDescription_;
       if (tableDefsBuilder_ == null) {
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000008) != 0)) {
           tableDefs_ = java.util.Collections.unmodifiableList(tableDefs_);
           bitField0_ = (bitField0_ & ~0x00000008);
         }
@@ -6742,11 +7319,12 @@ private static final long serialVersionUID = 0L;
       } else {
         result.tableDefs_ = tableDefsBuilder_.build();
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         userDefinedFunctions_ = userDefinedFunctions_.getUnmodifiableView();
         bitField0_ = (bitField0_ & ~0x00000010);
       }
       result.userDefinedFunctions_ = userDefinedFunctions_;
+      result.writeDisposition_ = writeDisposition_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -6754,35 +7332,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -6843,6 +7421,9 @@ private static final long serialVersionUID = 0L;
           userDefinedFunctions_.addAll(other.userDefinedFunctions_);
         }
         onChanged();
+      }
+      if (other.writeDisposition_ != 0) {
+        setWriteDispositionValue(other.getWriteDispositionValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -7159,7 +7740,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition> tableDefs_ =
       java.util.Collections.emptyList();
     private void ensureTableDefsIsMutable() {
-      if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (!((bitField0_ & 0x00000008) != 0)) {
         tableDefs_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition>(tableDefs_);
         bitField0_ |= 0x00000008;
        }
@@ -7514,7 +8095,7 @@ private static final long serialVersionUID = 0L;
         tableDefsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinition.Builder, com.google.cloud.bigquery.datatransfer.v1.ImportedDataInfo.TableDefinitionOrBuilder>(
                 tableDefs_,
-                ((bitField0_ & 0x00000008) == 0x00000008),
+                ((bitField0_ & 0x00000008) != 0),
                 getParentForChildren(),
                 isClean());
         tableDefs_ = null;
@@ -7524,7 +8105,7 @@ private static final long serialVersionUID = 0L;
 
     private com.google.protobuf.LazyStringList userDefinedFunctions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureUserDefinedFunctionsIsMutable() {
-      if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (!((bitField0_ & 0x00000010) != 0)) {
         userDefinedFunctions_ = new com.google.protobuf.LazyStringArrayList(userDefinedFunctions_);
         bitField0_ |= 0x00000010;
        }
@@ -7660,10 +8241,75 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private int writeDisposition_ = 0;
+    /**
+     * <pre>
+     * Specifies the action if the destination table already exists.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+     */
+    public int getWriteDispositionValue() {
+      return writeDisposition_;
+    }
+    /**
+     * <pre>
+     * Specifies the action if the destination table already exists.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+     */
+    public Builder setWriteDispositionValue(int value) {
+      writeDisposition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Specifies the action if the destination table already exists.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+     */
+    public com.google.cloud.bigquery.datatransfer.v1.WriteDisposition getWriteDisposition() {
+      @SuppressWarnings("deprecation")
+      com.google.cloud.bigquery.datatransfer.v1.WriteDisposition result = com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.valueOf(writeDisposition_);
+      return result == null ? com.google.cloud.bigquery.datatransfer.v1.WriteDisposition.UNRECOGNIZED : result;
+    }
+    /**
+     * <pre>
+     * Specifies the action if the destination table already exists.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+     */
+    public Builder setWriteDisposition(com.google.cloud.bigquery.datatransfer.v1.WriteDisposition value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      writeDisposition_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Specifies the action if the destination table already exists.
+     * </pre>
+     *
+     * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+     */
+    public Builder clearWriteDisposition() {
+      
+      writeDisposition_ = 0;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

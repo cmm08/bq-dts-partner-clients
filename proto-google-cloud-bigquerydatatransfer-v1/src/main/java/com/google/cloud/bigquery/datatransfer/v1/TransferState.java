@@ -39,7 +39,7 @@ public enum TransferState
   RUNNING(3),
   /**
    * <pre>
-   * Data transfer completed successsfully.
+   * Data transfer completed successfully.
    * </pre>
    *
    * <code>SUCCEEDED = 4;</code>
@@ -91,7 +91,7 @@ public enum TransferState
   public static final int RUNNING_VALUE = 3;
   /**
    * <pre>
-   * Data transfer completed successsfully.
+   * Data transfer completed successfully.
    * </pre>
    *
    * <code>SUCCEEDED = 4;</code>

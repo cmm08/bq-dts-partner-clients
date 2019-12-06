@@ -18,7 +18,7 @@ public interface IsDataTransferServiceEnabledResponseOrBuilder extends
 
   /**
    * <pre>
-   * A string that contains additional infomation about why the service is
+   * A string that contains additional information about why the service is
    * deemed not enabled. This is only available when `enable` is false.
    * </pre>
    *
@@ -27,7 +27,7 @@ public interface IsDataTransferServiceEnabledResponseOrBuilder extends
   java.lang.String getReason();
   /**
    * <pre>
-   * A string that contains additional infomation about why the service is
+   * A string that contains additional information about why the service is
    * deemed not enabled. This is only available when `enable` is false.
    * </pre>
    *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import com.google.api.gax.grpc.testing.MockServiceHelper;
 import com.google.api.gax.rpc.ApiClientHeaderProvider;
 import com.google.api.gax.rpc.InvalidArgumentException;
 import com.google.common.collect.Lists;
+import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Empty;
 import com.google.protobuf.FieldMask;
-import com.google.protobuf.GeneratedMessageV3;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import java.io.IOException;
@@ -44,20 +44,20 @@ import org.junit.Test;
 
 @javax.annotation.Generated("by GAPIC")
 public class DataSourceServiceClientTest {
-  private static MockDataTransferService mockDataTransferService;
   private static MockDataSourceService mockDataSourceService;
+  private static MockDataTransferService mockDataTransferService;
   private static MockServiceHelper serviceHelper;
   private DataSourceServiceClient client;
   private LocalChannelProvider channelProvider;
 
   @BeforeClass
   public static void startStaticServer() {
-    mockDataTransferService = new MockDataTransferService();
     mockDataSourceService = new MockDataSourceService();
+    mockDataTransferService = new MockDataTransferService();
     serviceHelper =
         new MockServiceHelper(
             "in-process-1",
-            Arrays.<MockGrpcService>asList(mockDataTransferService, mockDataSourceService));
+            Arrays.<MockGrpcService>asList(mockDataSourceService, mockDataTransferService));
     serviceHelper.start();
   }
 
@@ -91,6 +91,8 @@ public class DataSourceServiceClientTest {
     String dataSourceId = "dataSourceId-1015796374";
     long userId = 147132913L;
     String schedule = "schedule-697920873";
+    String notificationPubsubTopic = "notificationPubsubTopic1794281191";
+    String partnerToken = "partnerToken725173186";
     TransferRun expectedResponse =
         TransferRun.newBuilder()
             .setName(name)
@@ -98,6 +100,8 @@ public class DataSourceServiceClientTest {
             .setDataSourceId(dataSourceId)
             .setUserId(userId)
             .setSchedule(schedule)
+            .setNotificationPubsubTopic(notificationPubsubTopic)
+            .setPartnerToken(partnerToken)
             .build();
     mockDataSourceService.addResponse(expectedResponse);
 
@@ -107,7 +111,7 @@ public class DataSourceServiceClientTest {
     TransferRun actualResponse = client.updateTransferRun(transferRun, updateMask);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     UpdateTransferRunRequest actualRequest = (UpdateTransferRunRequest) actualRequests.get(0);
 
@@ -149,7 +153,7 @@ public class DataSourceServiceClientTest {
 
     client.logTransferRunMessages(formattedName, transferMessages);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     LogTransferRunMessagesRequest actualRequest =
         (LogTransferRunMessagesRequest) actualRequests.get(0);
@@ -192,16 +196,18 @@ public class DataSourceServiceClientTest {
             "[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
     List<ImportedDataInfo> importedData = new ArrayList<>();
     ByteString userCredentials = ByteString.copyFromUtf8("-120");
+    int maxParallelism = 1515657535;
 
-    client.startBigQueryJobs(formattedName, importedData, userCredentials);
+    client.startBigQueryJobs(formattedName, importedData, userCredentials, maxParallelism);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     StartBigQueryJobsRequest actualRequest = (StartBigQueryJobsRequest) actualRequests.get(0);
 
     Assert.assertEquals(formattedName, actualRequest.getName());
     Assert.assertEquals(importedData, actualRequest.getImportedDataList());
     Assert.assertEquals(userCredentials, actualRequest.getUserCredentials());
+    Assert.assertEquals(maxParallelism, actualRequest.getMaxParallelism());
     Assert.assertTrue(
         channelProvider.isHeaderSent(
             ApiClientHeaderProvider.getDefaultApiClientHeaderKey(),
@@ -220,53 +226,9 @@ public class DataSourceServiceClientTest {
               "[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
       List<ImportedDataInfo> importedData = new ArrayList<>();
       ByteString userCredentials = ByteString.copyFromUtf8("-120");
+      int maxParallelism = 1515657535;
 
-      client.startBigQueryJobs(formattedName, importedData, userCredentials);
-      Assert.fail("No exception raised");
-    } catch (InvalidArgumentException e) {
-      // Expected exception
-    }
-  }
-
-  @Test
-  @SuppressWarnings("all")
-  public void getCredentialsTest() {
-    String name2 = "name2-1052831874";
-    String authToken = "authToken-1956766558";
-    Credentials expectedResponse =
-        Credentials.newBuilder().setName(name2).setAuthToken(authToken).build();
-    mockDataSourceService.addResponse(expectedResponse);
-
-    String formattedName =
-        DataSourceServiceClient.formatCredentialName(
-            "[PROJECT]", "[LOCATION]", "[DATA_SOURCE]", "[CREDENTIAL]");
-
-    Credentials actualResponse = client.getCredentials(formattedName);
-    Assert.assertEquals(expectedResponse, actualResponse);
-
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
-    Assert.assertEquals(1, actualRequests.size());
-    GetCredentialsRequest actualRequest = (GetCredentialsRequest) actualRequests.get(0);
-
-    Assert.assertEquals(formattedName, actualRequest.getName());
-    Assert.assertTrue(
-        channelProvider.isHeaderSent(
-            ApiClientHeaderProvider.getDefaultApiClientHeaderKey(),
-            GaxGrpcProperties.getDefaultApiClientHeaderPattern()));
-  }
-
-  @Test
-  @SuppressWarnings("all")
-  public void getCredentialsExceptionTest() throws Exception {
-    StatusRuntimeException exception = new StatusRuntimeException(Status.INVALID_ARGUMENT);
-    mockDataSourceService.addException(exception);
-
-    try {
-      String formattedName =
-          DataSourceServiceClient.formatCredentialName(
-              "[PROJECT]", "[LOCATION]", "[DATA_SOURCE]", "[CREDENTIAL]");
-
-      client.getCredentials(formattedName);
+      client.startBigQueryJobs(formattedName, importedData, userCredentials, maxParallelism);
       Assert.fail("No exception raised");
     } catch (InvalidArgumentException e) {
       // Expected exception
@@ -285,7 +247,7 @@ public class DataSourceServiceClientTest {
 
     client.finishRun(formattedName);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     FinishRunRequest actualRequest = (FinishRunRequest) actualRequests.get(0);
 
@@ -320,13 +282,17 @@ public class DataSourceServiceClientTest {
     String name = "name3373707";
     String transferRunPubsubTopic = "transferRunPubsubTopic-1740562661";
     String supportEmail = "supportEmail-648030420";
+    String serviceAccount = "serviceAccount-1948028253";
     boolean disabled = true;
+    String transferConfigPubsubTopic = "transferConfigPubsubTopic71465884";
     DataSourceDefinition expectedResponse =
         DataSourceDefinition.newBuilder()
             .setName(name)
             .setTransferRunPubsubTopic(transferRunPubsubTopic)
             .setSupportEmail(supportEmail)
+            .setServiceAccount(serviceAccount)
             .setDisabled(disabled)
+            .setTransferConfigPubsubTopic(transferConfigPubsubTopic)
             .build();
     mockDataSourceService.addResponse(expectedResponse);
 
@@ -337,7 +303,7 @@ public class DataSourceServiceClientTest {
         client.createDataSourceDefinition(formattedParent, dataSourceDefinition);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     CreateDataSourceDefinitionRequest actualRequest =
         (CreateDataSourceDefinitionRequest) actualRequests.get(0);
@@ -374,13 +340,17 @@ public class DataSourceServiceClientTest {
     String name = "name3373707";
     String transferRunPubsubTopic = "transferRunPubsubTopic-1740562661";
     String supportEmail = "supportEmail-648030420";
+    String serviceAccount = "serviceAccount-1948028253";
     boolean disabled = true;
+    String transferConfigPubsubTopic = "transferConfigPubsubTopic71465884";
     DataSourceDefinition expectedResponse =
         DataSourceDefinition.newBuilder()
             .setName(name)
             .setTransferRunPubsubTopic(transferRunPubsubTopic)
             .setSupportEmail(supportEmail)
+            .setServiceAccount(serviceAccount)
             .setDisabled(disabled)
+            .setTransferConfigPubsubTopic(transferConfigPubsubTopic)
             .build();
     mockDataSourceService.addResponse(expectedResponse);
 
@@ -391,7 +361,7 @@ public class DataSourceServiceClientTest {
         client.updateDataSourceDefinition(dataSourceDefinition, updateMask);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     UpdateDataSourceDefinitionRequest actualRequest =
         (UpdateDataSourceDefinitionRequest) actualRequests.get(0);
@@ -433,7 +403,7 @@ public class DataSourceServiceClientTest {
 
     client.deleteDataSourceDefinition(formattedName);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     DeleteDataSourceDefinitionRequest actualRequest =
         (DeleteDataSourceDefinitionRequest) actualRequests.get(0);
@@ -469,13 +439,17 @@ public class DataSourceServiceClientTest {
     String name2 = "name2-1052831874";
     String transferRunPubsubTopic = "transferRunPubsubTopic-1740562661";
     String supportEmail = "supportEmail-648030420";
+    String serviceAccount = "serviceAccount-1948028253";
     boolean disabled = true;
+    String transferConfigPubsubTopic = "transferConfigPubsubTopic71465884";
     DataSourceDefinition expectedResponse =
         DataSourceDefinition.newBuilder()
             .setName(name2)
             .setTransferRunPubsubTopic(transferRunPubsubTopic)
             .setSupportEmail(supportEmail)
+            .setServiceAccount(serviceAccount)
             .setDisabled(disabled)
+            .setTransferConfigPubsubTopic(transferConfigPubsubTopic)
             .build();
     mockDataSourceService.addResponse(expectedResponse);
 
@@ -486,7 +460,7 @@ public class DataSourceServiceClientTest {
     DataSourceDefinition actualResponse = client.getDataSourceDefinition(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     GetDataSourceDefinitionRequest actualRequest =
         (GetDataSourceDefinitionRequest) actualRequests.get(0);
@@ -538,7 +512,7 @@ public class DataSourceServiceClientTest {
     Assert.assertEquals(1, resources.size());
     Assert.assertEquals(expectedResponse.getDataSourceDefinitionsList().get(0), resources.get(0));
 
-    List<GeneratedMessageV3> actualRequests = mockDataSourceService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataSourceService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ListDataSourceDefinitionsRequest actualRequest =
         (ListDataSourceDefinitionsRequest) actualRequests.get(0);

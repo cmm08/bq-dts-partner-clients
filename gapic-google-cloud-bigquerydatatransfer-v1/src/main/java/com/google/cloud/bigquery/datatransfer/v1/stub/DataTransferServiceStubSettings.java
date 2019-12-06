@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,8 @@ import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsResponse;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsRequest;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.TransferConfig;
 import com.google.cloud.bigquery.datatransfer.v1.TransferMessage;
 import com.google.cloud.bigquery.datatransfer.v1.TransferRun;
@@ -92,8 +94,9 @@ import org.threeten.bp.Duration;
  * </ul>
  *
  * <p>The builder of this class is recursive, so contained classes are themselves builders. When
- * build() is called, the tree of builders is called to create the complete settings object. For
- * example, to set the total timeout of getDataSource to 30 seconds:
+ * build() is called, the tree of builders is called to create the complete settings object.
+ *
+ * <p>For example, to set the total timeout of getDataSource to 30 seconds:
  *
  * <pre>
  * <code>
@@ -112,6 +115,7 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
   private static final ImmutableList<String> DEFAULT_SERVICE_SCOPES =
       ImmutableList.<String>builder()
           .add("https://www.googleapis.com/auth/bigquery")
+          .add("https://www.googleapis.com/auth/bigquery.readonly")
           .add("https://www.googleapis.com/auth/cloud-platform")
           .add("https://www.googleapis.com/auth/cloud-platform.read-only")
           .build();
@@ -132,6 +136,8 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
       listTransferConfigsSettings;
   private final UnaryCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsSettings;
+  private final UnaryCallSettings<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsSettings;
   private final UnaryCallSettings<GetTransferRunRequest, TransferRun> getTransferRunSettings;
   private final UnaryCallSettings<DeleteTransferRunRequest, Empty> deleteTransferRunSettings;
   private final PagedCallSettings<
@@ -193,6 +199,12 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
   public UnaryCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsSettings() {
     return scheduleTransferRunsSettings;
+  }
+
+  /** Returns the object with the settings used for calls to startManualTransferRuns. */
+  public UnaryCallSettings<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsSettings() {
+    return startManualTransferRunsSettings;
   }
 
   /** Returns the object with the settings used for calls to getTransferRun. */
@@ -272,7 +284,8 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
   /** Returns a builder for the default ChannelProvider for this service. */
   public static InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder() {
-    return InstantiatingGrpcChannelProvider.newBuilder();
+    return InstantiatingGrpcChannelProvider.newBuilder()
+        .setMaxInboundMessageSize(Integer.MAX_VALUE);
   }
 
   public static TransportChannelProvider defaultTransportChannelProvider() {
@@ -314,6 +327,7 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
     getTransferConfigSettings = settingsBuilder.getTransferConfigSettings().build();
     listTransferConfigsSettings = settingsBuilder.listTransferConfigsSettings().build();
     scheduleTransferRunsSettings = settingsBuilder.scheduleTransferRunsSettings().build();
+    startManualTransferRunsSettings = settingsBuilder.startManualTransferRunsSettings().build();
     getTransferRunSettings = settingsBuilder.getTransferRunSettings().build();
     deleteTransferRunSettings = settingsBuilder.deleteTransferRunSettings().build();
     listTransferRunsSettings = settingsBuilder.listTransferRunsSettings().build();
@@ -357,7 +371,9 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
             @Override
             public Iterable<DataSource> extractResources(ListDataSourcesResponse payload) {
-              return payload.getDataSourcesList();
+              return payload.getDataSourcesList() != null
+                  ? payload.getDataSourcesList()
+                  : ImmutableList.<DataSource>of();
             }
           };
 
@@ -395,7 +411,9 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
             @Override
             public Iterable<TransferConfig> extractResources(ListTransferConfigsResponse payload) {
-              return payload.getTransferConfigsList();
+              return payload.getTransferConfigsList() != null
+                  ? payload.getTransferConfigsList()
+                  : ImmutableList.<TransferConfig>of();
             }
           };
 
@@ -433,7 +451,9 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
             @Override
             public Iterable<TransferRun> extractResources(ListTransferRunsResponse payload) {
-              return payload.getTransferRunsList();
+              return payload.getTransferRunsList() != null
+                  ? payload.getTransferRunsList()
+                  : ImmutableList.<TransferRun>of();
             }
           };
 
@@ -471,7 +491,9 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
             @Override
             public Iterable<TransferMessage> extractResources(ListTransferLogsResponse payload) {
-              return payload.getTransferMessagesList();
+              return payload.getTransferMessagesList() != null
+                  ? payload.getTransferMessagesList()
+                  : ImmutableList.<TransferMessage>of();
             }
           };
 
@@ -574,6 +596,9 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
     private final UnaryCallSettings.Builder<
             ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
         scheduleTransferRunsSettings;
+    private final UnaryCallSettings.Builder<
+            StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+        startManualTransferRunsSettings;
     private final UnaryCallSettings.Builder<GetTransferRunRequest, TransferRun>
         getTransferRunSettings;
     private final UnaryCallSettings.Builder<DeleteTransferRunRequest, Empty>
@@ -650,6 +675,8 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
 
       scheduleTransferRunsSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
 
+      startManualTransferRunsSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
+
       getTransferRunSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
 
       deleteTransferRunSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
@@ -674,6 +701,7 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
               getTransferConfigSettings,
               listTransferConfigsSettings,
               scheduleTransferRunsSettings,
+              startManualTransferRunsSettings,
               getTransferRunSettings,
               deleteTransferRunSettings,
               listTransferRunsSettings,
@@ -737,6 +765,11 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
           .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("default"));
 
       builder
+          .startManualTransferRunsSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("non_idempotent"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("default"));
+
+      builder
           .getTransferRunSettings()
           .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("idempotent"))
           .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("default"));
@@ -785,6 +818,7 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
       getTransferConfigSettings = settings.getTransferConfigSettings.toBuilder();
       listTransferConfigsSettings = settings.listTransferConfigsSettings.toBuilder();
       scheduleTransferRunsSettings = settings.scheduleTransferRunsSettings.toBuilder();
+      startManualTransferRunsSettings = settings.startManualTransferRunsSettings.toBuilder();
       getTransferRunSettings = settings.getTransferRunSettings.toBuilder();
       deleteTransferRunSettings = settings.deleteTransferRunSettings.toBuilder();
       listTransferRunsSettings = settings.listTransferRunsSettings.toBuilder();
@@ -804,6 +838,7 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
               getTransferConfigSettings,
               listTransferConfigsSettings,
               scheduleTransferRunsSettings,
+              startManualTransferRunsSettings,
               getTransferRunSettings,
               deleteTransferRunSettings,
               listTransferRunsSettings,
@@ -877,6 +912,13 @@ public class DataTransferServiceStubSettings extends StubSettings<DataTransferSe
     public UnaryCallSettings.Builder<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
         scheduleTransferRunsSettings() {
       return scheduleTransferRunsSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to startManualTransferRuns. */
+    public UnaryCallSettings.Builder<
+            StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+        startManualTransferRunsSettings() {
+      return startManualTransferRunsSettings;
     }
 
     /** Returns the builder for the settings used for calls to getTransferRun. */

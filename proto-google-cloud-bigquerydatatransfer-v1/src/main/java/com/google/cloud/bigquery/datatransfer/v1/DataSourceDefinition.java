@@ -23,7 +23,8 @@ private static final long serialVersionUID = 0L;
     name_ = "";
     transferRunPubsubTopic_ = "";
     supportEmail_ = "";
-    disabled_ = false;
+    serviceAccount_ = "";
+    transferConfigPubsubTopic_ = "";
     supportedLocationIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
@@ -64,9 +65,21 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            serviceAccount_ = s;
+            break;
+          }
           case 40: {
 
             disabled_ = input.readBool();
+            break;
+          }
+          case 98: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            transferConfigPubsubTopic_ = s;
             break;
           }
           case 106: {
@@ -102,15 +115,15 @@ private static final long serialVersionUID = 0L;
           }
           case 186: {
             java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+            if (!((mutable_bitField0_ & 0x00000100) != 0)) {
               supportedLocationIds_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000040;
+              mutable_bitField0_ |= 0x00000100;
             }
             supportedLocationIds_.add(s);
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -124,7 +137,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+      if (((mutable_bitField0_ & 0x00000100) != 0)) {
         supportedLocationIds_ = supportedLocationIds_.getUnmodifiableView();
       }
       this.unknownFields = unknownFields.build();
@@ -228,9 +241,14 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object transferRunPubsubTopic_;
   /**
    * <pre>
-   * Output only. The pubsub topic to be used for broadcasting a message when a
-   * transfer run is created. The comments about "{region}" for
-   * transfer_config_pubsub_topic apply here too.
+   * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+   * is created. Both this topic and transfer_config_pubsub_topic can be
+   * set to a custom topic. By default, both topics are auto-generated if none
+   * of them is provided when creating the definition. However, if one topic is
+   * manually set, the other topic has to be manually set as well. The only
+   * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+   * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+   * about "{location}" for transfer_config_pubsub_topic apply here too.
    * </pre>
    *
    * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -249,9 +267,14 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Output only. The pubsub topic to be used for broadcasting a message when a
-   * transfer run is created. The comments about "{region}" for
-   * transfer_config_pubsub_topic apply here too.
+   * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+   * is created. Both this topic and transfer_config_pubsub_topic can be
+   * set to a custom topic. By default, both topics are auto-generated if none
+   * of them is provided when creating the definition. However, if one topic is
+   * manually set, the other topic has to be manually set as well. The only
+   * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+   * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+   * about "{location}" for transfer_config_pubsub_topic apply here too.
    * </pre>
    *
    * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -362,6 +385,54 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int SERVICE_ACCOUNT_FIELD_NUMBER = 2;
+  private volatile java.lang.Object serviceAccount_;
+  /**
+   * <pre>
+   * When service account is specified, BigQuery will share created dataset
+   * with the given service account. Also, this service account will be
+   * eligible to perform status updates and message logging for data transfer
+   * runs for the corresponding data_source_id.
+   * </pre>
+   *
+   * <code>string service_account = 2;</code>
+   */
+  public java.lang.String getServiceAccount() {
+    java.lang.Object ref = serviceAccount_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      serviceAccount_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * When service account is specified, BigQuery will share created dataset
+   * with the given service account. Also, this service account will be
+   * eligible to perform status updates and message logging for data transfer
+   * runs for the corresponding data_source_id.
+   * </pre>
+   *
+   * <code>string service_account = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getServiceAccountBytes() {
+    java.lang.Object ref = serviceAccount_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      serviceAccount_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   public static final int DISABLED_FIELD_NUMBER = 5;
   private boolean disabled_;
   /**
@@ -378,13 +449,79 @@ private static final long serialVersionUID = 0L;
     return disabled_;
   }
 
+  public static final int TRANSFER_CONFIG_PUBSUB_TOPIC_FIELD_NUMBER = 12;
+  private volatile java.lang.Object transferConfigPubsubTopic_;
+  /**
+   * <pre>
+   * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+   * empty, a message will not be broadcasted. Both this topic and
+   * transfer_run_pubsub_topic are auto-generated if none of them is provided
+   * when creating the definition. It is recommended to provide
+   * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+   * provided. Otherwise, it will be set to empty. If "{location}" is found in
+   * the value, then that means, data source wants to handle message separately
+   * for datasets in different regions. We will replace {location} with the
+   * actual dataset location, as the actual topic name. For example,
+   * projects/connector/topics/scheduler-{location} could become
+   * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+   * we will use the input value as topic name.
+   * </pre>
+   *
+   * <code>string transfer_config_pubsub_topic = 12;</code>
+   */
+  public java.lang.String getTransferConfigPubsubTopic() {
+    java.lang.Object ref = transferConfigPubsubTopic_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      transferConfigPubsubTopic_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+   * empty, a message will not be broadcasted. Both this topic and
+   * transfer_run_pubsub_topic are auto-generated if none of them is provided
+   * when creating the definition. It is recommended to provide
+   * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+   * provided. Otherwise, it will be set to empty. If "{location}" is found in
+   * the value, then that means, data source wants to handle message separately
+   * for datasets in different regions. We will replace {location} with the
+   * actual dataset location, as the actual topic name. For example,
+   * projects/connector/topics/scheduler-{location} could become
+   * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+   * we will use the input value as topic name.
+   * </pre>
+   *
+   * <code>string transfer_config_pubsub_topic = 12;</code>
+   */
+  public com.google.protobuf.ByteString
+      getTransferConfigPubsubTopicBytes() {
+    java.lang.Object ref = transferConfigPubsubTopic_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      transferConfigPubsubTopic_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   public static final int SUPPORTED_LOCATION_IDS_FIELD_NUMBER = 23;
   private com.google.protobuf.LazyStringList supportedLocationIds_;
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -394,9 +531,6 @@ private static final long serialVersionUID = 0L;
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -407,9 +541,11 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -419,9 +555,6 @@ private static final long serialVersionUID = 0L;
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -431,9 +564,11 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -443,9 +578,6 @@ private static final long serialVersionUID = 0L;
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -455,9 +587,11 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Supported location_ids of the data source. The valid values are the
-   * "location_id" field of the response of
-   * `GET
+   * Supported location_ids used for deciding in which locations Pub/Sub topics
+   * need to be created. If custom Pub/Sub topics are used and they contains
+   * '{location}', the location_ids will be used for validating the topics by
+   * replacing the '{location}' with the individual location in the list. The
+   * valid values are the "location_id" field of the response of `GET
    * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
    * In addition, if the data source needs to support all available regions,
    * supported_location_ids can be set to "global" (a single string element).
@@ -467,9 +601,6 @@ private static final long serialVersionUID = 0L;
    * 2) Data source developer should be aware of the implications (e.g., network
    * traffic latency, potential charge associated with cross-region traffic,
    * etc.) of supporting the "global" region;
-   * 3) when new regions are added in Data Transfer Service, the new
-   * regions will be treated as "supported" automatically (that is, no need to
-   * update the supported_location_ids field).
    * </pre>
    *
    * <code>repeated string supported_location_ids = 23;</code>
@@ -496,8 +627,14 @@ private static final long serialVersionUID = 0L;
     if (dataSource_ != null) {
       output.writeMessage(1, getDataSource());
     }
+    if (!getServiceAccountBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, serviceAccount_);
+    }
     if (disabled_ != false) {
       output.writeBool(5, disabled_);
+    }
+    if (!getTransferConfigPubsubTopicBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 12, transferConfigPubsubTopic_);
     }
     if (!getTransferRunPubsubTopicBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 13, transferRunPubsubTopic_);
@@ -527,9 +664,15 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getDataSource());
     }
+    if (!getServiceAccountBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, serviceAccount_);
+    }
     if (disabled_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(5, disabled_);
+    }
+    if (!getTransferConfigPubsubTopicBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, transferConfigPubsubTopic_);
     }
     if (!getTransferRunPubsubTopicBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, transferRunPubsubTopic_);
@@ -567,29 +710,32 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition other = (com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition) obj;
 
-    boolean result = true;
-    result = result && getName()
-        .equals(other.getName());
-    result = result && (hasDataSource() == other.hasDataSource());
+    if (!getName()
+        .equals(other.getName())) return false;
+    if (hasDataSource() != other.hasDataSource()) return false;
     if (hasDataSource()) {
-      result = result && getDataSource()
-          .equals(other.getDataSource());
+      if (!getDataSource()
+          .equals(other.getDataSource())) return false;
     }
-    result = result && getTransferRunPubsubTopic()
-        .equals(other.getTransferRunPubsubTopic());
-    result = result && (hasRunTimeOffset() == other.hasRunTimeOffset());
+    if (!getTransferRunPubsubTopic()
+        .equals(other.getTransferRunPubsubTopic())) return false;
+    if (hasRunTimeOffset() != other.hasRunTimeOffset()) return false;
     if (hasRunTimeOffset()) {
-      result = result && getRunTimeOffset()
-          .equals(other.getRunTimeOffset());
+      if (!getRunTimeOffset()
+          .equals(other.getRunTimeOffset())) return false;
     }
-    result = result && getSupportEmail()
-        .equals(other.getSupportEmail());
-    result = result && (getDisabled()
-        == other.getDisabled());
-    result = result && getSupportedLocationIdsList()
-        .equals(other.getSupportedLocationIdsList());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getSupportEmail()
+        .equals(other.getSupportEmail())) return false;
+    if (!getServiceAccount()
+        .equals(other.getServiceAccount())) return false;
+    if (getDisabled()
+        != other.getDisabled()) return false;
+    if (!getTransferConfigPubsubTopic()
+        .equals(other.getTransferConfigPubsubTopic())) return false;
+    if (!getSupportedLocationIdsList()
+        .equals(other.getSupportedLocationIdsList())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -613,9 +759,13 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + SUPPORT_EMAIL_FIELD_NUMBER;
     hash = (53 * hash) + getSupportEmail().hashCode();
+    hash = (37 * hash) + SERVICE_ACCOUNT_FIELD_NUMBER;
+    hash = (53 * hash) + getServiceAccount().hashCode();
     hash = (37 * hash) + DISABLED_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getDisabled());
+    hash = (37 * hash) + TRANSFER_CONFIG_PUBSUB_TOPIC_FIELD_NUMBER;
+    hash = (53 * hash) + getTransferConfigPubsubTopic().hashCode();
     if (getSupportedLocationIdsCount() > 0) {
       hash = (37 * hash) + SUPPORTED_LOCATION_IDS_FIELD_NUMBER;
       hash = (53 * hash) + getSupportedLocationIdsList().hashCode();
@@ -775,10 +925,14 @@ private static final long serialVersionUID = 0L;
       }
       supportEmail_ = "";
 
+      serviceAccount_ = "";
+
       disabled_ = false;
 
+      transferConfigPubsubTopic_ = "";
+
       supportedLocationIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000040);
+      bitField0_ = (bitField0_ & ~0x00000100);
       return this;
     }
 
@@ -820,10 +974,12 @@ private static final long serialVersionUID = 0L;
         result.runTimeOffset_ = runTimeOffsetBuilder_.build();
       }
       result.supportEmail_ = supportEmail_;
+      result.serviceAccount_ = serviceAccount_;
       result.disabled_ = disabled_;
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      result.transferConfigPubsubTopic_ = transferConfigPubsubTopic_;
+      if (((bitField0_ & 0x00000100) != 0)) {
         supportedLocationIds_ = supportedLocationIds_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000100);
       }
       result.supportedLocationIds_ = supportedLocationIds_;
       result.bitField0_ = to_bitField0_;
@@ -833,35 +989,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -893,13 +1049,21 @@ private static final long serialVersionUID = 0L;
         supportEmail_ = other.supportEmail_;
         onChanged();
       }
+      if (!other.getServiceAccount().isEmpty()) {
+        serviceAccount_ = other.serviceAccount_;
+        onChanged();
+      }
       if (other.getDisabled() != false) {
         setDisabled(other.getDisabled());
+      }
+      if (!other.getTransferConfigPubsubTopic().isEmpty()) {
+        transferConfigPubsubTopic_ = other.transferConfigPubsubTopic_;
+        onChanged();
       }
       if (!other.supportedLocationIds_.isEmpty()) {
         if (supportedLocationIds_.isEmpty()) {
           supportedLocationIds_ = other.supportedLocationIds_;
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000100);
         } else {
           ensureSupportedLocationIdsIsMutable();
           supportedLocationIds_.addAll(other.supportedLocationIds_);
@@ -1035,7 +1199,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.cloud.bigquery.datatransfer.v1.DataSource dataSource_ = null;
+    private com.google.cloud.bigquery.datatransfer.v1.DataSource dataSource_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.cloud.bigquery.datatransfer.v1.DataSource, com.google.cloud.bigquery.datatransfer.v1.DataSource.Builder, com.google.cloud.bigquery.datatransfer.v1.DataSourceOrBuilder> dataSourceBuilder_;
     /**
@@ -1191,9 +1355,14 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object transferRunPubsubTopic_ = "";
     /**
      * <pre>
-     * Output only. The pubsub topic to be used for broadcasting a message when a
-     * transfer run is created. The comments about "{region}" for
-     * transfer_config_pubsub_topic apply here too.
+     * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+     * is created. Both this topic and transfer_config_pubsub_topic can be
+     * set to a custom topic. By default, both topics are auto-generated if none
+     * of them is provided when creating the definition. However, if one topic is
+     * manually set, the other topic has to be manually set as well. The only
+     * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+     * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+     * about "{location}" for transfer_config_pubsub_topic apply here too.
      * </pre>
      *
      * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -1212,9 +1381,14 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. The pubsub topic to be used for broadcasting a message when a
-     * transfer run is created. The comments about "{region}" for
-     * transfer_config_pubsub_topic apply here too.
+     * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+     * is created. Both this topic and transfer_config_pubsub_topic can be
+     * set to a custom topic. By default, both topics are auto-generated if none
+     * of them is provided when creating the definition. However, if one topic is
+     * manually set, the other topic has to be manually set as well. The only
+     * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+     * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+     * about "{location}" for transfer_config_pubsub_topic apply here too.
      * </pre>
      *
      * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -1234,9 +1408,14 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. The pubsub topic to be used for broadcasting a message when a
-     * transfer run is created. The comments about "{region}" for
-     * transfer_config_pubsub_topic apply here too.
+     * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+     * is created. Both this topic and transfer_config_pubsub_topic can be
+     * set to a custom topic. By default, both topics are auto-generated if none
+     * of them is provided when creating the definition. However, if one topic is
+     * manually set, the other topic has to be manually set as well. The only
+     * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+     * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+     * about "{location}" for transfer_config_pubsub_topic apply here too.
      * </pre>
      *
      * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -1253,9 +1432,14 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. The pubsub topic to be used for broadcasting a message when a
-     * transfer run is created. The comments about "{region}" for
-     * transfer_config_pubsub_topic apply here too.
+     * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+     * is created. Both this topic and transfer_config_pubsub_topic can be
+     * set to a custom topic. By default, both topics are auto-generated if none
+     * of them is provided when creating the definition. However, if one topic is
+     * manually set, the other topic has to be manually set as well. The only
+     * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+     * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+     * about "{location}" for transfer_config_pubsub_topic apply here too.
      * </pre>
      *
      * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -1268,9 +1452,14 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Output only. The pubsub topic to be used for broadcasting a message when a
-     * transfer run is created. The comments about "{region}" for
-     * transfer_config_pubsub_topic apply here too.
+     * The Pub/Sub topic to be used for broadcasting a message when a transfer run
+     * is created. Both this topic and transfer_config_pubsub_topic can be
+     * set to a custom topic. By default, both topics are auto-generated if none
+     * of them is provided when creating the definition. However, if one topic is
+     * manually set, the other topic has to be manually set as well. The only
+     * difference is that transfer_run_pubsub_topic must be a non-empty Pub/Sub
+     * topic, but transfer_config_pubsub_topic can be set to empty. The comments
+     * about "{location}" for transfer_config_pubsub_topic apply here too.
      * </pre>
      *
      * <code>string transfer_run_pubsub_topic = 13;</code>
@@ -1287,7 +1476,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.Duration runTimeOffset_ = null;
+    private com.google.protobuf.Duration runTimeOffset_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> runTimeOffsetBuilder_;
     /**
@@ -1579,6 +1768,110 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object serviceAccount_ = "";
+    /**
+     * <pre>
+     * When service account is specified, BigQuery will share created dataset
+     * with the given service account. Also, this service account will be
+     * eligible to perform status updates and message logging for data transfer
+     * runs for the corresponding data_source_id.
+     * </pre>
+     *
+     * <code>string service_account = 2;</code>
+     */
+    public java.lang.String getServiceAccount() {
+      java.lang.Object ref = serviceAccount_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        serviceAccount_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * When service account is specified, BigQuery will share created dataset
+     * with the given service account. Also, this service account will be
+     * eligible to perform status updates and message logging for data transfer
+     * runs for the corresponding data_source_id.
+     * </pre>
+     *
+     * <code>string service_account = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getServiceAccountBytes() {
+      java.lang.Object ref = serviceAccount_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        serviceAccount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * When service account is specified, BigQuery will share created dataset
+     * with the given service account. Also, this service account will be
+     * eligible to perform status updates and message logging for data transfer
+     * runs for the corresponding data_source_id.
+     * </pre>
+     *
+     * <code>string service_account = 2;</code>
+     */
+    public Builder setServiceAccount(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      serviceAccount_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When service account is specified, BigQuery will share created dataset
+     * with the given service account. Also, this service account will be
+     * eligible to perform status updates and message logging for data transfer
+     * runs for the corresponding data_source_id.
+     * </pre>
+     *
+     * <code>string service_account = 2;</code>
+     */
+    public Builder clearServiceAccount() {
+      
+      serviceAccount_ = getDefaultInstance().getServiceAccount();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When service account is specified, BigQuery will share created dataset
+     * with the given service account. Also, this service account will be
+     * eligible to perform status updates and message logging for data transfer
+     * runs for the corresponding data_source_id.
+     * </pre>
+     *
+     * <code>string service_account = 2;</code>
+     */
+    public Builder setServiceAccountBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      serviceAccount_ = value;
+      onChanged();
+      return this;
+    }
+
     private boolean disabled_ ;
     /**
      * <pre>
@@ -1626,18 +1919,164 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object transferConfigPubsubTopic_ = "";
+    /**
+     * <pre>
+     * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+     * empty, a message will not be broadcasted. Both this topic and
+     * transfer_run_pubsub_topic are auto-generated if none of them is provided
+     * when creating the definition. It is recommended to provide
+     * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+     * provided. Otherwise, it will be set to empty. If "{location}" is found in
+     * the value, then that means, data source wants to handle message separately
+     * for datasets in different regions. We will replace {location} with the
+     * actual dataset location, as the actual topic name. For example,
+     * projects/connector/topics/scheduler-{location} could become
+     * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+     * we will use the input value as topic name.
+     * </pre>
+     *
+     * <code>string transfer_config_pubsub_topic = 12;</code>
+     */
+    public java.lang.String getTransferConfigPubsubTopic() {
+      java.lang.Object ref = transferConfigPubsubTopic_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        transferConfigPubsubTopic_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+     * empty, a message will not be broadcasted. Both this topic and
+     * transfer_run_pubsub_topic are auto-generated if none of them is provided
+     * when creating the definition. It is recommended to provide
+     * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+     * provided. Otherwise, it will be set to empty. If "{location}" is found in
+     * the value, then that means, data source wants to handle message separately
+     * for datasets in different regions. We will replace {location} with the
+     * actual dataset location, as the actual topic name. For example,
+     * projects/connector/topics/scheduler-{location} could become
+     * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+     * we will use the input value as topic name.
+     * </pre>
+     *
+     * <code>string transfer_config_pubsub_topic = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTransferConfigPubsubTopicBytes() {
+      java.lang.Object ref = transferConfigPubsubTopic_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        transferConfigPubsubTopic_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+     * empty, a message will not be broadcasted. Both this topic and
+     * transfer_run_pubsub_topic are auto-generated if none of them is provided
+     * when creating the definition. It is recommended to provide
+     * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+     * provided. Otherwise, it will be set to empty. If "{location}" is found in
+     * the value, then that means, data source wants to handle message separately
+     * for datasets in different regions. We will replace {location} with the
+     * actual dataset location, as the actual topic name. For example,
+     * projects/connector/topics/scheduler-{location} could become
+     * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+     * we will use the input value as topic name.
+     * </pre>
+     *
+     * <code>string transfer_config_pubsub_topic = 12;</code>
+     */
+    public Builder setTransferConfigPubsubTopic(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      transferConfigPubsubTopic_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+     * empty, a message will not be broadcasted. Both this topic and
+     * transfer_run_pubsub_topic are auto-generated if none of them is provided
+     * when creating the definition. It is recommended to provide
+     * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+     * provided. Otherwise, it will be set to empty. If "{location}" is found in
+     * the value, then that means, data source wants to handle message separately
+     * for datasets in different regions. We will replace {location} with the
+     * actual dataset location, as the actual topic name. For example,
+     * projects/connector/topics/scheduler-{location} could become
+     * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+     * we will use the input value as topic name.
+     * </pre>
+     *
+     * <code>string transfer_config_pubsub_topic = 12;</code>
+     */
+    public Builder clearTransferConfigPubsubTopic() {
+      
+      transferConfigPubsubTopic_ = getDefaultInstance().getTransferConfigPubsubTopic();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * The Pub/Sub topic to use for broadcasting a message for transfer config. If
+     * empty, a message will not be broadcasted. Both this topic and
+     * transfer_run_pubsub_topic are auto-generated if none of them is provided
+     * when creating the definition. It is recommended to provide
+     * transfer_config_pubsub_topic if a user-owned transfer_run_pubsub_topic is
+     * provided. Otherwise, it will be set to empty. If "{location}" is found in
+     * the value, then that means, data source wants to handle message separately
+     * for datasets in different regions. We will replace {location} with the
+     * actual dataset location, as the actual topic name. For example,
+     * projects/connector/topics/scheduler-{location} could become
+     * projects/connector/topics/scheduler-us. If "{location}" is not found, then
+     * we will use the input value as topic name.
+     * </pre>
+     *
+     * <code>string transfer_config_pubsub_topic = 12;</code>
+     */
+    public Builder setTransferConfigPubsubTopicBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      transferConfigPubsubTopic_ = value;
+      onChanged();
+      return this;
+    }
+
     private com.google.protobuf.LazyStringList supportedLocationIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureSupportedLocationIdsIsMutable() {
-      if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (!((bitField0_ & 0x00000100) != 0)) {
         supportedLocationIds_ = new com.google.protobuf.LazyStringArrayList(supportedLocationIds_);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000100;
        }
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1647,9 +2086,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1660,9 +2096,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1672,9 +2110,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1684,9 +2119,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1696,9 +2133,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1708,9 +2142,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1720,9 +2156,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1733,9 +2166,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1745,9 +2180,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1764,9 +2196,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1776,9 +2210,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1795,9 +2226,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1807,9 +2240,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1824,9 +2254,11 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1836,24 +2268,23 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
      */
     public Builder clearSupportedLocationIds() {
       supportedLocationIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000040);
+      bitField0_ = (bitField0_ & ~0x00000100);
       onChanged();
       return this;
     }
     /**
      * <pre>
-     * Supported location_ids of the data source. The valid values are the
-     * "location_id" field of the response of
-     * `GET
+     * Supported location_ids used for deciding in which locations Pub/Sub topics
+     * need to be created. If custom Pub/Sub topics are used and they contains
+     * '{location}', the location_ids will be used for validating the topics by
+     * replacing the '{location}' with the individual location in the list. The
+     * valid values are the "location_id" field of the response of `GET
      * https://bigquerydatatransfer.googleapis.com/v1/{name=projects/&#42;}/locations`
      * In addition, if the data source needs to support all available regions,
      * supported_location_ids can be set to "global" (a single string element).
@@ -1863,9 +2294,6 @@ private static final long serialVersionUID = 0L;
      * 2) Data source developer should be aware of the implications (e.g., network
      * traffic latency, potential charge associated with cross-region traffic,
      * etc.) of supporting the "global" region;
-     * 3) when new regions are added in Data Transfer Service, the new
-     * regions will be treated as "supported" automatically (that is, no need to
-     * update the supported_location_ids field).
      * </pre>
      *
      * <code>repeated string supported_location_ids = 23;</code>
@@ -1884,7 +2312,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

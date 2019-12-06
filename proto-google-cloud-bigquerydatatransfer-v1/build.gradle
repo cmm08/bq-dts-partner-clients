@@ -18,9 +18,9 @@ repositories {
 }
 
 dependencies {
-  compile 'com.google.protobuf:protobuf-java:3.5.1'
+  compile 'com.google.protobuf:protobuf-java:3.7.1'
   compile 'com.google.api:api-common:1.6.0'
-  compile 'com.google.api.grpc:proto-google-common-protos:1.12.0'
+  compile 'com.google.api.grpc:proto-google-common-protos:1.15.0'
 }
 
 sourceSets {

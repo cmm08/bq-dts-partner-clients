@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,9 @@ import com.google.api.core.BetaApi;
 import com.google.api.gax.core.BackgroundResource;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest;
-import com.google.cloud.bigquery.datatransfer.v1.Credentials;
 import com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition;
 import com.google.cloud.bigquery.datatransfer.v1.DeleteDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.FinishRunRequest;
-import com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.GetDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsResponse;
@@ -57,10 +55,6 @@ public abstract class DataSourceServiceStub implements BackgroundResource {
 
   public UnaryCallable<StartBigQueryJobsRequest, Empty> startBigQueryJobsCallable() {
     throw new UnsupportedOperationException("Not implemented: startBigQueryJobsCallable()");
-  }
-
-  public UnaryCallable<GetCredentialsRequest, Credentials> getCredentialsCallable() {
-    throw new UnsupportedOperationException("Not implemented: getCredentialsCallable()");
   }
 
   public UnaryCallable<FinishRunRequest, Empty> finishRunCallable() {

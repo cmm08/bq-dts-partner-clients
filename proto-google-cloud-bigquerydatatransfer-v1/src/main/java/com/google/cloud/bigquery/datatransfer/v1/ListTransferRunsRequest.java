@@ -25,7 +25,6 @@ private static final long serialVersionUID = 0L;
     parent_ = "";
     states_ = java.util.Collections.emptyList();
     pageToken_ = "";
-    pageSize_ = 0;
     runAttempt_ = 0;
   }
 
@@ -61,7 +60,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
             int rawValue = input.readEnum();
-            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
               states_ = new java.util.ArrayList<java.lang.Integer>();
               mutable_bitField0_ |= 0x00000002;
             }
@@ -73,7 +72,7 @@ private static final long serialVersionUID = 0L;
             int oldLimit = input.pushLimit(length);
             while(input.getBytesUntilLimit() > 0) {
               int rawValue = input.readEnum();
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 states_ = new java.util.ArrayList<java.lang.Integer>();
                 mutable_bitField0_ |= 0x00000002;
               }
@@ -100,7 +99,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -114,7 +113,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((mutable_bitField0_ & 0x00000002) != 0)) {
         states_ = java.util.Collections.unmodifiableList(states_);
       }
       this.unknownFields = unknownFields.build();
@@ -257,12 +256,13 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object parent_;
   /**
    * <pre>
-   * Name of transfer configuration for which transfer runs should be retrieved.
+   * Required. Name of transfer configuration for which transfer runs should be retrieved.
    * Format of transfer configuration resource name is:
-   * `projects/{project_id}/transferConfigs/{config_id}`.
+   * `projects/{project_id}/transferConfigs/{config_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
    * </pre>
    *
-   * <code>string parent = 1;</code>
+   * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   public java.lang.String getParent() {
     java.lang.Object ref = parent_;
@@ -278,12 +278,13 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Name of transfer configuration for which transfer runs should be retrieved.
+   * Required. Name of transfer configuration for which transfer runs should be retrieved.
    * Format of transfer configuration resource name is:
-   * `projects/{project_id}/transferConfigs/{config_id}`.
+   * `projects/{project_id}/transferConfigs/{config_id}` or
+   * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
    * </pre>
    *
-   * <code>string parent = 1;</code>
+   * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
    */
   public com.google.protobuf.ByteString
       getParentBytes() {
@@ -537,17 +538,16 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest other = (com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest) obj;
 
-    boolean result = true;
-    result = result && getParent()
-        .equals(other.getParent());
-    result = result && states_.equals(other.states_);
-    result = result && getPageToken()
-        .equals(other.getPageToken());
-    result = result && (getPageSize()
-        == other.getPageSize());
-    result = result && runAttempt_ == other.runAttempt_;
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getParent()
+        .equals(other.getParent())) return false;
+    if (!states_.equals(other.states_)) return false;
+    if (!getPageToken()
+        .equals(other.getPageToken())) return false;
+    if (getPageSize()
+        != other.getPageSize()) return false;
+    if (runAttempt_ != other.runAttempt_) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -747,7 +747,7 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       result.parent_ = parent_;
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         states_ = java.util.Collections.unmodifiableList(states_);
         bitField0_ = (bitField0_ & ~0x00000002);
       }
@@ -762,35 +762,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -861,12 +861,13 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object parent_ = "";
     /**
      * <pre>
-     * Name of transfer configuration for which transfer runs should be retrieved.
+     * Required. Name of transfer configuration for which transfer runs should be retrieved.
      * Format of transfer configuration resource name is:
-     * `projects/{project_id}/transferConfigs/{config_id}`.
+     * `projects/{project_id}/transferConfigs/{config_id}` or
+     * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
      * </pre>
      *
-     * <code>string parent = 1;</code>
+     * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
      */
     public java.lang.String getParent() {
       java.lang.Object ref = parent_;
@@ -882,12 +883,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of transfer configuration for which transfer runs should be retrieved.
+     * Required. Name of transfer configuration for which transfer runs should be retrieved.
      * Format of transfer configuration resource name is:
-     * `projects/{project_id}/transferConfigs/{config_id}`.
+     * `projects/{project_id}/transferConfigs/{config_id}` or
+     * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
      * </pre>
      *
-     * <code>string parent = 1;</code>
+     * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
      */
     public com.google.protobuf.ByteString
         getParentBytes() {
@@ -904,12 +906,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of transfer configuration for which transfer runs should be retrieved.
+     * Required. Name of transfer configuration for which transfer runs should be retrieved.
      * Format of transfer configuration resource name is:
-     * `projects/{project_id}/transferConfigs/{config_id}`.
+     * `projects/{project_id}/transferConfigs/{config_id}` or
+     * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
      * </pre>
      *
-     * <code>string parent = 1;</code>
+     * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
      */
     public Builder setParent(
         java.lang.String value) {
@@ -923,12 +926,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of transfer configuration for which transfer runs should be retrieved.
+     * Required. Name of transfer configuration for which transfer runs should be retrieved.
      * Format of transfer configuration resource name is:
-     * `projects/{project_id}/transferConfigs/{config_id}`.
+     * `projects/{project_id}/transferConfigs/{config_id}` or
+     * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
      * </pre>
      *
-     * <code>string parent = 1;</code>
+     * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
      */
     public Builder clearParent() {
       
@@ -938,12 +942,13 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Name of transfer configuration for which transfer runs should be retrieved.
+     * Required. Name of transfer configuration for which transfer runs should be retrieved.
      * Format of transfer configuration resource name is:
-     * `projects/{project_id}/transferConfigs/{config_id}`.
+     * `projects/{project_id}/transferConfigs/{config_id}` or
+     * `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
      * </pre>
      *
-     * <code>string parent = 1;</code>
+     * <code>string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = { ... }</code>
      */
     public Builder setParentBytes(
         com.google.protobuf.ByteString value) {
@@ -960,7 +965,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<java.lang.Integer> states_ =
       java.util.Collections.emptyList();
     private void ensureStatesIsMutable() {
-      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (!((bitField0_ & 0x00000002) != 0)) {
         states_ = new java.util.ArrayList<java.lang.Integer>(states_);
         bitField0_ |= 0x00000002;
       }
@@ -1337,7 +1342,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override

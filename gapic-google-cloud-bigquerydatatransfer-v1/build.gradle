@@ -21,10 +21,10 @@ compileJava.options.encoding = 'UTF-8'
 javadoc.options.encoding = 'UTF-8'
 
 dependencies {
-  compile 'com.google.api:gax:1.29.0'
-  testCompile 'com.google.api:gax:1.29.0:testlib'
-  compile 'com.google.api:gax-grpc:1.29.0'
-  testCompile 'com.google.api:gax-grpc:1.29.0:testlib'
+  compile 'com.google.api:gax:1.43.0'
+  testCompile 'com.google.api:gax:1.43.0:testlib'
+  compile 'com.google.api:gax-grpc:1.43.0'
+  testCompile 'com.google.api:gax-grpc:1.43.0:testlib'
   testCompile 'io.grpc:grpc-netty-shaded:1.10.1'
   testCompile 'junit:junit:4.12'
   // Remove this line if you are bundling your proto-generated classes together with your client classes

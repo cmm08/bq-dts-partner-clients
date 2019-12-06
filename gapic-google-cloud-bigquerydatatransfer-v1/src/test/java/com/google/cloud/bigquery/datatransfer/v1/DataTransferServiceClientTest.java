@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,9 @@ import com.google.api.gax.grpc.testing.MockGrpcService;
 import com.google.api.gax.grpc.testing.MockServiceHelper;
 import com.google.api.gax.rpc.ApiClientHeaderProvider;
 import com.google.api.gax.rpc.InvalidArgumentException;
-import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest.RunAttempt;
-import com.google.cloud.bigquery.datatransfer.v1.TransferMessage.MessageSeverity;
 import com.google.common.collect.Lists;
+import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Empty;
-import com.google.protobuf.FieldMask;
-import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.Timestamp;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -51,20 +48,20 @@ import org.junit.Test;
 
 @javax.annotation.Generated("by GAPIC")
 public class DataTransferServiceClientTest {
-  private static MockDataTransferService mockDataTransferService;
   private static MockDataSourceService mockDataSourceService;
+  private static MockDataTransferService mockDataTransferService;
   private static MockServiceHelper serviceHelper;
   private DataTransferServiceClient client;
   private LocalChannelProvider channelProvider;
 
   @BeforeClass
   public static void startStaticServer() {
-    mockDataTransferService = new MockDataTransferService();
     mockDataSourceService = new MockDataSourceService();
+    mockDataTransferService = new MockDataTransferService();
     serviceHelper =
         new MockServiceHelper(
             "in-process-1",
-            Arrays.<MockGrpcService>asList(mockDataTransferService, mockDataSourceService));
+            Arrays.<MockGrpcService>asList(mockDataSourceService, mockDataTransferService));
     serviceHelper.start();
   }
 
@@ -106,6 +103,7 @@ public class DataTransferServiceClientTest {
     int defaultDataRefreshWindowDays = 1804935157;
     boolean manualRunsDisabled = true;
     String partnerLegalName = "partnerLegalName-1307326424";
+    String redirectUrl = "redirectUrl951230092";
     DataSource expectedResponse =
         DataSource.newBuilder()
             .setName(name2)
@@ -121,6 +119,7 @@ public class DataTransferServiceClientTest {
             .setDefaultDataRefreshWindowDays(defaultDataRefreshWindowDays)
             .setManualRunsDisabled(manualRunsDisabled)
             .setPartnerLegalName(partnerLegalName)
+            .setRedirectUrl(redirectUrl)
             .build();
     mockDataTransferService.addResponse(expectedResponse);
 
@@ -130,7 +129,7 @@ public class DataTransferServiceClientTest {
     DataSource actualResponse = client.getDataSource(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     GetDataSourceRequest actualRequest = (GetDataSourceRequest) actualRequests.get(0);
 
@@ -181,7 +180,7 @@ public class DataTransferServiceClientTest {
     Assert.assertEquals(1, resources.size());
     Assert.assertEquals(expectedResponse.getDataSourcesList().get(0), resources.get(0));
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ListDataSourcesRequest actualRequest = (ListDataSourcesRequest) actualRequests.get(0);
 
@@ -211,138 +210,6 @@ public class DataTransferServiceClientTest {
 
   @Test
   @SuppressWarnings("all")
-  public void createTransferConfigTest() {
-    String name = "name3373707";
-    String destinationDatasetId = "destinationDatasetId1541564179";
-    String displayName = "displayName1615086568";
-    String dataSourceId = "dataSourceId-1015796374";
-    String schedule = "schedule-697920873";
-    int dataRefreshWindowDays = 327632845;
-    boolean disabled = true;
-    long userId = 147132913L;
-    String datasetRegion = "datasetRegion959248539";
-    TransferConfig expectedResponse =
-        TransferConfig.newBuilder()
-            .setName(name)
-            .setDestinationDatasetId(destinationDatasetId)
-            .setDisplayName(displayName)
-            .setDataSourceId(dataSourceId)
-            .setSchedule(schedule)
-            .setDataRefreshWindowDays(dataRefreshWindowDays)
-            .setDisabled(disabled)
-            .setUserId(userId)
-            .setDatasetRegion(datasetRegion)
-            .build();
-    mockDataTransferService.addResponse(expectedResponse);
-
-    String formattedParent =
-        DataTransferServiceClient.formatLocationName("[PROJECT]", "[LOCATION]");
-    TransferConfig transferConfig = TransferConfig.newBuilder().build();
-    String authorizationCode = "authorizationCode1571154419";
-
-    TransferConfig actualResponse =
-        client.createTransferConfig(formattedParent, transferConfig, authorizationCode);
-    Assert.assertEquals(expectedResponse, actualResponse);
-
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
-    Assert.assertEquals(1, actualRequests.size());
-    CreateTransferConfigRequest actualRequest = (CreateTransferConfigRequest) actualRequests.get(0);
-
-    Assert.assertEquals(formattedParent, actualRequest.getParent());
-    Assert.assertEquals(transferConfig, actualRequest.getTransferConfig());
-    Assert.assertEquals(authorizationCode, actualRequest.getAuthorizationCode());
-    Assert.assertTrue(
-        channelProvider.isHeaderSent(
-            ApiClientHeaderProvider.getDefaultApiClientHeaderKey(),
-            GaxGrpcProperties.getDefaultApiClientHeaderPattern()));
-  }
-
-  @Test
-  @SuppressWarnings("all")
-  public void createTransferConfigExceptionTest() throws Exception {
-    StatusRuntimeException exception = new StatusRuntimeException(Status.INVALID_ARGUMENT);
-    mockDataTransferService.addException(exception);
-
-    try {
-      String formattedParent =
-          DataTransferServiceClient.formatLocationName("[PROJECT]", "[LOCATION]");
-      TransferConfig transferConfig = TransferConfig.newBuilder().build();
-      String authorizationCode = "authorizationCode1571154419";
-
-      client.createTransferConfig(formattedParent, transferConfig, authorizationCode);
-      Assert.fail("No exception raised");
-    } catch (InvalidArgumentException e) {
-      // Expected exception
-    }
-  }
-
-  @Test
-  @SuppressWarnings("all")
-  public void updateTransferConfigTest() {
-    String name = "name3373707";
-    String destinationDatasetId = "destinationDatasetId1541564179";
-    String displayName = "displayName1615086568";
-    String dataSourceId = "dataSourceId-1015796374";
-    String schedule = "schedule-697920873";
-    int dataRefreshWindowDays = 327632845;
-    boolean disabled = true;
-    long userId = 147132913L;
-    String datasetRegion = "datasetRegion959248539";
-    TransferConfig expectedResponse =
-        TransferConfig.newBuilder()
-            .setName(name)
-            .setDestinationDatasetId(destinationDatasetId)
-            .setDisplayName(displayName)
-            .setDataSourceId(dataSourceId)
-            .setSchedule(schedule)
-            .setDataRefreshWindowDays(dataRefreshWindowDays)
-            .setDisabled(disabled)
-            .setUserId(userId)
-            .setDatasetRegion(datasetRegion)
-            .build();
-    mockDataTransferService.addResponse(expectedResponse);
-
-    TransferConfig transferConfig = TransferConfig.newBuilder().build();
-    String authorizationCode = "authorizationCode1571154419";
-    FieldMask updateMask = FieldMask.newBuilder().build();
-
-    TransferConfig actualResponse =
-        client.updateTransferConfig(transferConfig, authorizationCode, updateMask);
-    Assert.assertEquals(expectedResponse, actualResponse);
-
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
-    Assert.assertEquals(1, actualRequests.size());
-    UpdateTransferConfigRequest actualRequest = (UpdateTransferConfigRequest) actualRequests.get(0);
-
-    Assert.assertEquals(transferConfig, actualRequest.getTransferConfig());
-    Assert.assertEquals(authorizationCode, actualRequest.getAuthorizationCode());
-    Assert.assertEquals(updateMask, actualRequest.getUpdateMask());
-    Assert.assertTrue(
-        channelProvider.isHeaderSent(
-            ApiClientHeaderProvider.getDefaultApiClientHeaderKey(),
-            GaxGrpcProperties.getDefaultApiClientHeaderPattern()));
-  }
-
-  @Test
-  @SuppressWarnings("all")
-  public void updateTransferConfigExceptionTest() throws Exception {
-    StatusRuntimeException exception = new StatusRuntimeException(Status.INVALID_ARGUMENT);
-    mockDataTransferService.addException(exception);
-
-    try {
-      TransferConfig transferConfig = TransferConfig.newBuilder().build();
-      String authorizationCode = "authorizationCode1571154419";
-      FieldMask updateMask = FieldMask.newBuilder().build();
-
-      client.updateTransferConfig(transferConfig, authorizationCode, updateMask);
-      Assert.fail("No exception raised");
-    } catch (InvalidArgumentException e) {
-      // Expected exception
-    }
-  }
-
-  @Test
-  @SuppressWarnings("all")
   public void deleteTransferConfigTest() {
     Empty expectedResponse = Empty.newBuilder().build();
     mockDataTransferService.addResponse(expectedResponse);
@@ -353,7 +220,7 @@ public class DataTransferServiceClientTest {
 
     client.deleteTransferConfig(formattedName);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     DeleteTransferConfigRequest actualRequest = (DeleteTransferConfigRequest) actualRequests.get(0);
 
@@ -394,6 +261,8 @@ public class DataTransferServiceClientTest {
     boolean disabled = true;
     long userId = 147132913L;
     String datasetRegion = "datasetRegion959248539";
+    String notificationPubsubTopic = "notificationPubsubTopic1794281191";
+    String partnerToken = "partnerToken725173186";
     TransferConfig expectedResponse =
         TransferConfig.newBuilder()
             .setName(name2)
@@ -405,6 +274,8 @@ public class DataTransferServiceClientTest {
             .setDisabled(disabled)
             .setUserId(userId)
             .setDatasetRegion(datasetRegion)
+            .setNotificationPubsubTopic(notificationPubsubTopic)
+            .setPartnerToken(partnerToken)
             .build();
     mockDataTransferService.addResponse(expectedResponse);
 
@@ -415,7 +286,7 @@ public class DataTransferServiceClientTest {
     TransferConfig actualResponse = client.getTransferConfig(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     GetTransferConfigRequest actualRequest = (GetTransferConfigRequest) actualRequests.get(0);
 
@@ -468,7 +339,7 @@ public class DataTransferServiceClientTest {
     Assert.assertEquals(1, resources.size());
     Assert.assertEquals(expectedResponse.getTransferConfigsList().get(0), resources.get(0));
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ListTransferConfigsRequest actualRequest = (ListTransferConfigsRequest) actualRequests.get(0);
 
@@ -516,7 +387,7 @@ public class DataTransferServiceClientTest {
         client.scheduleTransferRuns(formattedParent, labels, startTime, endTime);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ScheduleTransferRunsRequest actualRequest = (ScheduleTransferRunsRequest) actualRequests.get(0);
 
@@ -553,12 +424,62 @@ public class DataTransferServiceClientTest {
 
   @Test
   @SuppressWarnings("all")
+  public void startManualTransferRunsTest() {
+    StartManualTransferRunsResponse expectedResponse =
+        StartManualTransferRunsResponse.newBuilder().build();
+    mockDataTransferService.addResponse(expectedResponse);
+
+    String formattedParent =
+        DataTransferServiceClient.formatTransferConfigName(
+            "[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
+    Map<String, String> labels = new HashMap<>();
+
+    StartManualTransferRunsResponse actualResponse =
+        client.startManualTransferRuns(formattedParent, labels);
+    Assert.assertEquals(expectedResponse, actualResponse);
+
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
+    Assert.assertEquals(1, actualRequests.size());
+    StartManualTransferRunsRequest actualRequest =
+        (StartManualTransferRunsRequest) actualRequests.get(0);
+
+    Assert.assertEquals(formattedParent, actualRequest.getParent());
+    Assert.assertEquals(labels, actualRequest.getLabelsMap());
+    Assert.assertTrue(
+        channelProvider.isHeaderSent(
+            ApiClientHeaderProvider.getDefaultApiClientHeaderKey(),
+            GaxGrpcProperties.getDefaultApiClientHeaderPattern()));
+  }
+
+  @Test
+  @SuppressWarnings("all")
+  public void startManualTransferRunsExceptionTest() throws Exception {
+    StatusRuntimeException exception = new StatusRuntimeException(Status.INVALID_ARGUMENT);
+    mockDataTransferService.addException(exception);
+
+    try {
+      String formattedParent =
+          DataTransferServiceClient.formatTransferConfigName(
+              "[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
+      Map<String, String> labels = new HashMap<>();
+
+      client.startManualTransferRuns(formattedParent, labels);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception
+    }
+  }
+
+  @Test
+  @SuppressWarnings("all")
   public void getTransferRunTest() {
     String name2 = "name2-1052831874";
     String destinationDatasetId = "destinationDatasetId1541564179";
     String dataSourceId = "dataSourceId-1015796374";
     long userId = 147132913L;
     String schedule = "schedule-697920873";
+    String notificationPubsubTopic = "notificationPubsubTopic1794281191";
+    String partnerToken = "partnerToken725173186";
     TransferRun expectedResponse =
         TransferRun.newBuilder()
             .setName(name2)
@@ -566,6 +487,8 @@ public class DataTransferServiceClientTest {
             .setDataSourceId(dataSourceId)
             .setUserId(userId)
             .setSchedule(schedule)
+            .setNotificationPubsubTopic(notificationPubsubTopic)
+            .setPartnerToken(partnerToken)
             .build();
     mockDataTransferService.addResponse(expectedResponse);
 
@@ -576,7 +499,7 @@ public class DataTransferServiceClientTest {
     TransferRun actualResponse = client.getTransferRun(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     GetTransferRunRequest actualRequest = (GetTransferRunRequest) actualRequests.get(0);
 
@@ -617,7 +540,7 @@ public class DataTransferServiceClientTest {
 
     client.deleteTransferRun(formattedName);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     DeleteTransferRunRequest actualRequest = (DeleteTransferRunRequest) actualRequests.get(0);
 
@@ -673,7 +596,7 @@ public class DataTransferServiceClientTest {
     Assert.assertEquals(1, resources.size());
     Assert.assertEquals(expectedResponse.getTransferRunsList().get(0), resources.get(0));
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ListTransferRunsRequest actualRequest = (ListTransferRunsRequest) actualRequests.get(0);
 
@@ -732,7 +655,7 @@ public class DataTransferServiceClientTest {
     Assert.assertEquals(1, resources.size());
     Assert.assertEquals(expectedResponse.getTransferMessagesList().get(0), resources.get(0));
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     ListTransferLogsRequest actualRequest = (ListTransferLogsRequest) actualRequests.get(0);
 
@@ -777,7 +700,7 @@ public class DataTransferServiceClientTest {
     CheckValidCredsResponse actualResponse = client.checkValidCreds(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     CheckValidCredsRequest actualRequest = (CheckValidCredsRequest) actualRequests.get(0);
 
@@ -816,7 +739,7 @@ public class DataTransferServiceClientTest {
 
     client.enableDataTransferService(formattedName);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     EnableDataTransferServiceRequest actualRequest =
         (EnableDataTransferServiceRequest) actualRequests.get(0);
@@ -863,7 +786,7 @@ public class DataTransferServiceClientTest {
         client.isDataTransferServiceEnabled(formattedName);
     Assert.assertEquals(expectedResponse, actualResponse);
 
-    List<GeneratedMessageV3> actualRequests = mockDataTransferService.getRequests();
+    List<AbstractMessage> actualRequests = mockDataTransferService.getRequests();
     Assert.assertEquals(1, actualRequests.size());
     IsDataTransferServiceEnabledRequest actualRequest =
         (IsDataTransferServiceEnabledRequest) actualRequests.get(0);

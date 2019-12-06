@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,12 @@ import com.google.api.gax.core.BackgroundResourceAggregation;
 import com.google.api.gax.grpc.GrpcCallSettings;
 import com.google.api.gax.grpc.GrpcStubCallableFactory;
 import com.google.api.gax.rpc.ClientContext;
+import com.google.api.gax.rpc.RequestParamsExtractor;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest;
-import com.google.cloud.bigquery.datatransfer.v1.Credentials;
 import com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition;
 import com.google.cloud.bigquery.datatransfer.v1.DeleteDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.FinishRunRequest;
-import com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.GetDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListDataSourceDefinitionsResponse;
@@ -38,10 +37,12 @@ import com.google.cloud.bigquery.datatransfer.v1.StartBigQueryJobsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.TransferRun;
 import com.google.cloud.bigquery.datatransfer.v1.UpdateDataSourceDefinitionRequest;
 import com.google.cloud.bigquery.datatransfer.v1.UpdateTransferRunRequest;
+import com.google.common.collect.ImmutableMap;
 import com.google.protobuf.Empty;
 import io.grpc.MethodDescriptor;
 import io.grpc.protobuf.ProtoUtils;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Generated;
 
@@ -84,16 +85,6 @@ public class GrpcDataSourceServiceStub extends DataSourceServiceStub {
               .setRequestMarshaller(
                   ProtoUtils.marshaller(StartBigQueryJobsRequest.getDefaultInstance()))
               .setResponseMarshaller(ProtoUtils.marshaller(Empty.getDefaultInstance()))
-              .build();
-  private static final MethodDescriptor<GetCredentialsRequest, Credentials>
-      getCredentialsMethodDescriptor =
-          MethodDescriptor.<GetCredentialsRequest, Credentials>newBuilder()
-              .setType(MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(
-                  "google.cloud.bigquery.datatransfer.v1.DataSourceService/GetCredentials")
-              .setRequestMarshaller(
-                  ProtoUtils.marshaller(GetCredentialsRequest.getDefaultInstance()))
-              .setResponseMarshaller(ProtoUtils.marshaller(Credentials.getDefaultInstance()))
               .build();
   private static final MethodDescriptor<FinishRunRequest, Empty> finishRunMethodDescriptor =
       MethodDescriptor.<FinishRunRequest, Empty>newBuilder()
@@ -164,7 +155,6 @@ public class GrpcDataSourceServiceStub extends DataSourceServiceStub {
   private final UnaryCallable<UpdateTransferRunRequest, TransferRun> updateTransferRunCallable;
   private final UnaryCallable<LogTransferRunMessagesRequest, Empty> logTransferRunMessagesCallable;
   private final UnaryCallable<StartBigQueryJobsRequest, Empty> startBigQueryJobsCallable;
-  private final UnaryCallable<GetCredentialsRequest, Credentials> getCredentialsCallable;
   private final UnaryCallable<FinishRunRequest, Empty> finishRunCallable;
   private final UnaryCallable<CreateDataSourceDefinitionRequest, DataSourceDefinition>
       createDataSourceDefinitionCallable;
@@ -224,48 +214,131 @@ public class GrpcDataSourceServiceStub extends DataSourceServiceStub {
     GrpcCallSettings<UpdateTransferRunRequest, TransferRun> updateTransferRunTransportSettings =
         GrpcCallSettings.<UpdateTransferRunRequest, TransferRun>newBuilder()
             .setMethodDescriptor(updateTransferRunMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<UpdateTransferRunRequest>() {
+                  @Override
+                  public Map<String, String> extract(UpdateTransferRunRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put(
+                        "transfer_run.name", String.valueOf(request.getTransferRun().getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<LogTransferRunMessagesRequest, Empty> logTransferRunMessagesTransportSettings =
         GrpcCallSettings.<LogTransferRunMessagesRequest, Empty>newBuilder()
             .setMethodDescriptor(logTransferRunMessagesMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<LogTransferRunMessagesRequest>() {
+                  @Override
+                  public Map<String, String> extract(LogTransferRunMessagesRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<StartBigQueryJobsRequest, Empty> startBigQueryJobsTransportSettings =
         GrpcCallSettings.<StartBigQueryJobsRequest, Empty>newBuilder()
             .setMethodDescriptor(startBigQueryJobsMethodDescriptor)
-            .build();
-    GrpcCallSettings<GetCredentialsRequest, Credentials> getCredentialsTransportSettings =
-        GrpcCallSettings.<GetCredentialsRequest, Credentials>newBuilder()
-            .setMethodDescriptor(getCredentialsMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<StartBigQueryJobsRequest>() {
+                  @Override
+                  public Map<String, String> extract(StartBigQueryJobsRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<FinishRunRequest, Empty> finishRunTransportSettings =
         GrpcCallSettings.<FinishRunRequest, Empty>newBuilder()
             .setMethodDescriptor(finishRunMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<FinishRunRequest>() {
+                  @Override
+                  public Map<String, String> extract(FinishRunRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<CreateDataSourceDefinitionRequest, DataSourceDefinition>
         createDataSourceDefinitionTransportSettings =
             GrpcCallSettings.<CreateDataSourceDefinitionRequest, DataSourceDefinition>newBuilder()
                 .setMethodDescriptor(createDataSourceDefinitionMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<CreateDataSourceDefinitionRequest>() {
+                      @Override
+                      public Map<String, String> extract(
+                          CreateDataSourceDefinitionRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<UpdateDataSourceDefinitionRequest, DataSourceDefinition>
         updateDataSourceDefinitionTransportSettings =
             GrpcCallSettings.<UpdateDataSourceDefinitionRequest, DataSourceDefinition>newBuilder()
                 .setMethodDescriptor(updateDataSourceDefinitionMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<UpdateDataSourceDefinitionRequest>() {
+                      @Override
+                      public Map<String, String> extract(
+                          UpdateDataSourceDefinitionRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put(
+                            "data_source_definition.name",
+                            String.valueOf(request.getDataSourceDefinition().getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<DeleteDataSourceDefinitionRequest, Empty>
         deleteDataSourceDefinitionTransportSettings =
             GrpcCallSettings.<DeleteDataSourceDefinitionRequest, Empty>newBuilder()
                 .setMethodDescriptor(deleteDataSourceDefinitionMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<DeleteDataSourceDefinitionRequest>() {
+                      @Override
+                      public Map<String, String> extract(
+                          DeleteDataSourceDefinitionRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("name", String.valueOf(request.getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<GetDataSourceDefinitionRequest, DataSourceDefinition>
         getDataSourceDefinitionTransportSettings =
             GrpcCallSettings.<GetDataSourceDefinitionRequest, DataSourceDefinition>newBuilder()
                 .setMethodDescriptor(getDataSourceDefinitionMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<GetDataSourceDefinitionRequest>() {
+                      @Override
+                      public Map<String, String> extract(GetDataSourceDefinitionRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("name", String.valueOf(request.getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<ListDataSourceDefinitionsRequest, ListDataSourceDefinitionsResponse>
         listDataSourceDefinitionsTransportSettings =
             GrpcCallSettings
                 .<ListDataSourceDefinitionsRequest, ListDataSourceDefinitionsResponse>newBuilder()
                 .setMethodDescriptor(listDataSourceDefinitionsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ListDataSourceDefinitionsRequest>() {
+                      @Override
+                      public Map<String, String> extract(ListDataSourceDefinitionsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
 
     this.updateTransferRunCallable =
@@ -283,9 +356,6 @@ public class GrpcDataSourceServiceStub extends DataSourceServiceStub {
             startBigQueryJobsTransportSettings,
             settings.startBigQueryJobsSettings(),
             clientContext);
-    this.getCredentialsCallable =
-        callableFactory.createUnaryCallable(
-            getCredentialsTransportSettings, settings.getCredentialsSettings(), clientContext);
     this.finishRunCallable =
         callableFactory.createUnaryCallable(
             finishRunTransportSettings, settings.finishRunSettings(), clientContext);
@@ -333,10 +403,6 @@ public class GrpcDataSourceServiceStub extends DataSourceServiceStub {
 
   public UnaryCallable<StartBigQueryJobsRequest, Empty> startBigQueryJobsCallable() {
     return startBigQueryJobsCallable;
-  }
-
-  public UnaryCallable<GetCredentialsRequest, Credentials> getCredentialsCallable() {
-    return getCredentialsCallable;
   }
 
   public UnaryCallable<FinishRunRequest, Empty> finishRunCallable() {

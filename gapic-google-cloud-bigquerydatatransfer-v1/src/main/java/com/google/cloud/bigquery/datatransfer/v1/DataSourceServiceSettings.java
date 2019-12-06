@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import com.google.api.gax.rpc.ClientSettings;
 import com.google.api.gax.rpc.PagedCallSettings;
 import com.google.api.gax.rpc.TransportChannelProvider;
 import com.google.api.gax.rpc.UnaryCallSettings;
-import com.google.auth.Credentials;
 import com.google.cloud.bigquery.datatransfer.v1.stub.DataSourceServiceStubSettings;
 import com.google.protobuf.Empty;
 import java.io.IOException;
@@ -49,8 +48,9 @@ import javax.annotation.Generated;
  * </ul>
  *
  * <p>The builder of this class is recursive, so contained classes are themselves builders. When
- * build() is called, the tree of builders is called to create the complete settings object. For
- * example, to set the total timeout of updateTransferRun to 30 seconds:
+ * build() is called, the tree of builders is called to create the complete settings object.
+ *
+ * <p>For example, to set the total timeout of updateTransferRun to 30 seconds:
  *
  * <pre>
  * <code>
@@ -78,13 +78,6 @@ public class DataSourceServiceSettings extends ClientSettings<DataSourceServiceS
   /** Returns the object with the settings used for calls to startBigQueryJobs. */
   public UnaryCallSettings<StartBigQueryJobsRequest, Empty> startBigQueryJobsSettings() {
     return ((DataSourceServiceStubSettings) getStubSettings()).startBigQueryJobsSettings();
-  }
-
-  /** Returns the object with the settings used for calls to getCredentials. */
-  public UnaryCallSettings<
-          GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-      getCredentialsSettings() {
-    return ((DataSourceServiceStubSettings) getStubSettings()).getCredentialsSettings();
   }
 
   /** Returns the object with the settings used for calls to finishRun. */
@@ -236,13 +229,6 @@ public class DataSourceServiceSettings extends ClientSettings<DataSourceServiceS
     /** Returns the builder for the settings used for calls to startBigQueryJobs. */
     public UnaryCallSettings.Builder<StartBigQueryJobsRequest, Empty> startBigQueryJobsSettings() {
       return getStubSettingsBuilder().startBigQueryJobsSettings();
-    }
-
-    /** Returns the builder for the settings used for calls to getCredentials. */
-    public UnaryCallSettings.Builder<
-            GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>
-        getCredentialsSettings() {
-      return getStubSettingsBuilder().getCredentialsSettings();
     }
 
     /** Returns the builder for the settings used for calls to finishRun. */

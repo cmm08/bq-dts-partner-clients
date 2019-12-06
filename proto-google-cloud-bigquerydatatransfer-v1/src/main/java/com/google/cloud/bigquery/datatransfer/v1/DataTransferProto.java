@@ -125,6 +125,26 @@ public final class DataTransferProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_google_cloud_bigquery_datatransfer_v1_ScheduleTransferRunsResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_TimeRange_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_TimeRange_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_LabelsEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_LabelsEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_google_cloud_bigquery_datatransfer_v1_EnableDataTransferServiceRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -151,218 +171,281 @@ public final class DataTransferProto {
       "\n8google/cloud/bigquery/datatransfer/v1/" +
       "datatransfer.proto\022%google.cloud.bigquer" +
       "y.datatransfer.v1\032\034google/api/annotation" +
-      "s.proto\0324google/cloud/bigquery/datatrans" +
-      "fer/v1/transfer.proto\032\036google/protobuf/d" +
-      "uration.proto\032\033google/protobuf/empty.pro" +
-      "to\032 google/protobuf/field_mask.proto\032\037go" +
-      "ogle/protobuf/timestamp.proto\032\036google/pr" +
-      "otobuf/wrappers.proto\"\361\004\n\023DataSourcePara" +
-      "meter\022\020\n\010param_id\030\001 \001(\t\022\024\n\014display_name\030" +
-      "\002 \001(\t\022\023\n\013description\030\003 \001(\t\022M\n\004type\030\004 \001(\016" +
-      "2?.google.cloud.bigquery.datatransfer.v1" +
-      ".DataSourceParameter.Type\022\020\n\010required\030\005 " +
-      "\001(\010\022\020\n\010repeated\030\006 \001(\010\022\030\n\020validation_rege" +
-      "x\030\007 \001(\t\022\026\n\016allowed_values\030\010 \003(\t\022/\n\tmin_v" +
-      "alue\030\t \001(\0132\034.google.protobuf.DoubleValue" +
-      "\022/\n\tmax_value\030\n \001(\0132\034.google.protobuf.Do" +
-      "ubleValue\022J\n\006fields\030\013 \003(\0132:.google.cloud" +
-      ".bigquery.datatransfer.v1.DataSourcePara" +
-      "meter\022\036\n\026validation_description\030\014 \001(\t\022\033\n" +
-      "\023validation_help_url\030\r \001(\t\022\021\n\timmutable\030" +
-      "\016 \001(\010\022\017\n\007recurse\030\017 \001(\010\"i\n\004Type\022\024\n\020TYPE_U" +
-      "NSPECIFIED\020\000\022\n\n\006STRING\020\001\022\013\n\007INTEGER\020\002\022\n\n" +
-      "\006DOUBLE\020\003\022\013\n\007BOOLEAN\020\004\022\n\n\006RECORD\020\005\022\r\n\tPL" +
-      "US_PAGE\020\006\"\363\007\n\nDataSource\022\014\n\004name\030\001 \001(\t\022\026" +
-      "\n\016data_source_id\030\002 \001(\t\022\024\n\014display_name\030\003" +
-      " \001(\t\022\023\n\013description\030\004 \001(\t\022\021\n\tclient_id\030\005" +
-      " \001(\t\022\016\n\006scopes\030\006 \003(\t\022N\n\rtransfer_type\030\007 " +
-      "\001(\01623.google.cloud.bigquery.datatransfer" +
-      ".v1.TransferTypeB\002\030\001\022\'\n\033supports_multipl" +
-      "e_transfers\030\010 \001(\010B\002\030\001\022\037\n\027update_deadline" +
-      "_seconds\030\t \001(\005\022\030\n\020default_schedule\030\n \001(\t" +
-      "\022 \n\030supports_custom_schedule\030\013 \001(\010\022N\n\npa" +
-      "rameters\030\014 \003(\0132:.google.cloud.bigquery.d" +
-      "atatransfer.v1.DataSourceParameter\022\020\n\010he" +
-      "lp_url\030\r \001(\t\022_\n\022authorization_type\030\016 \001(\016" +
-      "2C.google.cloud.bigquery.datatransfer.v1" +
-      ".DataSource.AuthorizationType\022\\\n\021data_re" +
-      "fresh_type\030\017 \001(\0162A.google.cloud.bigquery" +
-      ".datatransfer.v1.DataSource.DataRefreshT" +
-      "ype\022(\n default_data_refresh_window_days\030" +
-      "\020 \001(\005\022\034\n\024manual_runs_disabled\030\021 \001(\010\022<\n\031m" +
-      "inimum_schedule_interval\030\022 \001(\0132\031.google." +
-      "protobuf.Duration\022\032\n\022partner_legal_name\030" +
-      "\026 \001(\t\"s\n\021AuthorizationType\022\"\n\036AUTHORIZAT" +
-      "ION_TYPE_UNSPECIFIED\020\000\022\026\n\022AUTHORIZATION_" +
-      "CODE\020\001\022\"\n\036GOOGLE_PLUS_AUTHORIZATION_CODE" +
-      "\020\002\"c\n\017DataRefreshType\022!\n\035DATA_REFRESH_TY" +
-      "PE_UNSPECIFIED\020\000\022\022\n\016SLIDING_WINDOW\020\001\022\031\n\025" +
-      "CUSTOM_SLIDING_WINDOW\020\002\"$\n\024GetDataSource" +
-      "Request\022\014\n\004name\030\001 \001(\t\"O\n\026ListDataSources" +
-      "Request\022\016\n\006parent\030\001 \001(\t\022\022\n\npage_token\030\003 " +
-      "\001(\t\022\021\n\tpage_size\030\004 \001(\005\"{\n\027ListDataSource" +
-      "sResponse\022G\n\014data_sources\030\001 \003(\01321.google" +
-      ".cloud.bigquery.datatransfer.v1.DataSour" +
-      "ce\022\027\n\017next_page_token\030\002 \001(\t\"\231\001\n\033CreateTr" +
-      "ansferConfigRequest\022\016\n\006parent\030\001 \001(\t\022N\n\017t" +
-      "ransfer_config\030\002 \001(\01325.google.cloud.bigq" +
-      "uery.datatransfer.v1.TransferConfig\022\032\n\022a" +
-      "uthorization_code\030\003 \001(\t\"\272\001\n\033UpdateTransf" +
-      "erConfigRequest\022N\n\017transfer_config\030\001 \001(\013" +
-      "25.google.cloud.bigquery.datatransfer.v1" +
-      ".TransferConfig\022\032\n\022authorization_code\030\003 " +
-      "\001(\t\022/\n\013update_mask\030\004 \001(\0132\032.google.protob" +
-      "uf.FieldMask\"(\n\030GetTransferConfigRequest" +
-      "\022\014\n\004name\030\001 \001(\t\"+\n\033DeleteTransferConfigRe" +
-      "quest\022\014\n\004name\030\001 \001(\t\"%\n\025GetTransferRunReq" +
-      "uest\022\014\n\004name\030\001 \001(\t\"(\n\030DeleteTransferRunR" +
-      "equest\022\014\n\004name\030\001 \001(\t\"l\n\032ListTransferConf" +
-      "igsRequest\022\016\n\006parent\030\001 \001(\t\022\027\n\017data_sourc" +
-      "e_ids\030\002 \003(\t\022\022\n\npage_token\030\003 \001(\t\022\021\n\tpage_" +
-      "size\030\004 \001(\005\"\207\001\n\033ListTransferConfigsRespon" +
-      "se\022O\n\020transfer_configs\030\001 \003(\01325.google.cl" +
-      "oud.bigquery.datatransfer.v1.TransferCon" +
-      "fig\022\027\n\017next_page_token\030\002 \001(\t\"\255\002\n\027ListTra" +
-      "nsferRunsRequest\022\016\n\006parent\030\001 \001(\t\022D\n\006stat" +
-      "es\030\002 \003(\01624.google.cloud.bigquery.datatra" +
-      "nsfer.v1.TransferState\022\022\n\npage_token\030\003 \001" +
-      "(\t\022\021\n\tpage_size\030\004 \001(\005\022^\n\013run_attempt\030\005 \001" +
-      "(\0162I.google.cloud.bigquery.datatransfer." +
-      "v1.ListTransferRunsRequest.RunAttempt\"5\n" +
-      "\nRunAttempt\022\033\n\027RUN_ATTEMPT_UNSPECIFIED\020\000" +
-      "\022\n\n\006LATEST\020\001\"~\n\030ListTransferRunsResponse" +
-      "\022I\n\rtransfer_runs\030\001 \003(\01322.google.cloud.b" +
-      "igquery.datatransfer.v1.TransferRun\022\027\n\017n" +
-      "ext_page_token\030\002 \001(\t\"\257\001\n\027ListTransferLog" +
-      "sRequest\022\016\n\006parent\030\001 \001(\t\022\022\n\npage_token\030\004" +
-      " \001(\t\022\021\n\tpage_size\030\005 \001(\005\022]\n\rmessage_types" +
-      "\030\006 \003(\0162F.google.cloud.bigquery.datatrans" +
-      "fer.v1.TransferMessage.MessageSeverity\"\206" +
-      "\001\n\030ListTransferLogsResponse\022Q\n\021transfer_" +
-      "messages\030\001 \003(\01326.google.cloud.bigquery.d" +
-      "atatransfer.v1.TransferMessage\022\027\n\017next_p" +
-      "age_token\030\002 \001(\t\"&\n\026CheckValidCredsReques" +
-      "t\022\014\n\004name\030\001 \001(\t\"2\n\027CheckValidCredsRespon" +
-      "se\022\027\n\017has_valid_creds\030\001 \001(\010\"\232\002\n\033Schedule" +
-      "TransferRunsRequest\022\016\n\006parent\030\001 \001(\t\022^\n\006l" +
-      "abels\030\006 \003(\0132N.google.cloud.bigquery.data" +
-      "transfer.v1.ScheduleTransferRunsRequest." +
-      "LabelsEntry\022.\n\nstart_time\030\002 \001(\0132\032.google" +
-      ".protobuf.Timestamp\022,\n\010end_time\030\003 \001(\0132\032." +
-      "google.protobuf.Timestamp\032-\n\013LabelsEntry" +
-      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"`\n\034Sche" +
-      "duleTransferRunsResponse\022@\n\004runs\030\001 \003(\01322" +
-      ".google.cloud.bigquery.datatransfer.v1.T" +
-      "ransferRun\"0\n EnableDataTransferServiceR" +
-      "equest\022\014\n\004name\030\001 \001(\t\"3\n#IsDataTransferSe" +
-      "rviceEnabledRequest\022\014\n\004name\030\001 \001(\t\"G\n$IsD" +
-      "ataTransferServiceEnabledResponse\022\017\n\007ena" +
-      "bled\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t2\370\036\n\023DataTrans" +
-      "ferService\022\337\001\n\rGetDataSource\022;.google.cl" +
-      "oud.bigquery.datatransfer.v1.GetDataSour" +
-      "ceRequest\0321.google.cloud.bigquery.datatr" +
-      "ansfer.v1.DataSource\"^\202\323\344\223\002X\022//v1/{name=" +
-      "projects/*/locations/*/dataSources/*}Z%\022" +
-      "#/v1/{name=projects/*/dataSources/*}\022\360\001\n" +
-      "\017ListDataSources\022=.google.cloud.bigquery" +
-      ".datatransfer.v1.ListDataSourcesRequest\032" +
-      ">.google.cloud.bigquery.datatransfer.v1." +
-      "ListDataSourcesResponse\"^\202\323\344\223\002X\022//v1/{pa" +
-      "rent=projects/*/locations/*}/dataSources" +
-      "Z%\022#/v1/{parent=projects/*}/dataSources\022" +
-      "\235\002\n\024CreateTransferConfig\022B.google.cloud." +
-      "bigquery.datatransfer.v1.CreateTransferC" +
-      "onfigRequest\0325.google.cloud.bigquery.dat" +
-      "atransfer.v1.TransferConfig\"\211\001\202\323\344\223\002\202\001\"3/" +
-      "v1/{parent=projects/*/locations/*}/trans" +
-      "ferConfigs:\017transfer_configZ:\"\'/v1/{pare" +
-      "nt=projects/*}/transferConfigs:\017transfer" +
-      "_config\022\275\002\n\024UpdateTransferConfig\022B.googl" +
-      "e.cloud.bigquery.datatransfer.v1.UpdateT" +
-      "ransferConfigRequest\0325.google.cloud.bigq" +
-      "uery.datatransfer.v1.TransferConfig\"\251\001\202\323" +
-      "\344\223\002\242\0012C/v1/{transfer_config.name=project" +
-      "s/*/locations/*/transferConfigs/*}:\017tran" +
-      "sfer_configZJ27/v1/{transfer_config.name" +
-      "=projects/*/transferConfigs/*}:\017transfer" +
-      "_config\022\332\001\n\024DeleteTransferConfig\022B.googl" +
-      "e.cloud.bigquery.datatransfer.v1.DeleteT" +
-      "ransferConfigRequest\032\026.google.protobuf.E" +
-      "mpty\"f\202\323\344\223\002`*3/v1/{name=projects/*/locat" +
-      "ions/*/transferConfigs/*}Z)*\'/v1/{name=p" +
-      "rojects/*/transferConfigs/*}\022\363\001\n\021GetTran" +
-      "sferConfig\022?.google.cloud.bigquery.datat" +
-      "ransfer.v1.GetTransferConfigRequest\0325.go" +
-      "ogle.cloud.bigquery.datatransfer.v1.Tran" +
-      "sferConfig\"f\202\323\344\223\002`\0223/v1/{name=projects/*" +
-      "/locations/*/transferConfigs/*}Z)\022\'/v1/{" +
-      "name=projects/*/transferConfigs/*}\022\204\002\n\023L" +
-      "istTransferConfigs\022A.google.cloud.bigque" +
-      "ry.datatransfer.v1.ListTransferConfigsRe" +
-      "quest\032B.google.cloud.bigquery.datatransf" +
-      "er.v1.ListTransferConfigsResponse\"f\202\323\344\223\002" +
-      "`\0223/v1/{parent=projects/*/locations/*}/t" +
-      "ransferConfigsZ)\022\'/v1/{parent=projects/*" +
-      "}/transferConfigs\022\255\002\n\024ScheduleTransferRu" +
-      "ns\022B.google.cloud.bigquery.datatransfer." +
-      "v1.ScheduleTransferRunsRequest\032C.google." +
-      "cloud.bigquery.datatransfer.v1.ScheduleT" +
-      "ransferRunsResponse\"\213\001\202\323\344\223\002\204\001\"B/v1/{pare" +
-      "nt=projects/*/locations/*/transferConfig" +
-      "s/*}:scheduleRuns:\001*Z;\"6/v1/{parent=proj" +
-      "ects/*/transferConfigs/*}:scheduleRuns:\001" +
-      "*\022\370\001\n\016GetTransferRun\022<.google.cloud.bigq" +
-      "uery.datatransfer.v1.GetTransferRunReque" +
-      "st\0322.google.cloud.bigquery.datatransfer." +
-      "v1.TransferRun\"t\202\323\344\223\002n\022:/v1/{name=projec" +
-      "ts/*/locations/*/transferConfigs/*/runs/" +
-      "*}Z0\022./v1/{name=projects/*/transferConfi" +
-      "gs/*/runs/*}\022\342\001\n\021DeleteTransferRun\022?.goo" +
-      "gle.cloud.bigquery.datatransfer.v1.Delet" +
-      "eTransferRunRequest\032\026.google.protobuf.Em" +
-      "pty\"t\202\323\344\223\002n*:/v1/{name=projects/*/locati" +
-      "ons/*/transferConfigs/*/runs/*}Z0*./v1/{" +
-      "name=projects/*/transferConfigs/*/runs/*" +
-      "}\022\211\002\n\020ListTransferRuns\022>.google.cloud.bi" +
-      "gquery.datatransfer.v1.ListTransferRunsR" +
-      "equest\032?.google.cloud.bigquery.datatrans" +
-      "fer.v1.ListTransferRunsResponse\"t\202\323\344\223\002n\022" +
-      ":/v1/{parent=projects/*/locations/*/tran" +
-      "sferConfigs/*}/runsZ0\022./v1/{parent=proje" +
-      "cts/*/transferConfigs/*}/runs\022\251\002\n\020ListTr" +
-      "ansferLogs\022>.google.cloud.bigquery.datat" +
-      "ransfer.v1.ListTransferLogsRequest\032?.goo" +
-      "gle.cloud.bigquery.datatransfer.v1.ListT" +
-      "ransferLogsResponse\"\223\001\202\323\344\223\002\214\001\022I/v1/{pare" +
-      "nt=projects/*/locations/*/transferConfig" +
-      "s/*/runs/*}/transferLogsZ?\022=/v1/{parent=" +
-      "projects/*/transferConfigs/*/runs/*}/tra" +
-      "nsferLogs\022\227\002\n\017CheckValidCreds\022=.google.c" +
-      "loud.bigquery.datatransfer.v1.CheckValid" +
-      "CredsRequest\032>.google.cloud.bigquery.dat" +
-      "atransfer.v1.CheckValidCredsResponse\"\204\001\202" +
-      "\323\344\223\002~\"?/v1/{name=projects/*/locations/*/" +
-      "dataSources/*}:checkValidCreds:\001*Z8\"3/v1" +
-      "/{name=projects/*/dataSources/*}:checkVa" +
-      "lidCreds:\001*\022\304\001\n\031EnableDataTransferServic" +
-      "e\022G.google.cloud.bigquery.datatransfer.v" +
-      "1.EnableDataTransferServiceRequest\032\026.goo" +
-      "gle.protobuf.Empty\"F\202\323\344\223\002@\";/v1/{name=pr" +
-      "ojects/*/locations/*}:enableDataTransfer" +
-      "Service:\001*\022\250\002\n\034IsDataTransferServiceEnab" +
-      "led\022J.google.cloud.bigquery.datatransfer" +
-      ".v1.IsDataTransferServiceEnabledRequest\032" +
-      "K.google.cloud.bigquery.datatransfer.v1." +
-      "IsDataTransferServiceEnabledResponse\"o\202\323" +
-      "\344\223\002i\">/v1/{name=projects/*/locations/*}:" +
-      "isDataTransferServiceEnabled:\001*Z$\"\037/v1/{" +
-      "name=projects/*}:isEnabled:\001*B\343\001\n)com.go" +
-      "ogle.cloud.bigquery.datatransfer.v1B\021Dat" +
-      "aTransferProtoP\001ZQgoogle.golang.org/genp" +
-      "roto/googleapis/cloud/bigquery/datatrans" +
-      "fer/v1;datatransfer\252\002%Google.Cloud.BigQu" +
-      "ery.DataTransfer.V1\312\002%Google\\Cloud\\BigQu" +
-      "ery\\DataTransfer\\V1b\006proto3"
+      "s.proto\032\027google/api/client.proto\032\037google" +
+      "/api/field_behavior.proto\032\031google/api/re" +
+      "source.proto\0324google/cloud/bigquery/data" +
+      "transfer/v1/transfer.proto\032\036google/proto" +
+      "buf/duration.proto\032\033google/protobuf/empt" +
+      "y.proto\032 google/protobuf/field_mask.prot" +
+      "o\032\037google/protobuf/timestamp.proto\032\036goog" +
+      "le/protobuf/wrappers.proto\"\205\005\n\023DataSourc" +
+      "eParameter\022\020\n\010param_id\030\001 \001(\t\022\024\n\014display_" +
+      "name\030\002 \001(\t\022\023\n\013description\030\003 \001(\t\022M\n\004type\030" +
+      "\004 \001(\0162?.google.cloud.bigquery.datatransf" +
+      "er.v1.DataSourceParameter.Type\022\020\n\010requir" +
+      "ed\030\005 \001(\010\022\020\n\010repeated\030\006 \001(\010\022\030\n\020validation" +
+      "_regex\030\007 \001(\t\022\026\n\016allowed_values\030\010 \003(\t\022/\n\t" +
+      "min_value\030\t \001(\0132\034.google.protobuf.Double" +
+      "Value\022/\n\tmax_value\030\n \001(\0132\034.google.protob" +
+      "uf.DoubleValue\022J\n\006fields\030\013 \003(\0132:.google." +
+      "cloud.bigquery.datatransfer.v1.DataSourc" +
+      "eParameter\022\036\n\026validation_description\030\014 \001" +
+      "(\t\022\033\n\023validation_help_url\030\r \001(\t\022\021\n\timmut" +
+      "able\030\016 \001(\010\022\017\n\007recurse\030\017 \001(\010\022\022\n\ndeprecate" +
+      "d\030\024 \001(\010\"i\n\004Type\022\024\n\020TYPE_UNSPECIFIED\020\000\022\n\n" +
+      "\006STRING\020\001\022\013\n\007INTEGER\020\002\022\n\n\006DOUBLE\020\003\022\013\n\007BO" +
+      "OLEAN\020\004\022\n\n\006RECORD\020\005\022\r\n\tPLUS_PAGE\020\006\"\266\t\n\nD" +
+      "ataSource\022\021\n\004name\030\001 \001(\tB\003\340A\003\022\026\n\016data_sou" +
+      "rce_id\030\002 \001(\t\022\024\n\014display_name\030\003 \001(\t\022\023\n\013de" +
+      "scription\030\004 \001(\t\022\021\n\tclient_id\030\005 \001(\t\022\016\n\006sc" +
+      "opes\030\006 \003(\t\022N\n\rtransfer_type\030\007 \001(\01623.goog" +
+      "le.cloud.bigquery.datatransfer.v1.Transf" +
+      "erTypeB\002\030\001\022\'\n\033supports_multiple_transfer" +
+      "s\030\010 \001(\010B\002\030\001\022\037\n\027update_deadline_seconds\030\t" +
+      " \001(\005\022\030\n\020default_schedule\030\n \001(\t\022 \n\030suppor" +
+      "ts_custom_schedule\030\013 \001(\010\022N\n\nparameters\030\014" +
+      " \003(\0132:.google.cloud.bigquery.datatransfe" +
+      "r.v1.DataSourceParameter\022\020\n\010help_url\030\r \001" +
+      "(\t\022_\n\022authorization_type\030\016 \001(\0162C.google." +
+      "cloud.bigquery.datatransfer.v1.DataSourc" +
+      "e.AuthorizationType\022\\\n\021data_refresh_type" +
+      "\030\017 \001(\0162A.google.cloud.bigquery.datatrans" +
+      "fer.v1.DataSource.DataRefreshType\022(\n def" +
+      "ault_data_refresh_window_days\030\020 \001(\005\022\034\n\024m" +
+      "anual_runs_disabled\030\021 \001(\010\022<\n\031minimum_sch" +
+      "edule_interval\030\022 \001(\0132\031.google.protobuf.D" +
+      "uration\022\032\n\022partner_legal_name\030\026 \001(\t\022\024\n\014r" +
+      "edirect_url\030\027 \001(\t\"s\n\021AuthorizationType\022\"" +
+      "\n\036AUTHORIZATION_TYPE_UNSPECIFIED\020\000\022\026\n\022AU" +
+      "THORIZATION_CODE\020\001\022\"\n\036GOOGLE_PLUS_AUTHOR" +
+      "IZATION_CODE\020\002\"c\n\017DataRefreshType\022!\n\035DAT" +
+      "A_REFRESH_TYPE_UNSPECIFIED\020\000\022\022\n\016SLIDING_" +
+      "WINDOW\020\001\022\031\n\025CUSTOM_SLIDING_WINDOW\020\002:\245\001\352A" +
+      "\241\001\n.bigquerydatatransfer.googleapis.com/" +
+      "DataSource\022,projects/{project}/dataSourc" +
+      "es/{data_source}\022Aprojects/{project}/loc" +
+      "ations/{location}/dataSources/{data_sour" +
+      "ce}\"\\\n\024GetDataSourceRequest\022D\n\004name\030\001 \001(" +
+      "\tB6\340A\002\372A0\n.bigquerydatatransfer.googleap" +
+      "is.com/DataSource\"\207\001\n\026ListDataSourcesReq" +
+      "uest\022F\n\006parent\030\001 \001(\tB6\340A\002\372A0\022.bigqueryda" +
+      "tatransfer.googleapis.com/DataSource\022\022\n\n" +
+      "page_token\030\003 \001(\t\022\021\n\tpage_size\030\004 \001(\005\"\200\001\n\027" +
+      "ListDataSourcesResponse\022G\n\014data_sources\030" +
+      "\001 \003(\01321.google.cloud.bigquery.datatransf" +
+      "er.v1.DataSource\022\034\n\017next_page_token\030\002 \001(" +
+      "\tB\003\340A\003\"\216\002\n\033CreateTransferConfigRequest\022J" +
+      "\n\006parent\030\001 \001(\tB:\340A\002\372A4\0222bigquerydatatran" +
+      "sfer.googleapis.com/TransferConfig\022S\n\017tr" +
+      "ansfer_config\030\002 \001(\01325.google.cloud.bigqu" +
+      "ery.datatransfer.v1.TransferConfigB\003\340A\002\022" +
+      "\032\n\022authorization_code\030\003 \001(\t\022\024\n\014version_i" +
+      "nfo\030\005 \001(\t\022\034\n\024service_account_name\030\006 \001(\t\"" +
+      "\370\001\n\033UpdateTransferConfigRequest\022S\n\017trans" +
+      "fer_config\030\001 \001(\01325.google.cloud.bigquery" +
+      ".datatransfer.v1.TransferConfigB\003\340A\002\022\032\n\022" +
+      "authorization_code\030\003 \001(\t\0224\n\013update_mask\030" +
+      "\004 \001(\0132\032.google.protobuf.FieldMaskB\003\340A\002\022\024" +
+      "\n\014version_info\030\005 \001(\t\022\034\n\024service_account_" +
+      "name\030\006 \001(\t\"d\n\030GetTransferConfigRequest\022H" +
+      "\n\004name\030\001 \001(\tB:\340A\002\372A4\n2bigquerydatatransf" +
+      "er.googleapis.com/TransferConfig\"g\n\033Dele" +
+      "teTransferConfigRequest\022H\n\004name\030\001 \001(\tB:\340" +
+      "A\002\372A4\n2bigquerydatatransfer.googleapis.c" +
+      "om/TransferConfig\"V\n\025GetTransferRunReque" +
+      "st\022=\n\004name\030\001 \001(\tB/\340A\002\372A)\n\'bigquerydatatr" +
+      "ansfer.googleapis.com/Run\"Y\n\030DeleteTrans" +
+      "ferRunRequest\022=\n\004name\030\001 \001(\tB/\340A\002\372A)\n\'big" +
+      "querydatatransfer.googleapis.com/Run\"\250\001\n" +
+      "\032ListTransferConfigsRequest\022J\n\006parent\030\001 " +
+      "\001(\tB:\340A\002\372A4\0222bigquerydatatransfer.google" +
+      "apis.com/TransferConfig\022\027\n\017data_source_i" +
+      "ds\030\002 \003(\t\022\022\n\npage_token\030\003 \001(\t\022\021\n\tpage_siz" +
+      "e\030\004 \001(\005\"\221\001\n\033ListTransferConfigsResponse\022" +
+      "T\n\020transfer_configs\030\001 \003(\01325.google.cloud" +
+      ".bigquery.datatransfer.v1.TransferConfig" +
+      "B\003\340A\003\022\034\n\017next_page_token\030\002 \001(\tB\003\340A\003\"\336\002\n\027" +
+      "ListTransferRunsRequest\022?\n\006parent\030\001 \001(\tB" +
+      "/\340A\002\372A)\022\'bigquerydatatransfer.googleapis" +
+      ".com/Run\022D\n\006states\030\002 \003(\01624.google.cloud." +
+      "bigquery.datatransfer.v1.TransferState\022\022" +
+      "\n\npage_token\030\003 \001(\t\022\021\n\tpage_size\030\004 \001(\005\022^\n" +
+      "\013run_attempt\030\005 \001(\0162I.google.cloud.bigque" +
+      "ry.datatransfer.v1.ListTransferRunsReque" +
+      "st.RunAttempt\"5\n\nRunAttempt\022\033\n\027RUN_ATTEM" +
+      "PT_UNSPECIFIED\020\000\022\n\n\006LATEST\020\001\"\210\001\n\030ListTra" +
+      "nsferRunsResponse\022N\n\rtransfer_runs\030\001 \003(\013" +
+      "22.google.cloud.bigquery.datatransfer.v1" +
+      ".TransferRunB\003\340A\003\022\034\n\017next_page_token\030\002 \001" +
+      "(\tB\003\340A\003\"\340\001\n\027ListTransferLogsRequest\022?\n\006p" +
+      "arent\030\001 \001(\tB/\340A\002\372A)\n\'bigquerydatatransfe" +
+      "r.googleapis.com/Run\022\022\n\npage_token\030\004 \001(\t" +
+      "\022\021\n\tpage_size\030\005 \001(\005\022]\n\rmessage_types\030\006 \003" +
+      "(\0162F.google.cloud.bigquery.datatransfer." +
+      "v1.TransferMessage.MessageSeverity\"\220\001\n\030L" +
+      "istTransferLogsResponse\022V\n\021transfer_mess" +
+      "ages\030\001 \003(\01326.google.cloud.bigquery.datat" +
+      "ransfer.v1.TransferMessageB\003\340A\003\022\034\n\017next_" +
+      "page_token\030\002 \001(\tB\003\340A\003\"^\n\026CheckValidCreds" +
+      "Request\022D\n\004name\030\001 \001(\tB6\340A\002\372A0\n.bigqueryd" +
+      "atatransfer.googleapis.com/DataSource\"2\n" +
+      "\027CheckValidCredsResponse\022\027\n\017has_valid_cr" +
+      "eds\030\001 \001(\010\"\340\002\n\033ScheduleTransferRunsReques" +
+      "t\022J\n\006parent\030\001 \001(\tB:\340A\002\372A4\n2bigquerydatat" +
+      "ransfer.googleapis.com/TransferConfig\022^\n" +
+      "\006labels\030\006 \003(\0132N.google.cloud.bigquery.da" +
+      "tatransfer.v1.ScheduleTransferRunsReques" +
+      "t.LabelsEntry\0223\n\nstart_time\030\002 \001(\0132\032.goog" +
+      "le.protobuf.TimestampB\003\340A\002\0221\n\010end_time\030\003" +
+      " \001(\0132\032.google.protobuf.TimestampB\003\340A\002\032-\n" +
+      "\013LabelsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t" +
+      ":\0028\001\"`\n\034ScheduleTransferRunsResponse\022@\n\004" +
+      "runs\030\001 \003(\01322.google.cloud.bigquery.datat" +
+      "ransfer.v1.TransferRun\"\231\004\n\036StartManualTr" +
+      "ansferRunsRequest\022G\n\006parent\030\001 \001(\tB7\372A4\n2" +
+      "bigquerydatatransfer.googleapis.com/Tran" +
+      "sferConfig\022a\n\006labels\030\002 \003(\0132Q.google.clou" +
+      "d.bigquery.datatransfer.v1.StartManualTr" +
+      "ansferRunsRequest.LabelsEntry\022o\n\024request" +
+      "ed_time_range\030\003 \001(\0132O.google.cloud.bigqu" +
+      "ery.datatransfer.v1.StartManualTransferR" +
+      "unsRequest.TimeRangeH\000\0228\n\022requested_run_" +
+      "time\030\004 \001(\0132\032.google.protobuf.TimestampH\000" +
+      "\032i\n\tTimeRange\022.\n\nstart_time\030\001 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022,\n\010end_time\030\002 \001(\0132" +
+      "\032.google.protobuf.Timestamp\032-\n\013LabelsEnt" +
+      "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\006\n\004ti" +
+      "me\"c\n\037StartManualTransferRunsResponse\022@\n" +
+      "\004runs\030\001 \003(\01322.google.cloud.bigquery.data" +
+      "transfer.v1.TransferRun\"0\n EnableDataTra" +
+      "nsferServiceRequest\022\014\n\004name\030\001 \001(\t\"3\n#IsD" +
+      "ataTransferServiceEnabledRequest\022\014\n\004name" +
+      "\030\001 \001(\t\"G\n$IsDataTransferServiceEnabledRe" +
+      "sponse\022\017\n\007enabled\030\001 \001(\010\022\016\n\006reason\030\002 \001(\t2" +
+      "\313$\n\023DataTransferService\022\346\001\n\rGetDataSourc" +
+      "e\022;.google.cloud.bigquery.datatransfer.v" +
+      "1.GetDataSourceRequest\0321.google.cloud.bi" +
+      "gquery.datatransfer.v1.DataSource\"e\202\323\344\223\002" +
+      "X\022//v1/{name=projects/*/locations/*/data" +
+      "Sources/*}Z%\022#/v1/{name=projects/*/dataS" +
+      "ources/*}\332A\004name\022\371\001\n\017ListDataSources\022=.g" +
+      "oogle.cloud.bigquery.datatransfer.v1.Lis" +
+      "tDataSourcesRequest\032>.google.cloud.bigqu" +
+      "ery.datatransfer.v1.ListDataSourcesRespo" +
+      "nse\"g\202\323\344\223\002X\022//v1/{parent=projects/*/loca" +
+      "tions/*}/dataSourcesZ%\022#/v1/{parent=proj" +
+      "ects/*}/dataSources\332A\006parent\022\266\002\n\024CreateT" +
+      "ransferConfig\022B.google.cloud.bigquery.da" +
+      "tatransfer.v1.CreateTransferConfigReques" +
+      "t\0325.google.cloud.bigquery.datatransfer.v" +
+      "1.TransferConfig\"\242\001\202\323\344\223\002\202\001\"3/v1/{parent=" +
+      "projects/*/locations/*}/transferConfigs:" +
+      "\017transfer_configZ:\"\'/v1/{parent=projects" +
+      "/*}/transferConfigs:\017transfer_config\332A\026p" +
+      "arent,transfer_config\022\333\002\n\024UpdateTransfer" +
+      "Config\022B.google.cloud.bigquery.datatrans" +
+      "fer.v1.UpdateTransferConfigRequest\0325.goo" +
+      "gle.cloud.bigquery.datatransfer.v1.Trans" +
+      "ferConfig\"\307\001\202\323\344\223\002\242\0012C/v1/{transfer_confi" +
+      "g.name=projects/*/locations/*/transferCo" +
+      "nfigs/*}:\017transfer_configZJ27/v1/{transf" +
+      "er_config.name=projects/*/transferConfig" +
+      "s/*}:\017transfer_config\332A\033transfer_config," +
+      "update_mask\022\341\001\n\024DeleteTransferConfig\022B.g" +
+      "oogle.cloud.bigquery.datatransfer.v1.Del" +
+      "eteTransferConfigRequest\032\026.google.protob" +
+      "uf.Empty\"m\202\323\344\223\002`*3/v1/{name=projects/*/l" +
+      "ocations/*/transferConfigs/*}Z)*\'/v1/{na" +
+      "me=projects/*/transferConfigs/*}\332A\004name\022" +
+      "\372\001\n\021GetTransferConfig\022?.google.cloud.big" +
+      "query.datatransfer.v1.GetTransferConfigR" +
+      "equest\0325.google.cloud.bigquery.datatrans" +
+      "fer.v1.TransferConfig\"m\202\323\344\223\002`\0223/v1/{name" +
+      "=projects/*/locations/*/transferConfigs/" +
+      "*}Z)\022\'/v1/{name=projects/*/transferConfi" +
+      "gs/*}\332A\004name\022\215\002\n\023ListTransferConfigs\022A.g" +
+      "oogle.cloud.bigquery.datatransfer.v1.Lis" +
+      "tTransferConfigsRequest\032B.google.cloud.b" +
+      "igquery.datatransfer.v1.ListTransferConf" +
+      "igsResponse\"o\202\323\344\223\002`\0223/v1/{parent=project" +
+      "s/*/locations/*}/transferConfigsZ)\022\'/v1/" +
+      "{parent=projects/*}/transferConfigs\332A\006pa" +
+      "rent\022\315\002\n\024ScheduleTransferRuns\022B.google.c" +
+      "loud.bigquery.datatransfer.v1.ScheduleTr" +
+      "ansferRunsRequest\032C.google.cloud.bigquer" +
+      "y.datatransfer.v1.ScheduleTransferRunsRe" +
+      "sponse\"\253\001\210\002\001\202\323\344\223\002\204\001\"B/v1/{parent=project" +
+      "s/*/locations/*/transferConfigs/*}:sched" +
+      "uleRuns:\001*Z;\"6/v1/{parent=projects/*/tra" +
+      "nsferConfigs/*}:scheduleRuns:\001*\332A\032parent" +
+      ",start_time,end_time\022\274\002\n\027StartManualTran" +
+      "sferRuns\022E.google.cloud.bigquery.datatra" +
+      "nsfer.v1.StartManualTransferRunsRequest\032" +
+      "F.google.cloud.bigquery.datatransfer.v1." +
+      "StartManualTransferRunsResponse\"\221\001\202\323\344\223\002\212" +
+      "\001\"E/v1/{parent=projects/*/locations/*/tr" +
+      "ansferConfigs/*}:startManualRuns:\001*Z>\"9/" +
+      "v1/{parent=projects/*/transferConfigs/*}" +
+      ":startManualRuns:\001*\022\377\001\n\016GetTransferRun\022<" +
+      ".google.cloud.bigquery.datatransfer.v1.G" +
+      "etTransferRunRequest\0322.google.cloud.bigq" +
+      "uery.datatransfer.v1.TransferRun\"{\202\323\344\223\002n" +
+      "\022:/v1/{name=projects/*/locations/*/trans" +
+      "ferConfigs/*/runs/*}Z0\022./v1/{name=projec" +
+      "ts/*/transferConfigs/*/runs/*}\332A\004name\022\351\001" +
+      "\n\021DeleteTransferRun\022?.google.cloud.bigqu" +
+      "ery.datatransfer.v1.DeleteTransferRunReq" +
+      "uest\032\026.google.protobuf.Empty\"{\202\323\344\223\002n*:/v" +
+      "1/{name=projects/*/locations/*/transferC" +
+      "onfigs/*/runs/*}Z0*./v1/{name=projects/*" +
+      "/transferConfigs/*/runs/*}\332A\004name\022\222\002\n\020Li" +
+      "stTransferRuns\022>.google.cloud.bigquery.d" +
+      "atatransfer.v1.ListTransferRunsRequest\032?" +
+      ".google.cloud.bigquery.datatransfer.v1.L" +
+      "istTransferRunsResponse\"}\202\323\344\223\002n\022:/v1/{pa" +
+      "rent=projects/*/locations/*/transferConf" +
+      "igs/*}/runsZ0\022./v1/{parent=projects/*/tr" +
+      "ansferConfigs/*}/runs\332A\006parent\022\262\002\n\020ListT" +
+      "ransferLogs\022>.google.cloud.bigquery.data" +
+      "transfer.v1.ListTransferLogsRequest\032?.go" +
+      "ogle.cloud.bigquery.datatransfer.v1.List" +
+      "TransferLogsResponse\"\234\001\202\323\344\223\002\214\001\022I/v1/{par" +
+      "ent=projects/*/locations/*/transferConfi" +
+      "gs/*/runs/*}/transferLogsZ?\022=/v1/{parent" +
+      "=projects/*/transferConfigs/*/runs/*}/tr" +
+      "ansferLogs\332A\006parent\022\236\002\n\017CheckValidCreds\022" +
+      "=.google.cloud.bigquery.datatransfer.v1." +
+      "CheckValidCredsRequest\032>.google.cloud.bi" +
+      "gquery.datatransfer.v1.CheckValidCredsRe" +
+      "sponse\"\213\001\202\323\344\223\002~\"?/v1/{name=projects/*/lo" +
+      "cations/*/dataSources/*}:checkValidCreds" +
+      ":\001*Z8\"3/v1/{name=projects/*/dataSources/" +
+      "*}:checkValidCreds:\001*\332A\004name\022\304\001\n\031EnableD" +
+      "ataTransferService\022G.google.cloud.bigque" +
+      "ry.datatransfer.v1.EnableDataTransferSer" +
+      "viceRequest\032\026.google.protobuf.Empty\"F\202\323\344" +
+      "\223\002@\";/v1/{name=projects/*/locations/*}:e" +
+      "nableDataTransferService:\001*\022\250\002\n\034IsDataTr" +
+      "ansferServiceEnabled\022J.google.cloud.bigq" +
+      "uery.datatransfer.v1.IsDataTransferServi" +
+      "ceEnabledRequest\032K.google.cloud.bigquery" +
+      ".datatransfer.v1.IsDataTransferServiceEn" +
+      "abledResponse\"o\202\323\344\223\002i\">/v1/{name=project" +
+      "s/*/locations/*}:isDataTransferServiceEn" +
+      "abled:\001*Z$\"\037/v1/{name=projects/*}:isEnab" +
+      "led:\001*\032\354\001\312A#bigquerydatatransfer.googlea" +
+      "pis.com\322A\302\001https://www.googleapis.com/au" +
+      "th/bigquery,https://www.googleapis.com/a" +
+      "uth/bigquery.readonly,https://www.google" +
+      "apis.com/auth/cloud-platform,https://www" +
+      ".googleapis.com/auth/cloud-platform.read" +
+      "-onlyB\343\001\n)com.google.cloud.bigquery.data" +
+      "transfer.v1B\021DataTransferProtoP\001ZQgoogle" +
+      ".golang.org/genproto/googleapis/cloud/bi" +
+      "gquery/datatransfer/v1;datatransfer\252\002%Go" +
+      "ogle.Cloud.BigQuery.DataTransfer.V1\312\002%Go" +
+      "ogle\\Cloud\\BigQuery\\DataTransfer\\V1b\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -376,6 +459,9 @@ public final class DataTransferProto {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.api.ClientProto.getDescriptor(),
+          com.google.api.FieldBehaviorProto.getDescriptor(),
+          com.google.api.ResourceProto.getDescriptor(),
           com.google.cloud.bigquery.datatransfer.v1.TransferProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.EmptyProto.getDescriptor(),
@@ -388,13 +474,13 @@ public final class DataTransferProto {
     internal_static_google_cloud_bigquery_datatransfer_v1_DataSourceParameter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_DataSourceParameter_descriptor,
-        new java.lang.String[] { "ParamId", "DisplayName", "Description", "Type", "Required", "Repeated", "ValidationRegex", "AllowedValues", "MinValue", "MaxValue", "Fields", "ValidationDescription", "ValidationHelpUrl", "Immutable", "Recurse", });
+        new java.lang.String[] { "ParamId", "DisplayName", "Description", "Type", "Required", "Repeated", "ValidationRegex", "AllowedValues", "MinValue", "MaxValue", "Fields", "ValidationDescription", "ValidationHelpUrl", "Immutable", "Recurse", "Deprecated", });
     internal_static_google_cloud_bigquery_datatransfer_v1_DataSource_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_google_cloud_bigquery_datatransfer_v1_DataSource_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_DataSource_descriptor,
-        new java.lang.String[] { "Name", "DataSourceId", "DisplayName", "Description", "ClientId", "Scopes", "TransferType", "SupportsMultipleTransfers", "UpdateDeadlineSeconds", "DefaultSchedule", "SupportsCustomSchedule", "Parameters", "HelpUrl", "AuthorizationType", "DataRefreshType", "DefaultDataRefreshWindowDays", "ManualRunsDisabled", "MinimumScheduleInterval", "PartnerLegalName", });
+        new java.lang.String[] { "Name", "DataSourceId", "DisplayName", "Description", "ClientId", "Scopes", "TransferType", "SupportsMultipleTransfers", "UpdateDeadlineSeconds", "DefaultSchedule", "SupportsCustomSchedule", "Parameters", "HelpUrl", "AuthorizationType", "DataRefreshType", "DefaultDataRefreshWindowDays", "ManualRunsDisabled", "MinimumScheduleInterval", "PartnerLegalName", "RedirectUrl", });
     internal_static_google_cloud_bigquery_datatransfer_v1_GetDataSourceRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_google_cloud_bigquery_datatransfer_v1_GetDataSourceRequest_fieldAccessorTable = new
@@ -418,13 +504,13 @@ public final class DataTransferProto {
     internal_static_google_cloud_bigquery_datatransfer_v1_CreateTransferConfigRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_CreateTransferConfigRequest_descriptor,
-        new java.lang.String[] { "Parent", "TransferConfig", "AuthorizationCode", });
+        new java.lang.String[] { "Parent", "TransferConfig", "AuthorizationCode", "VersionInfo", "ServiceAccountName", });
     internal_static_google_cloud_bigquery_datatransfer_v1_UpdateTransferConfigRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_google_cloud_bigquery_datatransfer_v1_UpdateTransferConfigRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_UpdateTransferConfigRequest_descriptor,
-        new java.lang.String[] { "TransferConfig", "AuthorizationCode", "UpdateMask", });
+        new java.lang.String[] { "TransferConfig", "AuthorizationCode", "UpdateMask", "VersionInfo", "ServiceAccountName", });
     internal_static_google_cloud_bigquery_datatransfer_v1_GetTransferConfigRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_google_cloud_bigquery_datatransfer_v1_GetTransferConfigRequest_fieldAccessorTable = new
@@ -515,30 +601,63 @@ public final class DataTransferProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_ScheduleTransferRunsResponse_descriptor,
         new java.lang.String[] { "Runs", });
-    internal_static_google_cloud_bigquery_datatransfer_v1_EnableDataTransferServiceRequest_descriptor =
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_descriptor =
       getDescriptor().getMessageTypes().get(21);
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_descriptor,
+        new java.lang.String[] { "Parent", "Labels", "RequestedTimeRange", "RequestedRunTime", "Time", });
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_TimeRange_descriptor =
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_descriptor.getNestedTypes().get(0);
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_TimeRange_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_TimeRange_descriptor,
+        new java.lang.String[] { "StartTime", "EndTime", });
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_LabelsEntry_descriptor =
+      internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_descriptor.getNestedTypes().get(1);
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_LabelsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsRequest_LabelsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_google_cloud_bigquery_datatransfer_v1_StartManualTransferRunsResponse_descriptor,
+        new java.lang.String[] { "Runs", });
+    internal_static_google_cloud_bigquery_datatransfer_v1_EnableDataTransferServiceRequest_descriptor =
+      getDescriptor().getMessageTypes().get(23);
     internal_static_google_cloud_bigquery_datatransfer_v1_EnableDataTransferServiceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_EnableDataTransferServiceRequest_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledRequest_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledRequest_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledResponse_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_google_cloud_bigquery_datatransfer_v1_IsDataTransferServiceEnabledResponse_descriptor,
         new java.lang.String[] { "Enabled", "Reason", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.api.ClientProto.defaultHost);
+    registry.add(com.google.api.FieldBehaviorProto.fieldBehavior);
     registry.add(com.google.api.AnnotationsProto.http);
+    registry.add(com.google.api.ClientProto.methodSignature);
+    registry.add(com.google.api.ClientProto.oauthScopes);
+    registry.add(com.google.api.ResourceProto.resource);
+    registry.add(com.google.api.ResourceProto.resourceReference);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.api.AnnotationsProto.getDescriptor();
+    com.google.api.ClientProto.getDescriptor();
+    com.google.api.FieldBehaviorProto.getDescriptor();
+    com.google.api.ResourceProto.getDescriptor();
     com.google.cloud.bigquery.datatransfer.v1.TransferProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,10 @@ import com.google.api.gax.paging.AbstractPagedListResponse;
 import com.google.api.gax.rpc.PageContext;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.api.pathtemplate.PathTemplate;
-import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest.RunAttempt;
-import com.google.cloud.bigquery.datatransfer.v1.TransferMessage.MessageSeverity;
 import com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStub;
 import com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.google.protobuf.Empty;
-import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
 import java.io.IOException;
 import java.util.List;
@@ -114,29 +112,27 @@ public class DataTransferServiceClient implements BackgroundResource {
   private final DataTransferServiceSettings settings;
   private final DataTransferServiceStub stub;
 
-  private static final PathTemplate LOCATION_PATH_TEMPLATE =
-      PathTemplate.createWithoutUrlEncoding("projects/{project}/locations/{location}");
-
   private static final PathTemplate DATA_SOURCE_PATH_TEMPLATE =
       PathTemplate.createWithoutUrlEncoding(
           "projects/{project}/locations/{location}/dataSources/{data_source}");
 
-  private static final PathTemplate TRANSFER_CONFIG_PATH_TEMPLATE =
-      PathTemplate.createWithoutUrlEncoding(
-          "projects/{project}/locations/{location}/transferConfigs/{transfer_config}");
+  private static final PathTemplate LOCATION_PATH_TEMPLATE =
+      PathTemplate.createWithoutUrlEncoding("projects/{project}/locations/{location}");
 
   private static final PathTemplate RUN_PATH_TEMPLATE =
       PathTemplate.createWithoutUrlEncoding(
           "projects/{project}/locations/{location}/transferConfigs/{transfer_config}/runs/{run}");
 
-  /** Formats a string containing the fully-qualified path to represent a location resource. */
-  public static final String formatLocationName(String project, String location) {
-    return LOCATION_PATH_TEMPLATE.instantiate(
-        "project", project,
-        "location", location);
-  }
+  private static final PathTemplate TRANSFER_CONFIG_PATH_TEMPLATE =
+      PathTemplate.createWithoutUrlEncoding(
+          "projects/{project}/locations/{location}/transferConfigs/{transfer_config}");
 
-  /** Formats a string containing the fully-qualified path to represent a data_source resource. */
+  /**
+   * Formats a string containing the fully-qualified path to represent a data_source resource.
+   *
+   * @deprecated Use the {@link DataSourceName} class instead.
+   */
+  @Deprecated
   public static final String formatDataSourceName(
       String project, String location, String dataSource) {
     return DATA_SOURCE_PATH_TEMPLATE.instantiate(
@@ -146,17 +142,23 @@ public class DataTransferServiceClient implements BackgroundResource {
   }
 
   /**
-   * Formats a string containing the fully-qualified path to represent a transfer_config resource.
+   * Formats a string containing the fully-qualified path to represent a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
    */
-  public static final String formatTransferConfigName(
-      String project, String location, String transferConfig) {
-    return TRANSFER_CONFIG_PATH_TEMPLATE.instantiate(
+  @Deprecated
+  public static final String formatLocationName(String project, String location) {
+    return LOCATION_PATH_TEMPLATE.instantiate(
         "project", project,
-        "location", location,
-        "transfer_config", transferConfig);
+        "location", location);
   }
 
-  /** Formats a string containing the fully-qualified path to represent a run resource. */
+  /**
+   * Formats a string containing the fully-qualified path to represent a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
   public static final String formatRunName(
       String project, String location, String transferConfig, String run) {
     return RUN_PATH_TEMPLATE.instantiate(
@@ -167,22 +169,25 @@ public class DataTransferServiceClient implements BackgroundResource {
   }
 
   /**
-   * Parses the project from the given fully-qualified path which represents a location resource.
+   * Formats a string containing the fully-qualified path to represent a transfer_config resource.
+   *
+   * @deprecated Use the {@link TransferConfigName} class instead.
    */
-  public static final String parseProjectFromLocationName(String locationName) {
-    return LOCATION_PATH_TEMPLATE.parse(locationName).get("project");
-  }
-
-  /**
-   * Parses the location from the given fully-qualified path which represents a location resource.
-   */
-  public static final String parseLocationFromLocationName(String locationName) {
-    return LOCATION_PATH_TEMPLATE.parse(locationName).get("location");
+  @Deprecated
+  public static final String formatTransferConfigName(
+      String project, String location, String transferConfig) {
+    return TRANSFER_CONFIG_PATH_TEMPLATE.instantiate(
+        "project", project,
+        "location", location,
+        "transfer_config", transferConfig);
   }
 
   /**
    * Parses the project from the given fully-qualified path which represents a data_source resource.
+   *
+   * @deprecated Use the {@link DataSourceName} class instead.
    */
+  @Deprecated
   public static final String parseProjectFromDataSourceName(String dataSourceName) {
     return DATA_SOURCE_PATH_TEMPLATE.parse(dataSourceName).get("project");
   }
@@ -190,7 +195,10 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Parses the location from the given fully-qualified path which represents a data_source
    * resource.
+   *
+   * @deprecated Use the {@link DataSourceName} class instead.
    */
+  @Deprecated
   public static final String parseLocationFromDataSourceName(String dataSourceName) {
     return DATA_SOURCE_PATH_TEMPLATE.parse(dataSourceName).get("location");
   }
@@ -198,15 +206,81 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Parses the data_source from the given fully-qualified path which represents a data_source
    * resource.
+   *
+   * @deprecated Use the {@link DataSourceName} class instead.
    */
+  @Deprecated
   public static final String parseDataSourceFromDataSourceName(String dataSourceName) {
     return DATA_SOURCE_PATH_TEMPLATE.parse(dataSourceName).get("data_source");
   }
 
   /**
+   * Parses the project from the given fully-qualified path which represents a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
+   */
+  @Deprecated
+  public static final String parseProjectFromLocationName(String locationName) {
+    return LOCATION_PATH_TEMPLATE.parse(locationName).get("project");
+  }
+
+  /**
+   * Parses the location from the given fully-qualified path which represents a location resource.
+   *
+   * @deprecated Use the {@link LocationName} class instead.
+   */
+  @Deprecated
+  public static final String parseLocationFromLocationName(String locationName) {
+    return LOCATION_PATH_TEMPLATE.parse(locationName).get("location");
+  }
+
+  /**
+   * Parses the project from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
+  public static final String parseProjectFromRunName(String runName) {
+    return RUN_PATH_TEMPLATE.parse(runName).get("project");
+  }
+
+  /**
+   * Parses the location from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
+  public static final String parseLocationFromRunName(String runName) {
+    return RUN_PATH_TEMPLATE.parse(runName).get("location");
+  }
+
+  /**
+   * Parses the transfer_config from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
+  public static final String parseTransferConfigFromRunName(String runName) {
+    return RUN_PATH_TEMPLATE.parse(runName).get("transfer_config");
+  }
+
+  /**
+   * Parses the run from the given fully-qualified path which represents a run resource.
+   *
+   * @deprecated Use the {@link RunName} class instead.
+   */
+  @Deprecated
+  public static final String parseRunFromRunName(String runName) {
+    return RUN_PATH_TEMPLATE.parse(runName).get("run");
+  }
+
+  /**
    * Parses the project from the given fully-qualified path which represents a transfer_config
    * resource.
+   *
+   * @deprecated Use the {@link TransferConfigName} class instead.
    */
+  @Deprecated
   public static final String parseProjectFromTransferConfigName(String transferConfigName) {
     return TRANSFER_CONFIG_PATH_TEMPLATE.parse(transferConfigName).get("project");
   }
@@ -214,7 +288,10 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Parses the location from the given fully-qualified path which represents a transfer_config
    * resource.
+   *
+   * @deprecated Use the {@link TransferConfigName} class instead.
    */
+  @Deprecated
   public static final String parseLocationFromTransferConfigName(String transferConfigName) {
     return TRANSFER_CONFIG_PATH_TEMPLATE.parse(transferConfigName).get("location");
   }
@@ -222,31 +299,12 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Parses the transfer_config from the given fully-qualified path which represents a
    * transfer_config resource.
+   *
+   * @deprecated Use the {@link TransferConfigName} class instead.
    */
+  @Deprecated
   public static final String parseTransferConfigFromTransferConfigName(String transferConfigName) {
     return TRANSFER_CONFIG_PATH_TEMPLATE.parse(transferConfigName).get("transfer_config");
-  }
-
-  /** Parses the project from the given fully-qualified path which represents a run resource. */
-  public static final String parseProjectFromRunName(String runName) {
-    return RUN_PATH_TEMPLATE.parse(runName).get("project");
-  }
-
-  /** Parses the location from the given fully-qualified path which represents a run resource. */
-  public static final String parseLocationFromRunName(String runName) {
-    return RUN_PATH_TEMPLATE.parse(runName).get("location");
-  }
-
-  /**
-   * Parses the transfer_config from the given fully-qualified path which represents a run resource.
-   */
-  public static final String parseTransferConfigFromRunName(String runName) {
-    return RUN_PATH_TEMPLATE.parse(runName).get("transfer_config");
-  }
-
-  /** Parses the run from the given fully-qualified path which represents a run resource. */
-  public static final String parseRunFromRunName(String runName) {
-    return RUN_PATH_TEMPLATE.parse(runName).get("run");
   }
 
   /** Constructs an instance of DataTransferServiceClient with default settings. */
@@ -310,8 +368,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The field will contain name of the resource requested, for example:
-   *     `projects/{project_id}/dataSources/{data_source_id}`
+   * @param name Required. The field will contain name of the resource requested, for example:
+   *     `projects/{project_id}/dataSources/{data_source_id}` or
+   *     `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final DataSource getDataSource(String name) {
@@ -339,7 +398,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final DataSource getDataSource(GetDataSourceRequest request) {
+  public final DataSource getDataSource(GetDataSourceRequest request) {
     return getDataSourceCallable().call(request);
   }
 
@@ -380,8 +439,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param parent The BigQuery project id for which data sources should be returned. Must be in the
-   *     form: `projects/{project_id}`
+   * @param parent Required. The BigQuery project id for which data sources should be returned. Must
+   *     be in the form: `projects/{project_id}` or `projects/{project_id}/locations/{location_id}
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final ListDataSourcesPagedResponse listDataSources(String parent) {
@@ -482,55 +541,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatLocationName("[PROJECT]", "[LOCATION]");
    *   TransferConfig transferConfig = TransferConfig.newBuilder().build();
-   *   String authorizationCode = "";
-   *   TransferConfig response = dataTransferServiceClient.createTransferConfig(formattedParent, transferConfig, authorizationCode);
-   * }
-   * </code></pre>
-   *
-   * @param parent The BigQuery project id where the transfer configuration should be created. Must
-   *     be in the format projects/{project_id}/locations/{location_id} If specified location and
-   *     location of the destination bigquery dataset do not match - the request will fail.
-   * @param transferConfig Data transfer configuration to create.
-   * @param authorizationCode Optional OAuth2 authorization code to use with this transfer
-   *     configuration. This is required if new credentials are needed, as indicated by
-   *     `CheckValidCreds`. In order to obtain authorization_code, please make a request to
-   *     https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=&lt;datatransferapiclientid&gt;&amp;scope=&lt;data_source_scopes&gt;&amp;redirect_uri=&lt;redirect_uri&gt;
-   *     <p>&#42; client_id should be OAuth client_id of BigQuery DTS API for the given data source
-   *     returned by ListDataSources method. &#42; data_source_scopes are the scopes returned by
-   *     ListDataSources method. &#42; redirect_uri is an optional parameter. If not specified, then
-   *     authorization code is posted to the opener of authorization flow window. Otherwise it will
-   *     be sent to the redirect uri. A special value of urn:ietf:wg:oauth:2.0:oob means that
-   *     authorization code should be returned in the title bar of the browser, with the page text
-   *     prompting the user to copy the code and paste it in the application.
-   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
-   */
-  public final TransferConfig createTransferConfig(
-      String parent, TransferConfig transferConfig, String authorizationCode) {
-    LOCATION_PATH_TEMPLATE.validate(parent, "createTransferConfig");
-    CreateTransferConfigRequest request =
-        CreateTransferConfigRequest.newBuilder()
-            .setParent(parent)
-            .setTransferConfig(transferConfig)
-            .setAuthorizationCode(authorizationCode)
-            .build();
-    return createTransferConfig(request);
-  }
-
-  // AUTO-GENERATED DOCUMENTATION AND METHOD
-  /**
-   * Creates a new data transfer configuration.
-   *
-   * <p>Sample code:
-   *
-   * <pre><code>
-   * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
-   *   String formattedParent = DataTransferServiceClient.formatLocationName("[PROJECT]", "[LOCATION]");
-   *   TransferConfig transferConfig = TransferConfig.newBuilder().build();
-   *   String authorizationCode = "";
    *   CreateTransferConfigRequest request = CreateTransferConfigRequest.newBuilder()
    *     .setParent(formattedParent)
    *     .setTransferConfig(transferConfig)
-   *     .setAuthorizationCode(authorizationCode)
    *     .build();
    *   TransferConfig response = dataTransferServiceClient.createTransferConfig(request);
    * }
@@ -553,11 +566,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatLocationName("[PROJECT]", "[LOCATION]");
    *   TransferConfig transferConfig = TransferConfig.newBuilder().build();
-   *   String authorizationCode = "";
    *   CreateTransferConfigRequest request = CreateTransferConfigRequest.newBuilder()
    *     .setParent(formattedParent)
    *     .setTransferConfig(transferConfig)
-   *     .setAuthorizationCode(authorizationCode)
    *     .build();
    *   ApiFuture&lt;TransferConfig&gt; future = dataTransferServiceClient.createTransferConfigCallable().futureCall(request);
    *   // Do something
@@ -568,48 +579,6 @@ public class DataTransferServiceClient implements BackgroundResource {
   public final UnaryCallable<CreateTransferConfigRequest, TransferConfig>
       createTransferConfigCallable() {
     return stub.createTransferConfigCallable();
-  }
-
-  // AUTO-GENERATED DOCUMENTATION AND METHOD
-  /**
-   * Updates a data transfer configuration. All fields must be set, even if they are not updated.
-   *
-   * <p>Sample code:
-   *
-   * <pre><code>
-   * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
-   *   TransferConfig transferConfig = TransferConfig.newBuilder().build();
-   *   String authorizationCode = "";
-   *   FieldMask updateMask = FieldMask.newBuilder().build();
-   *   TransferConfig response = dataTransferServiceClient.updateTransferConfig(transferConfig, authorizationCode, updateMask);
-   * }
-   * </code></pre>
-   *
-   * @param transferConfig Data transfer configuration to create.
-   * @param authorizationCode Optional OAuth2 authorization code to use with this transfer
-   *     configuration. If it is provided, the transfer configuration will be associated with the
-   *     authorizing user. In order to obtain authorization_code, please make a request to
-   *     https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=&lt;datatransferapiclientid&gt;&amp;scope=&lt;data_source_scopes&gt;&amp;redirect_uri=&lt;redirect_uri&gt;
-   *     <p>&#42; client_id should be OAuth client_id of BigQuery DTS API for the given data source
-   *     returned by ListDataSources method. &#42; data_source_scopes are the scopes returned by
-   *     ListDataSources method. &#42; redirect_uri is an optional parameter. If not specified, then
-   *     authorization code is posted to the opener of authorization flow window. Otherwise it will
-   *     be sent to the redirect uri. A special value of urn:ietf:wg:oauth:2.0:oob means that
-   *     authorization code should be returned in the title bar of the browser, with the page text
-   *     prompting the user to copy the code and paste it in the application.
-   * @param updateMask Required list of fields to be updated in this request.
-   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
-   */
-  public final TransferConfig updateTransferConfig(
-      TransferConfig transferConfig, String authorizationCode, FieldMask updateMask) {
-
-    UpdateTransferConfigRequest request =
-        UpdateTransferConfigRequest.newBuilder()
-            .setTransferConfig(transferConfig)
-            .setAuthorizationCode(authorizationCode)
-            .setUpdateMask(updateMask)
-            .build();
-    return updateTransferConfig(request);
   }
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD
@@ -679,8 +648,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The field will contain name of the resource requested, for example:
-   *     `projects/{project_id}/transferConfigs/{config_id}`
+   * @param name Required. The field will contain name of the resource requested, for example:
+   *     `projects/{project_id}/transferConfigs/{config_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final void deleteTransferConfig(String name) {
@@ -709,7 +679,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final void deleteTransferConfig(DeleteTransferConfigRequest request) {
+  public final void deleteTransferConfig(DeleteTransferConfigRequest request) {
     deleteTransferConfigCallable().call(request);
   }
 
@@ -748,8 +718,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The field will contain name of the resource requested, for example:
-   *     `projects/{project_id}/transferConfigs/{config_id}`
+   * @param name Required. The field will contain name of the resource requested, for example:
+   *     `projects/{project_id}/transferConfigs/{config_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final TransferConfig getTransferConfig(String name) {
@@ -777,7 +748,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final TransferConfig getTransferConfig(GetTransferConfigRequest request) {
+  public final TransferConfig getTransferConfig(GetTransferConfigRequest request) {
     return getTransferConfigCallable().call(request);
   }
 
@@ -819,8 +790,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param parent The BigQuery project id for which data sources should be returned:
-   *     `projects/{project_id}`.
+   * @param parent Required. The BigQuery project id for which data sources should be returned:
+   *     `projects/{project_id}` or `projects/{project_id}/locations/{location_id}`
    * @param dataSourceIds When specified, only configurations of requested data sources are
    *     returned.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
@@ -929,7 +900,8 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Creates transfer runs for a time range [start_time, end_time]. For each date - or whatever
    * granularity the data source supports - in the range, one transfer run is created. Note that
-   * runs are created per UTC time in the time range.
+   * runs are created per UTC time in the time range. DEPRECATED: use StartManualTransferRuns
+   * instead.
    *
    * <p>Sample code:
    *
@@ -943,12 +915,13 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param parent Transfer configuration name in the form:
-   *     `projects/{project_id}/transferConfigs/{config_id}`.
+   * @param parent Required. Transfer configuration name in the form:
+   *     `projects/{project_id}/transferConfigs/{config_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
    * @param labels User labels to add to the scheduled runs.
-   * @param startTime Start time of the range of transfer runs. For example,
+   * @param startTime Required. Start time of the range of transfer runs. For example,
    *     `"2017-05-25T00:00:00+00:00"`.
-   * @param endTime End time of the range of transfer runs. For example,
+   * @param endTime Required. End time of the range of transfer runs. For example,
    *     `"2017-05-30T00:00:00+00:00"`.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
@@ -969,7 +942,8 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Creates transfer runs for a time range [start_time, end_time]. For each date - or whatever
    * granularity the data source supports - in the range, one transfer run is created. Note that
-   * runs are created per UTC time in the time range.
+   * runs are created per UTC time in the time range. DEPRECATED: use StartManualTransferRuns
+   * instead.
    *
    * <p>Sample code:
    *
@@ -1001,7 +975,8 @@ public class DataTransferServiceClient implements BackgroundResource {
   /**
    * Creates transfer runs for a time range [start_time, end_time]. For each date - or whatever
    * granularity the data source supports - in the range, one transfer run is created. Note that
-   * runs are created per UTC time in the time range.
+   * runs are created per UTC time in the time range. DEPRECATED: use StartManualTransferRuns
+   * instead.
    *
    * <p>Sample code:
    *
@@ -1030,6 +1005,87 @@ public class DataTransferServiceClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD
   /**
+   * Start manual transfer runs to be executed now with schedule_time equal to current time. The
+   * transfer runs can be created for a time range where the run_time is between start_time
+   * (inclusive) and end_time (exclusive), or for a specific run_time.
+   *
+   * <p>Sample code:
+   *
+   * <pre><code>
+   * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
+   *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
+   *   Map&lt;String, String&gt; labels = new HashMap&lt;&gt;();
+   *   StartManualTransferRunsResponse response = dataTransferServiceClient.startManualTransferRuns(formattedParent, labels);
+   * }
+   * </code></pre>
+   *
+   * @param parent Transfer configuration name in the form:
+   *     `projects/{project_id}/transferConfigs/{config_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
+   * @param labels User labels to add to the backfilled runs.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StartManualTransferRunsResponse startManualTransferRuns(
+      String parent, Map<String, String> labels) {
+    TRANSFER_CONFIG_PATH_TEMPLATE.validate(parent, "startManualTransferRuns");
+    StartManualTransferRunsRequest request =
+        StartManualTransferRunsRequest.newBuilder().setParent(parent).putAllLabels(labels).build();
+    return startManualTransferRuns(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD
+  /**
+   * Start manual transfer runs to be executed now with schedule_time equal to current time. The
+   * transfer runs can be created for a time range where the run_time is between start_time
+   * (inclusive) and end_time (exclusive), or for a specific run_time.
+   *
+   * <p>Sample code:
+   *
+   * <pre><code>
+   * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
+   *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
+   *   StartManualTransferRunsRequest request = StartManualTransferRunsRequest.newBuilder()
+   *     .setParent(formattedParent)
+   *     .build();
+   *   StartManualTransferRunsResponse response = dataTransferServiceClient.startManualTransferRuns(request);
+   * }
+   * </code></pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StartManualTransferRunsResponse startManualTransferRuns(
+      StartManualTransferRunsRequest request) {
+    return startManualTransferRunsCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD
+  /**
+   * Start manual transfer runs to be executed now with schedule_time equal to current time. The
+   * transfer runs can be created for a time range where the run_time is between start_time
+   * (inclusive) and end_time (exclusive), or for a specific run_time.
+   *
+   * <p>Sample code:
+   *
+   * <pre><code>
+   * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
+   *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
+   *   StartManualTransferRunsRequest request = StartManualTransferRunsRequest.newBuilder()
+   *     .setParent(formattedParent)
+   *     .build();
+   *   ApiFuture&lt;StartManualTransferRunsResponse&gt; future = dataTransferServiceClient.startManualTransferRunsCallable().futureCall(request);
+   *   // Do something
+   *   StartManualTransferRunsResponse response = future.get();
+   * }
+   * </code></pre>
+   */
+  public final UnaryCallable<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsCallable() {
+    return stub.startManualTransferRunsCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD
+  /**
    * Returns information about the particular transfer run.
    *
    * <p>Sample code:
@@ -1041,8 +1097,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The field will contain name of the resource requested, for example:
-   *     `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
+   * @param name Required. The field will contain name of the resource requested, for example:
+   *     `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final TransferRun getTransferRun(String name) {
@@ -1070,7 +1127,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final TransferRun getTransferRun(GetTransferRunRequest request) {
+  public final TransferRun getTransferRun(GetTransferRunRequest request) {
     return getTransferRunCallable().call(request);
   }
 
@@ -1109,8 +1166,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The field will contain name of the resource requested, for example:
-   *     `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
+   * @param name Required. The field will contain name of the resource requested, for example:
+   *     `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final void deleteTransferRun(String name) {
@@ -1138,7 +1196,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final void deleteTransferRun(DeleteTransferRunRequest request) {
+  public final void deleteTransferRun(DeleteTransferRunRequest request) {
     deleteTransferRunCallable().call(request);
   }
 
@@ -1181,9 +1239,10 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param parent Name of transfer configuration for which transfer runs should be retrieved.
-   *     Format of transfer configuration resource name is:
-   *     `projects/{project_id}/transferConfigs/{config_id}`.
+   * @param parent Required. Name of transfer configuration for which transfer runs should be
+   *     retrieved. Format of transfer configuration resource name is:
+   *     `projects/{project_id}/transferConfigs/{config_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
    * @param states When specified, only transfer runs with requested states are returned.
    * @param runAttempt Indicates how run attempts are to be pulled.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
@@ -1209,12 +1268,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
-   *   List&lt;TransferState&gt; states = new ArrayList&lt;&gt;();
-   *   ListTransferRunsRequest.RunAttempt runAttempt = ListTransferRunsRequest.RunAttempt.RUN_ATTEMPT_UNSPECIFIED;
    *   ListTransferRunsRequest request = ListTransferRunsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllStates(states)
-   *     .setRunAttempt(runAttempt)
    *     .build();
    *   for (TransferRun element : dataTransferServiceClient.listTransferRuns(request).iterateAll()) {
    *     // doThingsWith(element);
@@ -1238,12 +1293,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
-   *   List&lt;TransferState&gt; states = new ArrayList&lt;&gt;();
-   *   ListTransferRunsRequest.RunAttempt runAttempt = ListTransferRunsRequest.RunAttempt.RUN_ATTEMPT_UNSPECIFIED;
    *   ListTransferRunsRequest request = ListTransferRunsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllStates(states)
-   *     .setRunAttempt(runAttempt)
    *     .build();
    *   ApiFuture&lt;ListTransferRunsPagedResponse&gt; future = dataTransferServiceClient.listTransferRunsPagedCallable().futureCall(request);
    *   // Do something
@@ -1267,12 +1318,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatTransferConfigName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]");
-   *   List&lt;TransferState&gt; states = new ArrayList&lt;&gt;();
-   *   ListTransferRunsRequest.RunAttempt runAttempt = ListTransferRunsRequest.RunAttempt.RUN_ATTEMPT_UNSPECIFIED;
    *   ListTransferRunsRequest request = ListTransferRunsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllStates(states)
-   *     .setRunAttempt(runAttempt)
    *     .build();
    *   while (true) {
    *     ListTransferRunsResponse response = dataTransferServiceClient.listTransferRunsCallable().call(request);
@@ -1310,8 +1357,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param parent Transfer run name in the form:
-   *     `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`.
+   * @param parent Required. Transfer run name in the form:
+   *     `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
+   *     `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
    * @param messageTypes Message types to return. If not populated - INFO, WARNING and ERROR
    *     messages are returned.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
@@ -1336,10 +1384,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
-   *   List&lt;TransferMessage.MessageSeverity&gt; messageTypes = new ArrayList&lt;&gt;();
    *   ListTransferLogsRequest request = ListTransferLogsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllMessageTypes(messageTypes)
    *     .build();
    *   for (TransferMessage element : dataTransferServiceClient.listTransferLogs(request).iterateAll()) {
    *     // doThingsWith(element);
@@ -1363,10 +1409,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
-   *   List&lt;TransferMessage.MessageSeverity&gt; messageTypes = new ArrayList&lt;&gt;();
    *   ListTransferLogsRequest request = ListTransferLogsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllMessageTypes(messageTypes)
    *     .build();
    *   ApiFuture&lt;ListTransferLogsPagedResponse&gt; future = dataTransferServiceClient.listTransferLogsPagedCallable().futureCall(request);
    *   // Do something
@@ -1390,10 +1434,8 @@ public class DataTransferServiceClient implements BackgroundResource {
    * <pre><code>
    * try (DataTransferServiceClient dataTransferServiceClient = DataTransferServiceClient.create()) {
    *   String formattedParent = DataTransferServiceClient.formatRunName("[PROJECT]", "[LOCATION]", "[TRANSFER_CONFIG]", "[RUN]");
-   *   List&lt;TransferMessage.MessageSeverity&gt; messageTypes = new ArrayList&lt;&gt;();
    *   ListTransferLogsRequest request = ListTransferLogsRequest.newBuilder()
    *     .setParent(formattedParent)
-   *     .addAllMessageTypes(messageTypes)
    *     .build();
    *   while (true) {
    *     ListTransferLogsResponse response = dataTransferServiceClient.listTransferLogsCallable().call(request);
@@ -1431,7 +1473,9 @@ public class DataTransferServiceClient implements BackgroundResource {
    * }
    * </code></pre>
    *
-   * @param name The data source in the form: `projects/{project_id}/dataSources/{data_source_id}`
+   * @param name Required. The data source in the form:
+   *     `projects/{project_id}/dataSources/{data_source_id}` or
+   *     `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
   public final CheckValidCredsResponse checkValidCreds(String name) {
@@ -1462,7 +1506,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final CheckValidCredsResponse checkValidCreds(CheckValidCredsRequest request) {
+  public final CheckValidCredsResponse checkValidCreds(CheckValidCredsRequest request) {
     return checkValidCredsCallable().call(request);
   }
 
@@ -1538,7 +1582,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final void enableDataTransferService(EnableDataTransferServiceRequest request) {
+  public final void enableDataTransferService(EnableDataTransferServiceRequest request) {
     enableDataTransferServiceCallable().call(request);
   }
 
@@ -1609,7 +1653,7 @@ public class DataTransferServiceClient implements BackgroundResource {
    * @param request The request object containing all of the parameters for the API call.
    * @throws com.google.api.gax.rpc.ApiException if the remote call fails
    */
-  private final IsDataTransferServiceEnabledResponse isDataTransferServiceEnabled(
+  public final IsDataTransferServiceEnabledResponse isDataTransferServiceEnabled(
       IsDataTransferServiceEnabledRequest request) {
     return isDataTransferServiceEnabledCallable().call(request);
   }
@@ -1685,7 +1729,8 @@ public class DataTransferServiceClient implements BackgroundResource {
             public ListDataSourcesPagedResponse apply(ListDataSourcesPage input) {
               return new ListDataSourcesPagedResponse(input);
             }
-          });
+          },
+          MoreExecutors.directExecutor());
     }
 
     private ListDataSourcesPagedResponse(ListDataSourcesPage page) {
@@ -1761,7 +1806,8 @@ public class DataTransferServiceClient implements BackgroundResource {
             public ListTransferConfigsPagedResponse apply(ListTransferConfigsPage input) {
               return new ListTransferConfigsPagedResponse(input);
             }
-          });
+          },
+          MoreExecutors.directExecutor());
     }
 
     private ListTransferConfigsPagedResponse(ListTransferConfigsPage page) {
@@ -1840,7 +1886,8 @@ public class DataTransferServiceClient implements BackgroundResource {
             public ListTransferRunsPagedResponse apply(ListTransferRunsPage input) {
               return new ListTransferRunsPagedResponse(input);
             }
-          });
+          },
+          MoreExecutors.directExecutor());
     }
 
     private ListTransferRunsPagedResponse(ListTransferRunsPage page) {
@@ -1915,7 +1962,8 @@ public class DataTransferServiceClient implements BackgroundResource {
             public ListTransferLogsPagedResponse apply(ListTransferLogsPage input) {
               return new ListTransferLogsPagedResponse(input);
             }
-          });
+          },
+          MoreExecutors.directExecutor());
     }
 
     private ListTransferLogsPagedResponse(ListTransferLogsPage page) {

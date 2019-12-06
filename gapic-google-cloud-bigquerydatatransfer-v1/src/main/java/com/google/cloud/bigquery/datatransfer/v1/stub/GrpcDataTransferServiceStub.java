@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import com.google.api.gax.core.BackgroundResourceAggregation;
 import com.google.api.gax.grpc.GrpcCallSettings;
 import com.google.api.gax.grpc.GrpcStubCallableFactory;
 import com.google.api.gax.rpc.ClientContext;
+import com.google.api.gax.rpc.RequestParamsExtractor;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.cloud.bigquery.datatransfer.v1.CheckValidCredsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.CheckValidCredsResponse;
@@ -49,13 +50,17 @@ import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsResponse;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsRequest;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.TransferConfig;
 import com.google.cloud.bigquery.datatransfer.v1.TransferRun;
 import com.google.cloud.bigquery.datatransfer.v1.UpdateTransferConfigRequest;
+import com.google.common.collect.ImmutableMap;
 import com.google.protobuf.Empty;
 import io.grpc.MethodDescriptor;
 import io.grpc.protobuf.ProtoUtils;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Generated;
 
@@ -151,6 +156,19 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
                   ProtoUtils.marshaller(ScheduleTransferRunsRequest.getDefaultInstance()))
               .setResponseMarshaller(
                   ProtoUtils.marshaller(ScheduleTransferRunsResponse.getDefaultInstance()))
+              .build();
+  private static final MethodDescriptor<
+          StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsMethodDescriptor =
+          MethodDescriptor
+              .<StartManualTransferRunsRequest, StartManualTransferRunsResponse>newBuilder()
+              .setType(MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(
+                  "google.cloud.bigquery.datatransfer.v1.DataTransferService/StartManualTransferRuns")
+              .setRequestMarshaller(
+                  ProtoUtils.marshaller(StartManualTransferRunsRequest.getDefaultInstance()))
+              .setResponseMarshaller(
+                  ProtoUtils.marshaller(StartManualTransferRunsResponse.getDefaultInstance()))
               .build();
   private static final MethodDescriptor<GetTransferRunRequest, TransferRun>
       getTransferRunMethodDescriptor =
@@ -249,6 +267,8 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
       listTransferConfigsPagedCallable;
   private final UnaryCallable<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsCallable;
+  private final UnaryCallable<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsCallable;
   private final UnaryCallable<GetTransferRunRequest, TransferRun> getTransferRunCallable;
   private final UnaryCallable<DeleteTransferRunRequest, Empty> deleteTransferRunCallable;
   private final UnaryCallable<ListTransferRunsRequest, ListTransferRunsResponse>
@@ -311,67 +331,210 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
     GrpcCallSettings<GetDataSourceRequest, DataSource> getDataSourceTransportSettings =
         GrpcCallSettings.<GetDataSourceRequest, DataSource>newBuilder()
             .setMethodDescriptor(getDataSourceMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<GetDataSourceRequest>() {
+                  @Override
+                  public Map<String, String> extract(GetDataSourceRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<ListDataSourcesRequest, ListDataSourcesResponse>
         listDataSourcesTransportSettings =
             GrpcCallSettings.<ListDataSourcesRequest, ListDataSourcesResponse>newBuilder()
                 .setMethodDescriptor(listDataSourcesMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ListDataSourcesRequest>() {
+                      @Override
+                      public Map<String, String> extract(ListDataSourcesRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<CreateTransferConfigRequest, TransferConfig>
         createTransferConfigTransportSettings =
             GrpcCallSettings.<CreateTransferConfigRequest, TransferConfig>newBuilder()
                 .setMethodDescriptor(createTransferConfigMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<CreateTransferConfigRequest>() {
+                      @Override
+                      public Map<String, String> extract(CreateTransferConfigRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<UpdateTransferConfigRequest, TransferConfig>
         updateTransferConfigTransportSettings =
             GrpcCallSettings.<UpdateTransferConfigRequest, TransferConfig>newBuilder()
                 .setMethodDescriptor(updateTransferConfigMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<UpdateTransferConfigRequest>() {
+                      @Override
+                      public Map<String, String> extract(UpdateTransferConfigRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put(
+                            "transfer_config.name",
+                            String.valueOf(request.getTransferConfig().getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<DeleteTransferConfigRequest, Empty> deleteTransferConfigTransportSettings =
         GrpcCallSettings.<DeleteTransferConfigRequest, Empty>newBuilder()
             .setMethodDescriptor(deleteTransferConfigMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<DeleteTransferConfigRequest>() {
+                  @Override
+                  public Map<String, String> extract(DeleteTransferConfigRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<GetTransferConfigRequest, TransferConfig> getTransferConfigTransportSettings =
         GrpcCallSettings.<GetTransferConfigRequest, TransferConfig>newBuilder()
             .setMethodDescriptor(getTransferConfigMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<GetTransferConfigRequest>() {
+                  @Override
+                  public Map<String, String> extract(GetTransferConfigRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<ListTransferConfigsRequest, ListTransferConfigsResponse>
         listTransferConfigsTransportSettings =
             GrpcCallSettings.<ListTransferConfigsRequest, ListTransferConfigsResponse>newBuilder()
                 .setMethodDescriptor(listTransferConfigsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ListTransferConfigsRequest>() {
+                      @Override
+                      public Map<String, String> extract(ListTransferConfigsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
         scheduleTransferRunsTransportSettings =
             GrpcCallSettings.<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>newBuilder()
                 .setMethodDescriptor(scheduleTransferRunsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ScheduleTransferRunsRequest>() {
+                      @Override
+                      public Map<String, String> extract(ScheduleTransferRunsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
+                .build();
+    GrpcCallSettings<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+        startManualTransferRunsTransportSettings =
+            GrpcCallSettings
+                .<StartManualTransferRunsRequest, StartManualTransferRunsResponse>newBuilder()
+                .setMethodDescriptor(startManualTransferRunsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<StartManualTransferRunsRequest>() {
+                      @Override
+                      public Map<String, String> extract(StartManualTransferRunsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<GetTransferRunRequest, TransferRun> getTransferRunTransportSettings =
         GrpcCallSettings.<GetTransferRunRequest, TransferRun>newBuilder()
             .setMethodDescriptor(getTransferRunMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<GetTransferRunRequest>() {
+                  @Override
+                  public Map<String, String> extract(GetTransferRunRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<DeleteTransferRunRequest, Empty> deleteTransferRunTransportSettings =
         GrpcCallSettings.<DeleteTransferRunRequest, Empty>newBuilder()
             .setMethodDescriptor(deleteTransferRunMethodDescriptor)
+            .setParamsExtractor(
+                new RequestParamsExtractor<DeleteTransferRunRequest>() {
+                  @Override
+                  public Map<String, String> extract(DeleteTransferRunRequest request) {
+                    ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                    params.put("name", String.valueOf(request.getName()));
+                    return params.build();
+                  }
+                })
             .build();
     GrpcCallSettings<ListTransferRunsRequest, ListTransferRunsResponse>
         listTransferRunsTransportSettings =
             GrpcCallSettings.<ListTransferRunsRequest, ListTransferRunsResponse>newBuilder()
                 .setMethodDescriptor(listTransferRunsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ListTransferRunsRequest>() {
+                      @Override
+                      public Map<String, String> extract(ListTransferRunsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<ListTransferLogsRequest, ListTransferLogsResponse>
         listTransferLogsTransportSettings =
             GrpcCallSettings.<ListTransferLogsRequest, ListTransferLogsResponse>newBuilder()
                 .setMethodDescriptor(listTransferLogsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<ListTransferLogsRequest>() {
+                      @Override
+                      public Map<String, String> extract(ListTransferLogsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("parent", String.valueOf(request.getParent()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<CheckValidCredsRequest, CheckValidCredsResponse>
         checkValidCredsTransportSettings =
             GrpcCallSettings.<CheckValidCredsRequest, CheckValidCredsResponse>newBuilder()
                 .setMethodDescriptor(checkValidCredsMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<CheckValidCredsRequest>() {
+                      @Override
+                      public Map<String, String> extract(CheckValidCredsRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("name", String.valueOf(request.getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<EnableDataTransferServiceRequest, Empty>
         enableDataTransferServiceTransportSettings =
             GrpcCallSettings.<EnableDataTransferServiceRequest, Empty>newBuilder()
                 .setMethodDescriptor(enableDataTransferServiceMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<EnableDataTransferServiceRequest>() {
+                      @Override
+                      public Map<String, String> extract(EnableDataTransferServiceRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("name", String.valueOf(request.getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
     GrpcCallSettings<IsDataTransferServiceEnabledRequest, IsDataTransferServiceEnabledResponse>
         isDataTransferServiceEnabledTransportSettings =
@@ -379,6 +542,16 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
                 .<IsDataTransferServiceEnabledRequest, IsDataTransferServiceEnabledResponse>
                     newBuilder()
                 .setMethodDescriptor(isDataTransferServiceEnabledMethodDescriptor)
+                .setParamsExtractor(
+                    new RequestParamsExtractor<IsDataTransferServiceEnabledRequest>() {
+                      @Override
+                      public Map<String, String> extract(
+                          IsDataTransferServiceEnabledRequest request) {
+                        ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
+                        params.put("name", String.valueOf(request.getName()));
+                        return params.build();
+                      }
+                    })
                 .build();
 
     this.getDataSourceCallable =
@@ -424,6 +597,11 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
         callableFactory.createUnaryCallable(
             scheduleTransferRunsTransportSettings,
             settings.scheduleTransferRunsSettings(),
+            clientContext);
+    this.startManualTransferRunsCallable =
+        callableFactory.createUnaryCallable(
+            startManualTransferRunsTransportSettings,
+            settings.startManualTransferRunsSettings(),
             clientContext);
     this.getTransferRunCallable =
         callableFactory.createUnaryCallable(
@@ -504,6 +682,11 @@ public class GrpcDataTransferServiceStub extends DataTransferServiceStub {
   public UnaryCallable<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsCallable() {
     return scheduleTransferRunsCallable;
+  }
+
+  public UnaryCallable<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsCallable() {
+    return startManualTransferRunsCallable;
   }
 
   public UnaryCallable<GetTransferRunRequest, TransferRun> getTransferRunCallable() {

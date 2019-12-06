@@ -32,9 +32,6 @@ import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings;
 import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient.ListTransferConfigsPagedResponse;
 import com.google.cloud.bigquery.datatransfer.v1.ListTransferConfigsRequest;
 
-import com.google.cloud.bigquery.datatransfer.v1.Credentials;
-import com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest;
-
 public class DataTransferServiceClientSample {
   /**
    * List available data sources for the BigQuery Data Transfer service.
@@ -86,17 +83,6 @@ public class DataTransferServiceClientSample {
         // System.out.println(dataSource.getDisplayName());
         System.out.printf("\tName: %s\n", dataSource.getName());
       }
-      
-      /* When you've created your data source and onboarded end users, you can uncomment the 
-       * following lines to test the GetCredentials API call
-       */
-      // Example of getting user credentials.
-      /*
-      String formattedName = DataSourceServiceClient
-          .formatCredentialName(projectId, "us", "<your data source id>", "<your user id>");
-      Credentials c = client.getCredentials(formattedName);
-      System.out.printf("Name: %s\tToken: %s\n", c.getName(), c.getAuthToken());
-      */
     }
   }
 }

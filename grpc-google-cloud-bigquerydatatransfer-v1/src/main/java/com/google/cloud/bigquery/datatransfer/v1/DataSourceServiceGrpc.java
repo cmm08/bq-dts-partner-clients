@@ -144,43 +144,6 @@ public final class DataSourceServiceGrpc {
      return getStartBigQueryJobsMethod;
   }
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  @java.lang.Deprecated // Use {@link #getGetCredentialsMethod()} instead. 
-  public static final io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest,
-      com.google.cloud.bigquery.datatransfer.v1.Credentials> METHOD_GET_CREDENTIALS = getGetCredentialsMethodHelper();
-
-  private static volatile io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest,
-      com.google.cloud.bigquery.datatransfer.v1.Credentials> getGetCredentialsMethod;
-
-  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
-  public static io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest,
-      com.google.cloud.bigquery.datatransfer.v1.Credentials> getGetCredentialsMethod() {
-    return getGetCredentialsMethodHelper();
-  }
-
-  private static io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest,
-      com.google.cloud.bigquery.datatransfer.v1.Credentials> getGetCredentialsMethodHelper() {
-    io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials> getGetCredentialsMethod;
-    if ((getGetCredentialsMethod = DataSourceServiceGrpc.getGetCredentialsMethod) == null) {
-      synchronized (DataSourceServiceGrpc.class) {
-        if ((getGetCredentialsMethod = DataSourceServiceGrpc.getGetCredentialsMethod) == null) {
-          DataSourceServiceGrpc.getGetCredentialsMethod = getGetCredentialsMethod = 
-              io.grpc.MethodDescriptor.<com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest, com.google.cloud.bigquery.datatransfer.v1.Credentials>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "google.cloud.bigquery.datatransfer.v1.DataSourceService", "GetCredentials"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.cloud.bigquery.datatransfer.v1.Credentials.getDefaultInstance()))
-                  .setSchemaDescriptor(new DataSourceServiceMethodDescriptorSupplier("GetCredentials"))
-                  .build();
-          }
-        }
-     }
-     return getGetCredentialsMethod;
-  }
-  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   @java.lang.Deprecated // Use {@link #getFinishRunMethod()} instead. 
   public static final io.grpc.MethodDescriptor<com.google.cloud.bigquery.datatransfer.v1.FinishRunRequest,
       com.google.protobuf.Empty> METHOD_FINISH_RUN = getFinishRunMethodHelper();
@@ -473,19 +436,6 @@ public final class DataSourceServiceGrpc {
 
     /**
      * <pre>
-     * Get user authentication token so that the data source can perform
-     * operations on behalf of the user.
-     * Can only be called by configured data source service account.
-     * In all other cases - it will fail with permission denied error.
-     * </pre>
-     */
-    public void getCredentials(com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest request,
-        io.grpc.stub.StreamObserver<com.google.cloud.bigquery.datatransfer.v1.Credentials> responseObserver) {
-      asyncUnimplementedUnaryCall(getGetCredentialsMethodHelper(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * Notify the Data Transfer Service that the data source is done processing
      * the run. No more status updates or requests to start/monitor jobs will be
      * accepted. The run will be finalized by the Data Transfer Service when all
@@ -510,6 +460,8 @@ public final class DataSourceServiceGrpc {
      * as the API will create a new OAuth client on behalf of the caller. On the
      * other hand data_source.scopes usually need to be set when there are OAuth
      * scopes that need to be granted by end users.
+     * 3. We need a longer deadline due to the 60 seconds SLO from Pub/Sub admin
+     * Operations. This also applies to update and delete data source definition.
      * </pre>
      */
     public void createDataSourceDefinition(com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest request,
@@ -595,13 +547,6 @@ public final class DataSourceServiceGrpc {
                 com.google.cloud.bigquery.datatransfer.v1.StartBigQueryJobsRequest,
                 com.google.protobuf.Empty>(
                   this, METHODID_START_BIG_QUERY_JOBS)))
-          .addMethod(
-            getGetCredentialsMethodHelper(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest,
-                com.google.cloud.bigquery.datatransfer.v1.Credentials>(
-                  this, METHODID_GET_CREDENTIALS)))
           .addMethod(
             getFinishRunMethodHelper(),
             asyncUnaryCall(
@@ -712,20 +657,6 @@ public final class DataSourceServiceGrpc {
 
     /**
      * <pre>
-     * Get user authentication token so that the data source can perform
-     * operations on behalf of the user.
-     * Can only be called by configured data source service account.
-     * In all other cases - it will fail with permission denied error.
-     * </pre>
-     */
-    public void getCredentials(com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest request,
-        io.grpc.stub.StreamObserver<com.google.cloud.bigquery.datatransfer.v1.Credentials> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getGetCredentialsMethodHelper(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
      * Notify the Data Transfer Service that the data source is done processing
      * the run. No more status updates or requests to start/monitor jobs will be
      * accepted. The run will be finalized by the Data Transfer Service when all
@@ -751,6 +682,8 @@ public final class DataSourceServiceGrpc {
      * as the API will create a new OAuth client on behalf of the caller. On the
      * other hand data_source.scopes usually need to be set when there are OAuth
      * scopes that need to be granted by end users.
+     * 3. We need a longer deadline due to the 60 seconds SLO from Pub/Sub admin
+     * Operations. This also applies to update and delete data source definition.
      * </pre>
      */
     public void createDataSourceDefinition(com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest request,
@@ -880,19 +813,6 @@ public final class DataSourceServiceGrpc {
 
     /**
      * <pre>
-     * Get user authentication token so that the data source can perform
-     * operations on behalf of the user.
-     * Can only be called by configured data source service account.
-     * In all other cases - it will fail with permission denied error.
-     * </pre>
-     */
-    public com.google.cloud.bigquery.datatransfer.v1.Credentials getCredentials(com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getGetCredentialsMethodHelper(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
      * Notify the Data Transfer Service that the data source is done processing
      * the run. No more status updates or requests to start/monitor jobs will be
      * accepted. The run will be finalized by the Data Transfer Service when all
@@ -917,6 +837,8 @@ public final class DataSourceServiceGrpc {
      * as the API will create a new OAuth client on behalf of the caller. On the
      * other hand data_source.scopes usually need to be set when there are OAuth
      * scopes that need to be granted by end users.
+     * 3. We need a longer deadline due to the 60 seconds SLO from Pub/Sub admin
+     * Operations. This also applies to update and delete data source definition.
      * </pre>
      */
     public com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition createDataSourceDefinition(com.google.cloud.bigquery.datatransfer.v1.CreateDataSourceDefinitionRequest request) {
@@ -1044,20 +966,6 @@ public final class DataSourceServiceGrpc {
 
     /**
      * <pre>
-     * Get user authentication token so that the data source can perform
-     * operations on behalf of the user.
-     * Can only be called by configured data source service account.
-     * In all other cases - it will fail with permission denied error.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.google.cloud.bigquery.datatransfer.v1.Credentials> getCredentials(
-        com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getGetCredentialsMethodHelper(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
      * Notify the Data Transfer Service that the data source is done processing
      * the run. No more status updates or requests to start/monitor jobs will be
      * accepted. The run will be finalized by the Data Transfer Service when all
@@ -1083,6 +991,8 @@ public final class DataSourceServiceGrpc {
      * as the API will create a new OAuth client on behalf of the caller. On the
      * other hand data_source.scopes usually need to be set when there are OAuth
      * scopes that need to be granted by end users.
+     * 3. We need a longer deadline due to the 60 seconds SLO from Pub/Sub admin
+     * Operations. This also applies to update and delete data source definition.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.google.cloud.bigquery.datatransfer.v1.DataSourceDefinition> createDataSourceDefinition(
@@ -1154,13 +1064,12 @@ public final class DataSourceServiceGrpc {
   private static final int METHODID_UPDATE_TRANSFER_RUN = 0;
   private static final int METHODID_LOG_TRANSFER_RUN_MESSAGES = 1;
   private static final int METHODID_START_BIG_QUERY_JOBS = 2;
-  private static final int METHODID_GET_CREDENTIALS = 3;
-  private static final int METHODID_FINISH_RUN = 4;
-  private static final int METHODID_CREATE_DATA_SOURCE_DEFINITION = 5;
-  private static final int METHODID_UPDATE_DATA_SOURCE_DEFINITION = 6;
-  private static final int METHODID_DELETE_DATA_SOURCE_DEFINITION = 7;
-  private static final int METHODID_GET_DATA_SOURCE_DEFINITION = 8;
-  private static final int METHODID_LIST_DATA_SOURCE_DEFINITIONS = 9;
+  private static final int METHODID_FINISH_RUN = 3;
+  private static final int METHODID_CREATE_DATA_SOURCE_DEFINITION = 4;
+  private static final int METHODID_UPDATE_DATA_SOURCE_DEFINITION = 5;
+  private static final int METHODID_DELETE_DATA_SOURCE_DEFINITION = 6;
+  private static final int METHODID_GET_DATA_SOURCE_DEFINITION = 7;
+  private static final int METHODID_LIST_DATA_SOURCE_DEFINITIONS = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1190,10 +1099,6 @@ public final class DataSourceServiceGrpc {
         case METHODID_START_BIG_QUERY_JOBS:
           serviceImpl.startBigQueryJobs((com.google.cloud.bigquery.datatransfer.v1.StartBigQueryJobsRequest) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
-          break;
-        case METHODID_GET_CREDENTIALS:
-          serviceImpl.getCredentials((com.google.cloud.bigquery.datatransfer.v1.GetCredentialsRequest) request,
-              (io.grpc.stub.StreamObserver<com.google.cloud.bigquery.datatransfer.v1.Credentials>) responseObserver);
           break;
         case METHODID_FINISH_RUN:
           serviceImpl.finishRun((com.google.cloud.bigquery.datatransfer.v1.FinishRunRequest) request,
@@ -1283,7 +1188,6 @@ public final class DataSourceServiceGrpc {
               .addMethod(getUpdateTransferRunMethodHelper())
               .addMethod(getLogTransferRunMessagesMethodHelper())
               .addMethod(getStartBigQueryJobsMethodHelper())
-              .addMethod(getGetCredentialsMethodHelper())
               .addMethod(getFinishRunMethodHelper())
               .addMethod(getCreateDataSourceDefinitionMethodHelper())
               .addMethod(getUpdateDataSourceDefinitionMethodHelper())

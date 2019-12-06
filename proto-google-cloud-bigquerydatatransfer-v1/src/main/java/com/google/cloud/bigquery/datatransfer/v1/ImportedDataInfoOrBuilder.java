@@ -164,4 +164,21 @@ public interface ImportedDataInfoOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUserDefinedFunctionsBytes(int index);
+
+  /**
+   * <pre>
+   * Specifies the action if the destination table already exists.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+   */
+  int getWriteDispositionValue();
+  /**
+   * <pre>
+   * Specifies the action if the destination table already exists.
+   * </pre>
+   *
+   * <code>.google.cloud.bigquery.datatransfer.v1.WriteDisposition write_disposition = 6;</code>
+   */
+  com.google.cloud.bigquery.datatransfer.v1.WriteDisposition getWriteDisposition();
 }

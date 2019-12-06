@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ListTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsRequest;
 import com.google.cloud.bigquery.datatransfer.v1.ScheduleTransferRunsResponse;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsRequest;
+import com.google.cloud.bigquery.datatransfer.v1.StartManualTransferRunsResponse;
 import com.google.cloud.bigquery.datatransfer.v1.TransferConfig;
 import com.google.cloud.bigquery.datatransfer.v1.TransferRun;
 import com.google.cloud.bigquery.datatransfer.v1.UpdateTransferConfigRequest;
@@ -103,6 +105,11 @@ public abstract class DataTransferServiceStub implements BackgroundResource {
   public UnaryCallable<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse>
       scheduleTransferRunsCallable() {
     throw new UnsupportedOperationException("Not implemented: scheduleTransferRunsCallable()");
+  }
+
+  public UnaryCallable<StartManualTransferRunsRequest, StartManualTransferRunsResponse>
+      startManualTransferRunsCallable() {
+    throw new UnsupportedOperationException("Not implemented: startManualTransferRunsCallable()");
   }
 
   public UnaryCallable<GetTransferRunRequest, TransferRun> getTransferRunCallable() {

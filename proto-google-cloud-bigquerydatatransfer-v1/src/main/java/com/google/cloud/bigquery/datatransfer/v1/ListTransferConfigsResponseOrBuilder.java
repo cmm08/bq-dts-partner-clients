@@ -12,7 +12,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.util.List<com.google.cloud.bigquery.datatransfer.v1.TransferConfig> 
       getTransferConfigsList();
@@ -21,7 +21,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.cloud.bigquery.datatransfer.v1.TransferConfig getTransferConfigs(int index);
   /**
@@ -29,7 +29,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   int getTransferConfigsCount();
   /**
@@ -37,7 +37,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.util.List<? extends com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder> 
       getTransferConfigsOrBuilderList();
@@ -46,7 +46,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * Output only. The stored pipeline transfer configurations.
    * </pre>
    *
-   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1;</code>
+   * <code>repeated .google.cloud.bigquery.datatransfer.v1.TransferConfig transfer_configs = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.cloud.bigquery.datatransfer.v1.TransferConfigOrBuilder getTransferConfigsOrBuilder(
       int index);
@@ -59,7 +59,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   java.lang.String getNextPageToken();
   /**
@@ -70,7 +70,7 @@ public interface ListTransferConfigsResponseOrBuilder extends
    * to request the next page of list results.
    * </pre>
    *
-   * <code>string next_page_token = 2;</code>
+   * <code>string next_page_token = 2 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   com.google.protobuf.ByteString
       getNextPageTokenBytes();

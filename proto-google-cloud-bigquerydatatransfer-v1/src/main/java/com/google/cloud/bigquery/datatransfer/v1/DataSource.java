@@ -28,17 +28,13 @@ private static final long serialVersionUID = 0L;
     clientId_ = "";
     scopes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     transferType_ = 0;
-    supportsMultipleTransfers_ = false;
-    updateDeadlineSeconds_ = 0;
     defaultSchedule_ = "";
-    supportsCustomSchedule_ = false;
     parameters_ = java.util.Collections.emptyList();
     helpUrl_ = "";
     authorizationType_ = 0;
     dataRefreshType_ = 0;
-    defaultDataRefreshWindowDays_ = 0;
-    manualRunsDisabled_ = false;
     partnerLegalName_ = "";
+    redirectUrl_ = "";
   }
 
   @java.lang.Override
@@ -97,7 +93,7 @@ private static final long serialVersionUID = 0L;
           }
           case 50: {
             java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+            if (!((mutable_bitField0_ & 0x00000020) != 0)) {
               scopes_ = new com.google.protobuf.LazyStringArrayList();
               mutable_bitField0_ |= 0x00000020;
             }
@@ -132,7 +128,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 98: {
-            if (!((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+            if (!((mutable_bitField0_ & 0x00000800) != 0)) {
               parameters_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter>();
               mutable_bitField0_ |= 0x00000800;
             }
@@ -187,8 +183,14 @@ private static final long serialVersionUID = 0L;
             partnerLegalName_ = s;
             break;
           }
+          case 186: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            redirectUrl_ = s;
+            break;
+          }
           default: {
-            if (!parseUnknownFieldProto3(
+            if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
               done = true;
             }
@@ -202,10 +204,10 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((mutable_bitField0_ & 0x00000020) != 0)) {
         scopes_ = scopes_.getUnmodifiableView();
       }
-      if (((mutable_bitField0_ & 0x00000800) == 0x00000800)) {
+      if (((mutable_bitField0_ & 0x00000800) != 0)) {
         parameters_ = java.util.Collections.unmodifiableList(parameters_);
       }
       this.unknownFields = unknownFields.build();
@@ -515,7 +517,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data source resource name.
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public java.lang.String getName() {
     java.lang.Object ref = name_;
@@ -534,7 +536,7 @@ private static final long serialVersionUID = 0L;
    * Output only. Data source resource name.
    * </pre>
    *
-   * <code>string name = 1;</code>
+   * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
    */
   public com.google.protobuf.ByteString
       getNameBytes() {
@@ -1144,6 +1146,48 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int REDIRECT_URL_FIELD_NUMBER = 23;
+  private volatile java.lang.Object redirectUrl_;
+  /**
+   * <pre>
+   * Redirect URL to complete transfer config setup for 3rd party data sources.
+   * </pre>
+   *
+   * <code>string redirect_url = 23;</code>
+   */
+  public java.lang.String getRedirectUrl() {
+    java.lang.Object ref = redirectUrl_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      redirectUrl_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Redirect URL to complete transfer config setup for 3rd party data sources.
+   * </pre>
+   *
+   * <code>string redirect_url = 23;</code>
+   */
+  public com.google.protobuf.ByteString
+      getRedirectUrlBytes() {
+    java.lang.Object ref = redirectUrl_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      redirectUrl_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -1214,6 +1258,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!getPartnerLegalNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 22, partnerLegalName_);
+    }
+    if (!getRedirectUrlBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 23, redirectUrl_);
     }
     unknownFields.writeTo(output);
   }
@@ -1296,6 +1343,9 @@ private static final long serialVersionUID = 0L;
     if (!getPartnerLegalNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, partnerLegalName_);
     }
+    if (!getRedirectUrlBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, redirectUrl_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -1311,47 +1361,48 @@ private static final long serialVersionUID = 0L;
     }
     com.google.cloud.bigquery.datatransfer.v1.DataSource other = (com.google.cloud.bigquery.datatransfer.v1.DataSource) obj;
 
-    boolean result = true;
-    result = result && getName()
-        .equals(other.getName());
-    result = result && getDataSourceId()
-        .equals(other.getDataSourceId());
-    result = result && getDisplayName()
-        .equals(other.getDisplayName());
-    result = result && getDescription()
-        .equals(other.getDescription());
-    result = result && getClientId()
-        .equals(other.getClientId());
-    result = result && getScopesList()
-        .equals(other.getScopesList());
-    result = result && transferType_ == other.transferType_;
-    result = result && (getSupportsMultipleTransfers()
-        == other.getSupportsMultipleTransfers());
-    result = result && (getUpdateDeadlineSeconds()
-        == other.getUpdateDeadlineSeconds());
-    result = result && getDefaultSchedule()
-        .equals(other.getDefaultSchedule());
-    result = result && (getSupportsCustomSchedule()
-        == other.getSupportsCustomSchedule());
-    result = result && getParametersList()
-        .equals(other.getParametersList());
-    result = result && getHelpUrl()
-        .equals(other.getHelpUrl());
-    result = result && authorizationType_ == other.authorizationType_;
-    result = result && dataRefreshType_ == other.dataRefreshType_;
-    result = result && (getDefaultDataRefreshWindowDays()
-        == other.getDefaultDataRefreshWindowDays());
-    result = result && (getManualRunsDisabled()
-        == other.getManualRunsDisabled());
-    result = result && (hasMinimumScheduleInterval() == other.hasMinimumScheduleInterval());
+    if (!getName()
+        .equals(other.getName())) return false;
+    if (!getDataSourceId()
+        .equals(other.getDataSourceId())) return false;
+    if (!getDisplayName()
+        .equals(other.getDisplayName())) return false;
+    if (!getDescription()
+        .equals(other.getDescription())) return false;
+    if (!getClientId()
+        .equals(other.getClientId())) return false;
+    if (!getScopesList()
+        .equals(other.getScopesList())) return false;
+    if (transferType_ != other.transferType_) return false;
+    if (getSupportsMultipleTransfers()
+        != other.getSupportsMultipleTransfers()) return false;
+    if (getUpdateDeadlineSeconds()
+        != other.getUpdateDeadlineSeconds()) return false;
+    if (!getDefaultSchedule()
+        .equals(other.getDefaultSchedule())) return false;
+    if (getSupportsCustomSchedule()
+        != other.getSupportsCustomSchedule()) return false;
+    if (!getParametersList()
+        .equals(other.getParametersList())) return false;
+    if (!getHelpUrl()
+        .equals(other.getHelpUrl())) return false;
+    if (authorizationType_ != other.authorizationType_) return false;
+    if (dataRefreshType_ != other.dataRefreshType_) return false;
+    if (getDefaultDataRefreshWindowDays()
+        != other.getDefaultDataRefreshWindowDays()) return false;
+    if (getManualRunsDisabled()
+        != other.getManualRunsDisabled()) return false;
+    if (hasMinimumScheduleInterval() != other.hasMinimumScheduleInterval()) return false;
     if (hasMinimumScheduleInterval()) {
-      result = result && getMinimumScheduleInterval()
-          .equals(other.getMinimumScheduleInterval());
+      if (!getMinimumScheduleInterval()
+          .equals(other.getMinimumScheduleInterval())) return false;
     }
-    result = result && getPartnerLegalName()
-        .equals(other.getPartnerLegalName());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getPartnerLegalName()
+        .equals(other.getPartnerLegalName())) return false;
+    if (!getRedirectUrl()
+        .equals(other.getRedirectUrl())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -1408,6 +1459,8 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + PARTNER_LEGAL_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getPartnerLegalName().hashCode();
+    hash = (37 * hash) + REDIRECT_URL_FIELD_NUMBER;
+    hash = (53 * hash) + getRedirectUrl().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1593,6 +1646,8 @@ private static final long serialVersionUID = 0L;
       }
       partnerLegalName_ = "";
 
+      redirectUrl_ = "";
+
       return this;
     }
 
@@ -1626,7 +1681,7 @@ private static final long serialVersionUID = 0L;
       result.displayName_ = displayName_;
       result.description_ = description_;
       result.clientId_ = clientId_;
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         scopes_ = scopes_.getUnmodifiableView();
         bitField0_ = (bitField0_ & ~0x00000020);
       }
@@ -1637,7 +1692,7 @@ private static final long serialVersionUID = 0L;
       result.defaultSchedule_ = defaultSchedule_;
       result.supportsCustomSchedule_ = supportsCustomSchedule_;
       if (parametersBuilder_ == null) {
-        if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        if (((bitField0_ & 0x00000800) != 0)) {
           parameters_ = java.util.Collections.unmodifiableList(parameters_);
           bitField0_ = (bitField0_ & ~0x00000800);
         }
@@ -1656,6 +1711,7 @@ private static final long serialVersionUID = 0L;
         result.minimumScheduleInterval_ = minimumScheduleIntervalBuilder_.build();
       }
       result.partnerLegalName_ = partnerLegalName_;
+      result.redirectUrl_ = redirectUrl_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -1663,35 +1719,35 @@ private static final long serialVersionUID = 0L;
 
     @java.lang.Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
     @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
     @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
     @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
     @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
     @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -1800,6 +1856,10 @@ private static final long serialVersionUID = 0L;
         partnerLegalName_ = other.partnerLegalName_;
         onChanged();
       }
+      if (!other.getRedirectUrl().isEmpty()) {
+        redirectUrl_ = other.redirectUrl_;
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -1836,7 +1896,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source resource name.
      * </pre>
      *
-     * <code>string name = 1;</code>
+     * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -1855,7 +1915,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source resource name.
      * </pre>
      *
-     * <code>string name = 1;</code>
+     * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -1875,7 +1935,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source resource name.
      * </pre>
      *
-     * <code>string name = 1;</code>
+     * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setName(
         java.lang.String value) {
@@ -1892,7 +1952,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source resource name.
      * </pre>
      *
-     * <code>string name = 1;</code>
+     * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder clearName() {
       
@@ -1905,7 +1965,7 @@ private static final long serialVersionUID = 0L;
      * Output only. Data source resource name.
      * </pre>
      *
-     * <code>string name = 1;</code>
+     * <code>string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];</code>
      */
     public Builder setNameBytes(
         com.google.protobuf.ByteString value) {
@@ -2277,7 +2337,7 @@ private static final long serialVersionUID = 0L;
 
     private com.google.protobuf.LazyStringList scopes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureScopesIsMutable() {
-      if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (!((bitField0_ & 0x00000020) != 0)) {
         scopes_ = new com.google.protobuf.LazyStringArrayList(scopes_);
         bitField0_ |= 0x00000020;
        }
@@ -2723,7 +2783,7 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter> parameters_ =
       java.util.Collections.emptyList();
     private void ensureParametersIsMutable() {
-      if (!((bitField0_ & 0x00000800) == 0x00000800)) {
+      if (!((bitField0_ & 0x00000800) != 0)) {
         parameters_ = new java.util.ArrayList<com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter>(parameters_);
         bitField0_ |= 0x00000800;
        }
@@ -3024,7 +3084,7 @@ private static final long serialVersionUID = 0L;
         parametersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter, com.google.cloud.bigquery.datatransfer.v1.DataSourceParameter.Builder, com.google.cloud.bigquery.datatransfer.v1.DataSourceParameterOrBuilder>(
                 parameters_,
-                ((bitField0_ & 0x00000800) == 0x00000800),
+                ((bitField0_ & 0x00000800) != 0),
                 getParentForChildren(),
                 isClean());
         parameters_ = null;
@@ -3348,7 +3408,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.Duration minimumScheduleInterval_ = null;
+    private com.google.protobuf.Duration minimumScheduleInterval_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> minimumScheduleIntervalBuilder_;
     /**
@@ -3589,10 +3649,99 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private java.lang.Object redirectUrl_ = "";
+    /**
+     * <pre>
+     * Redirect URL to complete transfer config setup for 3rd party data sources.
+     * </pre>
+     *
+     * <code>string redirect_url = 23;</code>
+     */
+    public java.lang.String getRedirectUrl() {
+      java.lang.Object ref = redirectUrl_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        redirectUrl_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Redirect URL to complete transfer config setup for 3rd party data sources.
+     * </pre>
+     *
+     * <code>string redirect_url = 23;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRedirectUrlBytes() {
+      java.lang.Object ref = redirectUrl_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        redirectUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Redirect URL to complete transfer config setup for 3rd party data sources.
+     * </pre>
+     *
+     * <code>string redirect_url = 23;</code>
+     */
+    public Builder setRedirectUrl(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      redirectUrl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Redirect URL to complete transfer config setup for 3rd party data sources.
+     * </pre>
+     *
+     * <code>string redirect_url = 23;</code>
+     */
+    public Builder clearRedirectUrl() {
+      
+      redirectUrl_ = getDefaultInstance().getRedirectUrl();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Redirect URL to complete transfer config setup for 3rd party data sources.
+     * </pre>
+     *
+     * <code>string redirect_url = 23;</code>
+     */
+    public Builder setRedirectUrlBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      redirectUrl_ = value;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
     @java.lang.Override
